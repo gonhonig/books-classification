@@ -1,84 +1,120 @@
 # Project Configuration
 project:
-  name: "book-sentence-classification"
-  version: "1.0.0"
-  description: "Constructive and Self-Supervised Learning for Book Sentence Classification"
+  name: "semantic-book-classification"
+  version: "2.0.0"
+  description: "Semantic Embedding Space for Multi-Label Book Sentence Classification"
 
 # Data Configuration
 data:
-  corpus_name: "institutional_books_corpus"
+  corpus_name: "semantic_books_corpus"
+  selected_books:
+    - "Anna Karenina"
+    - "The Adventures of Alice in Wonderland"
+    - "Frankenstein"
+    - "The Life of Julius Caesar"
+  max_sentences_per_book: null  # Use all sentences
   train_split: 0.7
   val_split: 0.15
   test_split: 0.15
   max_sentence_length: 512
   min_sentence_length: 10
   random_seed: 42
+  
+  # Semantic Analysis Configuration
+  semantic_analysis:
+    similarity_threshold: 0.7  # Threshold for considering sentences similar
+    model_name: "all-MiniLM-L6-v2"  # Pre-trained model for semantic analysis
+    embedding_dimension: 384
+    specificity_analysis: true
 
 # Model Configuration
 model:
+  # Base Encoder
   encoder:
-    type: "transformer"
-    model_name: "bert-base-uncased"
-    hidden_size: 768
-    num_layers: 12
-    num_heads: 12
+    type: "sentence_transformer"
+    model_name: "all-MiniLM-L6-v2"  # Fast, good for semantic similarity
+    hidden_size: 384
     dropout: 0.1
   
-  constructive_learning:
-    phases:
-      - name: "basic_understanding"
-        epochs: 5
-        learning_rate: 2e-5
-        tasks: ["mlm", "nsp"]
-      - name: "book_patterns"
-        epochs: 10
-        learning_rate: 1e-5
-        tasks: ["sentence_similarity", "book_classification"]
-      - name: "cross_book_knowledge"
-        epochs: 8
-        learning_rate: 5e-6
-        tasks: ["all"]
-      - name: "fine_tuning"
-        epochs: 5
-        learning_rate: 1e-6
-        tasks: ["classification_only"]
+  # Semantic Embedding Training
+  semantic_embedding:
+    # Contrastive Learning Configuration
+    contrastive_learning:
+      temperature: 0.1  # Temperature for contrastive loss
+      margin: 0.3  # Margin for triplet loss
+      similarity_threshold: 0.7  # Threshold for positive pairs
+      negative_sampling_ratio: 3  # Ratio of negative to positive pairs
+    
+    # Multi-Label Classification Head
+    multi_label_classifier:
+      hidden_size: 256
+      num_layers: 2
+      dropout: 0.2
+      activation: "relu"
+      output_activation: "sigmoid"  # For multi-label probabilities
   
-  self_supervised:
-    mlm_probability: 0.15
-    nsp_probability: 0.5
-    similarity_threshold: 0.8
-    contrastive_temperature: 0.1
+  # Training Phases
+  training_phases:
+    - name: "semantic_embedding"
+      epochs: 10
+      learning_rate: 2e-5
+      tasks: ["contrastive_learning"]
+      description: "Train semantic embedding space using contrastive learning"
+    
+    - name: "multi_label_classification"
+      epochs: 8
+      learning_rate: 1e-5
+      tasks: ["multi_label_classification"]
+      description: "Train multi-label classifier on semantic embeddings"
+    
+    - name: "joint_training"
+      epochs: 5
+      learning_rate: 5e-6
+      tasks: ["contrastive_learning", "multi_label_classification"]
+      description: "Joint training of embedding and classification"
 
 # Training Configuration
 training:
-  batch_size: 16
-  gradient_accumulation_steps: 4
+  batch_size: 32  # Increased for contrastive learning
+  gradient_accumulation_steps: 2
   max_grad_norm: 1.0
-  warmup_steps: 1000
+  warmup_steps: 500
   weight_decay: 0.01
   early_stopping_patience: 5
   save_best_model: true
   checkpoint_dir: "experiments/checkpoints"
   log_dir: "experiments/logs"
+  
+  # Loss Weights
+  loss_weights:
+    contrastive_loss: 1.0
+    classification_loss: 1.0
+    semantic_similarity_loss: 0.5
 
 # Evaluation Configuration
 evaluation:
-  metrics: ["accuracy", "precision", "recall", "f1", "confusion_matrix"]
-  cross_validation_folds: 5
+  # Multi-Label Metrics
+  metrics: ["accuracy", "precision", "recall", "f1", "hamming_loss", "exact_match"]
   per_book_analysis: true
-  visualization: true
+  semantic_similarity_evaluation: true
+  
+  # Visualization
+  visualization:
+    embedding_visualization: true  # t-SNE/UMAP of embeddings
+    similarity_matrix: true  # Cross-book similarity heatmap
+    specificity_analysis: true  # Book-specific vs generic sentence analysis
 
 # Logging Configuration
 logging:
   level: "INFO"
   format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
   file: "experiments/logs/project.log"
-  wandb_project: "book-classification"
+  wandb_project: "semantic-book-classification"
   wandb_entity: null  # Set your wandb username here
 
 # Hardware Configuration
 hardware:
-  device: "auto"  # "cpu", "cuda", or "auto"
+  device: "auto"  # "cpu", "cuda", "mps", or "auto"
   num_workers: 4
   pin_memory: true
   mixed_precision: true 

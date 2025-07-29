@@ -1,0 +1,99 @@
+{
+  "dataset_stats": {
+    "total_sentences": 2575,
+    "unique_books": 4,
+    "book_distribution": {
+      "Frankenstein": 691,
+      "Anna Karenina": 658,
+      "The Adventures of Alice in Wonderland": 668,
+      "The Life of Julius Caesar": 558
+    }
+  },
+  "similarity_analysis": {
+    "total_similar_pairs": 12,
+    "average_similarity": 0.6907063772281011,
+    "similarity_range": {
+      "min": 0.6517804861068726,
+      "max": 0.740508496761322
+    }
+  },
+  "specificity_analysis": {
+    "average_specificity": 0.03839241713285446,
+    "specificity_range": {
+      "min": -0.05674371123313904,
+      "max": 0.14812222123146057
+    }
+  },
+  "sample_similar_pairs": [
+    {
+      "sentence1": "And\nin she went.",
+      "sentence2": "And she went out, slamming the door.",
+      "book1": "The Adventures of Alice in Wonderland",
+      "book2": "Anna Karenina",
+      "similarity": 0.6861964464187622
+    },
+    {
+      "sentence1": "what ought I to do?",
+      "sentence2": "what could I do?",
+      "book1": "The Life of Julius Caesar",
+      "book2": "Anna Karenina",
+      "similarity": 0.6728796362876892
+    },
+    {
+      "sentence1": "what ought I to do?",
+      "sentence2": "What\ncould I do?",
+      "book1": "The Life of Julius Caesar",
+      "book2": "Frankenstein",
+      "similarity": 0.6728796362876892
+    },
+    {
+      "sentence1": "he said in a subdued and timid voice.",
+      "sentence2": "said a timid voice at her side.",
+      "book1": "Anna Karenina",
+      "book2": "The Adventures of Alice in Wonderland",
+      "similarity": 0.7040064334869385
+    },
+    {
+      "sentence1": "I\nsuppose I ought to eat or drink something or other; but the great\nquestion is, what?",
+      "sentence2": "What shall we drink?",
+      "book1": "The Adventures of Alice in Wonderland",
+      "book2": "Anna Karenina",
+      "similarity": 0.6517804861068726
+    },
+    {
+      "sentence1": "Introduce me, will you?",
+      "sentence2": "Ah, to be sure, let me introduce you,  he said.",
+      "book1": "The Life of Julius Caesar",
+      "book2": "Anna Karenina",
+      "similarity": 0.6561740040779114
+    },
+    {
+      "sentence1": "What was to be done?",
+      "sentence2": "What s to be done?",
+      "book1": "The Life of Julius Caesar",
+      "book2": "Anna Karenina",
+      "similarity": 0.6998163461685181
+    },
+    {
+      "sentence1": "What s to be done?",
+      "sentence2": "What was to be\ndone?",
+      "book1": "Anna Karenina",
+      "book2": "The Life of Julius Caesar",
+      "similarity": 0.6998163461685181
+    },
+    {
+      "sentence1": "Always lay the\nblame on others!",
+      "sentence2": "I am to\nblame, no words can express how much I am to blame!",
+      "book1": "The Adventures of Alice in Wonderland",
+      "book2": "Anna Karenina",
+      "similarity": 0.6888384819030762
+    },
+    {
+      "sentence1": "what could I do?",
+      "sentence2": "What shall I do?",
+      "book1": "Anna Karenina",
+      "book2": "The Life of Julius Caesar",
+      "similarity": 0.740508496761322
+    }
+  ]
+}
