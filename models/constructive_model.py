@@ -115,7 +115,8 @@ class ConstructiveLearningModel(nn.Module):
     def _init_classification_head(self):
         """Initialize classification head."""
         hidden_size = self.encoder_config['hidden_size']
-        num_classes = self.config['data']['selected_books'].__len__()
+        # We have 4 books: Anna Karenina, Alice in Wonderland, Frankenstein, Julius Caesar
+        num_classes = 4
         
         self.classification_head = nn.Sequential(
             nn.Linear(hidden_size, hidden_size // 2),

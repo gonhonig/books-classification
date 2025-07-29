@@ -9,7 +9,8 @@ import yaml
 import torch
 import torch.nn as nn
 from torch.utils.data import DataLoader
-from transformers import get_linear_schedule_with_warmup, AdamW
+from transformers import get_linear_schedule_with_warmup
+from torch.optim import AdamW
 from datasets import DatasetDict, load_from_disk
 import numpy as np
 from pathlib import Path
@@ -129,9 +130,9 @@ class TrainingManager:
         )
         
         # Create dataloaders for self-supervised tasks
+        self.ss_dataloaders = {}
+        
         if self.ss_dataset:
-            self.ss_dataloaders = {}
-            
             # MLM dataloader
             mlm_tokenized = tokenize_dataset(self.ss_dataset['mlm'], tokenizer, 
                                            max_length=self.config['data']['max_sentence_length'],
@@ -161,6 +162,11 @@ class TrainingManager:
                 batch_size=self.config['training']['batch_size'],
                 num_workers=self.config['hardware']['num_workers']
             )
+        else:
+            # Create empty dataloaders for self-supervised tasks
+            self.ss_dataloaders['mlm'] = None
+            self.ss_dataloaders['nsp'] = None
+            self.ss_dataloaders['similarity'] = None
             
         self.logger.info("Dataloaders prepared successfully")
         
@@ -186,7 +192,7 @@ class TrainingManager:
             # Create optimizer
             optimizer = AdamW(
                 self.model.parameters(),
-                lr=phase_config['learning_rate'],
+                lr=float(phase_config['learning_rate']),
                 weight_decay=self.config['training']['weight_decay']
             )
             self.optimizers.append(optimizer)
@@ -274,8 +280,9 @@ class TrainingManager:
         
         if 'all' in tasks:
             # Use all dataloaders
+            ss_dataloaders = [dl for dl in self.ss_dataloaders.values() if dl is not None]
             return {
-                'train': [self.main_dataloaders['train']] + list(self.ss_dataloaders.values()),
+                'train': [self.main_dataloaders['train']] + ss_dataloaders,
                 'validation': self.main_dataloaders['validation'],
                 'test': self.main_dataloaders['test']
             }
@@ -284,7 +291,7 @@ class TrainingManager:
             train_dataloaders = [self.main_dataloaders['train']]
             
             for task in tasks:
-                if task in self.ss_dataloaders:
+                if task in self.ss_dataloaders and self.ss_dataloaders[task] is not None:
                     train_dataloaders.append(self.ss_dataloaders[task]['train'])
                     
             return {
