@@ -1,0 +1,84 @@
+# Project Configuration
+project:
+  name: "book-sentence-classification"
+  version: "1.0.0"
+  description: "Constructive and Self-Supervised Learning for Book Sentence Classification"
+
+# Data Configuration
+data:
+  corpus_name: "institutional_books_corpus"
+  train_split: 0.7
+  val_split: 0.15
+  test_split: 0.15
+  max_sentence_length: 512
+  min_sentence_length: 10
+  random_seed: 42
+
+# Model Configuration
+model:
+  encoder:
+    type: "transformer"
+    model_name: "bert-base-uncased"
+    hidden_size: 768
+    num_layers: 12
+    num_heads: 12
+    dropout: 0.1
+  
+  constructive_learning:
+    phases:
+      - name: "basic_understanding"
+        epochs: 5
+        learning_rate: 2e-5
+        tasks: ["mlm", "nsp"]
+      - name: "book_patterns"
+        epochs: 10
+        learning_rate: 1e-5
+        tasks: ["sentence_similarity", "book_classification"]
+      - name: "cross_book_knowledge"
+        epochs: 8
+        learning_rate: 5e-6
+        tasks: ["all"]
+      - name: "fine_tuning"
+        epochs: 5
+        learning_rate: 1e-6
+        tasks: ["classification_only"]
+  
+  self_supervised:
+    mlm_probability: 0.15
+    nsp_probability: 0.5
+    similarity_threshold: 0.8
+    contrastive_temperature: 0.1
+
+# Training Configuration
+training:
+  batch_size: 16
+  gradient_accumulation_steps: 4
+  max_grad_norm: 1.0
+  warmup_steps: 1000
+  weight_decay: 0.01
+  early_stopping_patience: 5
+  save_best_model: true
+  checkpoint_dir: "experiments/checkpoints"
+  log_dir: "experiments/logs"
+
+# Evaluation Configuration
+evaluation:
+  metrics: ["accuracy", "precision", "recall", "f1", "confusion_matrix"]
+  cross_validation_folds: 5
+  per_book_analysis: true
+  visualization: true
+
+# Logging Configuration
+logging:
+  level: "INFO"
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  file: "experiments/logs/project.log"
+  wandb_project: "book-classification"
+  wandb_entity: null  # Set your wandb username here
+
+# Hardware Configuration
+hardware:
+  device: "auto"  # "cpu", "cuda", or "auto"
+  num_workers: 4
+  pin_memory: true
+  mixed_precision: true 

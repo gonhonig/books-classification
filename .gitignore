@@ -205,3 +205,49 @@ cython_debug/
 marimo/_static/
 marimo/_lsp/
 __marimo__/
+
+# Project-specific ignores
+# Data files (large datasets)
+data/raw_corpus.json
+data/processed_dataset/
+data/self_supervised_dataset/
+data/metadata.json
+
+# Model checkpoints and experiments
+experiments/
+models/checkpoints/
+*.pth
+*.pt
+*.ckpt
+
+# Logs and outputs
+logs/
+*.log
+wandb/
+
+# Jupyter notebook outputs
+notebooks/*.ipynb
+
+# Environment files
+.env
+.env.local
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Temporary files
+*.tmp
+*.temp
