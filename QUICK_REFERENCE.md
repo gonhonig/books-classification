@@ -74,7 +74,7 @@
 - `model_selection_optimization.py` - Hyperparameter optimization
 - `evaluate_models.py` - Model evaluation
 - `create_similarity_pairs.py` - Generate similarity test pairs
-- `extract_features_knn_improved.py` - Improved KNN feature extraction
+- `extract_features_knn.py` - KNN feature extraction
 
 ### Configuration
 - `configs/config.yaml` - Main configuration
@@ -112,7 +112,7 @@
 - Use simple sampling for reliable tasks (dissimilar pairs)
 - Balance AI capabilities with reliability
 
-### 5. Improved KNN Approach
+### 5. KNN Approach
 - **Problem Solved**: Mean embedding approach was flawed
 - **Solution**: KNN-based similarity with weighted voting
 - **Benefits**: Handles uniform distributions, realistic multi-label belonging
@@ -189,13 +189,13 @@ models:
 
 ## Common Commands
 
-### Step 4: Feature Extraction (IMPROVED)
+### Step 4: Feature Extraction (KNN)
 ```bash
-# Extract features using improved KNN approach
-python extract_features_knn_improved.py --k-neighbors 5 --config configs/config.yaml
+# Extract features using KNN approach
+python extract_features_knn.py --k-neighbors 5 --config configs/config.yaml
 
 # Use cached embeddings (much faster)
-python extract_features_knn_improved.py --k-neighbors 5 --config configs/config.yaml
+python extract_features_knn.py --k-neighbors 5 --config configs/config.yaml
 ```
 
 ### Step 5: Model Training
@@ -232,8 +232,8 @@ python comprehensive_visualization.py
 ## Next Steps
 
 ### Current Session (Step 5)
-1. ✅ Extract features using improved KNN approach
-2. 🔄 Train multi-label classifier with improved features
+1. ✅ Extract features using KNN approach
+2. 🔄 Train multi-label classifier with KNN features
 3. ⏳ Train contrastive learning models
 4. ⏳ Compare both approaches
 
@@ -255,9 +255,9 @@ python comprehensive_visualization.py
 3. Include configuration details
 4. Save all results
 
-### Improved KNN Quality Checklist
+### KNN Quality Checklist
 - [ ] Embeddings cached: `data/embeddings_cache.npz` exists
-- [ ] KNN features generated: `data/features_knn_improved/` contains files
+- [ ] KNN features generated: `data/features_knn/` contains files
 - [ ] Multi-label belonging: Realistic distribution (1.24 mean books per sentence)
 - [ ] KNN accuracy: >80% (achieved 84.44%)
 - [ ] Confidence metrics: Good separation (mean 0.61)

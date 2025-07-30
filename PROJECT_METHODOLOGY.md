@@ -37,7 +37,7 @@ This project implements a comprehensive approach to classify English book senten
 - **Output**: Fine-tuned model with improved semantic understanding
 - **Files**: `experiments/semantic_embedding/semantic_embedding_model.pt`
 
-### Step 4: Feature Extraction & Dataset Construction ✅ COMPLETED (IMPROVED)
+### Step 4: Feature Extraction & Dataset Construction ✅ COMPLETED
 **Objective**: Extract features using KNN approach and create augmented dataset
 - **Approach**: KNN-based similarity computation with embedding caching
 - **Method**:
@@ -56,7 +56,7 @@ This project implements a comprehensive approach to classify English book senten
   - KNN Accuracy: 84.44%
   - Mean books per sentence: 1.24
   - Multi-book ratio: 21.7%
-- **Files**: `data/features_knn_improved/augmented_dataset_improved.csv`
+- **Files**: `data/features_knn/augmented_dataset.csv`
 
 ### Step 5: Train Competing Models ⏳ IN PROGRESS
 **Objective**: Train and compare different classification approaches
@@ -87,7 +87,7 @@ This project implements a comprehensive approach to classify English book senten
 - **Traditional Sampling**: Used for dissimilar pairs (more reliable)
 - **Combination**: Best of both worlds
 
-### 2. Improved KNN Feature Extraction
+### 2. KNN Feature Extraction
 - **Problem Solved**: Mean embedding approach was flawed
 - **Solution**: KNN-based similarity with weighted voting
 - **Benefits**: Handles uniform distributions, realistic multi-label belonging
@@ -132,7 +132,7 @@ books-classification/
 ├── data/
 │   ├── processed_dataset/          # Step 1 output
 │   ├── embeddings_cache.npz        # Step 4 caching
-│   ├── features_knn_improved/      # Step 4 output
+│   ├── features_knn/      # Step 4 output
 │   └── similarity_test_pairs.json  # Step 2 data
 ├── experiments/
 │   ├── model_selection/            # Step 2 results
