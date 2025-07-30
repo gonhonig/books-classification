@@ -17,6 +17,12 @@ This project implements a sophisticated approach to book sentence classification
 - Creates 384-dimensional semantic representations
 - Identifies cross-book semantic similarities automatically
 
+### 🔧 **Model Selection & Hyperparameter Optimization**
+- **Multi-model exploration**: Tests all-MiniLM-L6-v2, all-mpnet-base-v2, all-MiniLM-L12-v2
+- **Comprehensive hyperparameter optimization**: Learning rate, batch size, epochs, temperature, margin
+- **Optuna-based optimization**: Advanced hyperparameter tuning with visualization
+- **Automatic configuration updates**: Best parameters automatically update config.yaml
+
 ### 📊 **Multi-Label Classification**
 - Each sentence gets a **belonging score** (0-1) for each book
 - Generic sentences: high scores for multiple books
@@ -62,7 +68,7 @@ This ensures efficient development workflow - files are only recreated when nece
 - **Anna Karenina** (Romance/Drama)
 - **The Adventures of Alice in Wonderland** (Fantasy/Children's)
 - **Frankenstein** (Gothic/Horror)
-- **The Life of Julius Caesar** (Historical/Biography)
+- **Wuthering Heights** (Gothic/Romance)
 
 ## Configuration
 
@@ -86,6 +92,9 @@ The project uses a comprehensive YAML configuration (`configs/config.yaml`) that
 - **Semantic embedding training (10 epochs)**
 - **Model evaluation showing 5.2% improvement in similarity**
 - **Embedding space visualization and analysis**
+- **Model selection and hyperparameter optimization system**
+- **Multi-model exploration (all-MiniLM-L6-v2, all-mpnet-base-v2, all-MiniLM-L12-v2)**
+- **Optuna-based hyperparameter optimization with visualization**
 
 🔄 **Next Steps:**
 - Create multi-label classification head
@@ -94,6 +103,18 @@ The project uses a comprehensive YAML configuration (`configs/config.yaml`) that
 - Implement semantic similarity evaluation metrics
 
 ## Usage
+
+### Model Selection & Hyperparameter Optimization
+```bash
+# Quick demo (10 trials, 15 minutes)
+python run_model_selection_demo.py
+
+# Full optimization (50 trials, 1 hour)
+python model_selection_optimization.py --n-trials 50 --timeout 3600
+
+# Custom optimization
+python model_selection_optimization.py --n-trials 30 --timeout 1800 --output-dir experiments/my_optimization
+```
 
 ### Data Preparation
 ```bash
@@ -138,8 +159,8 @@ python comprehensive_visualization.py --mode basic --model improved
 python comprehensive_visualization.py --mode specificity --model improved
 python comprehensive_visualization.py --mode comparison --model improved
 
-# Train improved semantic embedding model (better training data)
-python train_improved_semantic_embedding.py --device mps
+# Train semantic embedding model
+python train_semantic_embedding.py --device mps
 ```
 
 ## Project Structure
@@ -153,8 +174,17 @@ books-classification/
 │   ├── processed_dataset/       # Main dataset splits
 │   ├── semantic_analysis_data.json  # Multi-label training signals
 │   └── metadata.json           # Dataset metadata
+├── models/
+│   ├── semantic_embedding_model.py  # Semantic embedding model
+│   └── multi_label_classifier.py    # Multi-label classifier
 ├── utils/
-│   └── semantic_analysis.py    # Semantic analysis utilities
+│   ├── semantic_analysis.py    # Semantic analysis utilities
+│   ├── evaluation.py           # Model evaluation utilities
+│   └── visualization.py        # Visualization utilities
+├── model_selection_optimization.py  # Model selection and hyperparameter optimization
+├── run_model_selection_demo.py      # Demo script for model selection
+├── run_complete_pipeline_with_optimization.ipynb  # Complete pipeline with optimization
+├── MODEL_SELECTION_README.md        # Model selection documentation
 └── README.md                   # This file
 ```
 

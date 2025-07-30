@@ -1,17 +1,17 @@
 # Project Configuration
 project:
-  name: "semantic-book-classification"
-  version: "2.0.0"
-  description: "Semantic Embedding Space for Multi-Label Book Sentence Classification"
+  name: "books-classification"
+  version: "1.0.0"
+  description: "Multi-label classification of English book sentences using semantic embeddings"
 
-# Data Configuration
+# Data Configuration (Step 1)
 data:
-  corpus_name: "semantic_books_corpus"
+  corpus_name: "english_books_corpus"
   selected_books:
     - "Anna Karenina"
     - "The Adventures of Alice in Wonderland"
     - "Frankenstein"
-    - "The Life of Julius Caesar"
+    - "Wuthering Heights"
   max_sentences_per_book: null  # Use all sentences
   train_split: 0.7
   val_split: 0.15
@@ -20,62 +20,96 @@ data:
   min_sentence_length: 10
   random_seed: 42
   
-  # Semantic Analysis Configuration
-  semantic_analysis:
-    similarity_threshold: 0.7  # Threshold for considering sentences similar
-    model_name: "all-MiniLM-L6-v2"  # Pre-trained model for semantic analysis
-    embedding_dimension: 384
-    specificity_analysis: true
+  # Data preprocessing
+  preprocessing:
+    remove_duplicates: true
+    normalize_text: true
+    remove_special_chars: false
+    lowercase: false
 
-# Model Configuration
+# Semantic Model Selection (Step 2)
+semantic_models:
+  candidates:
+    - "sentence-transformers/all-MiniLM-L6-v2"
+    - "sentence-transformers/all-mpnet-base-v2"
+    - "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2"
+    - "sentence-transformers/paraphrase-MiniLM-L3-v2"
+  
+  # Selected best model from Step 2
+  selected_model: "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2"
+  
+  evaluation:
+    similarity_threshold: 0.7
+    test_pairs_file: "data/similarity_test_pairs.json"
+    metrics: ["cosine_similarity", "semantic_similarity_score"]
+
+# Model Configuration (Step 3)
 model:
-  # Base Encoder
   encoder:
-    type: "sentence_transformer"
-    model_name: "all-MiniLM-L6-v2"  # Fast, good for semantic similarity
+    model_name: "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2"
     hidden_size: 384
-    dropout: 0.1
+    max_length: 512
   
-  # Semantic Embedding Training
   semantic_embedding:
-    # Contrastive Learning Configuration
     contrastive_learning:
-      temperature: 0.1  # Temperature for contrastive loss
-      margin: 0.3  # Margin for triplet loss
-      similarity_threshold: 0.7  # Threshold for positive pairs
-      negative_sampling_ratio: 3  # Ratio of negative to positive pairs
-    
-    # Multi-Label Classification Head
-    multi_label_classifier:
-      hidden_size: 256
-      num_layers: 2
-      dropout: 0.2
-      activation: "relu"
-      output_activation: "sigmoid"  # For multi-label probabilities
+      temperature: 0.1
+      margin: 0.3
+      negative_sampling_ratio: 3
   
-  # Training Phases
   training_phases:
-    - name: "semantic_embedding"
+    - name: "contrastive_learning"
       epochs: 10
       learning_rate: 2e-5
-      tasks: ["contrastive_learning"]
-      description: "Train semantic embedding space using contrastive learning"
-    
-    - name: "multi_label_classification"
-      epochs: 8
-      learning_rate: 1e-5
-      tasks: ["multi_label_classification"]
-      description: "Train multi-label classifier on semantic embeddings"
-    
-    - name: "joint_training"
-      epochs: 5
-      learning_rate: 5e-6
-      tasks: ["contrastive_learning", "multi_label_classification"]
-      description: "Joint training of embedding and classification"
+      batch_size: 32
+
+# Hyperparameter Optimization (Step 3)
+optimization:
+  n_trials: 50
+  timeout: 3600  # 1 hour
+  search_space:
+    learning_rates: [1e-5, 2e-5, 5e-5, 1e-4]
+    batch_sizes: [16, 32, 64]
+    epochs: [5, 10, 15]
+    temperatures: [0.05, 0.1, 0.2]
+    margins: [0.1, 0.3, 0.5]
+    negative_sampling_ratios: [2, 3, 5]
+
+# Feature Extraction (Step 4)
+feature_extraction:
+  method: "knn"  # or "similarity_threshold"
+  k_neighbors: 5
+  similarity_threshold: 0.6
+  min_occurrences: 2
+
+# Model Training (Step 5)
+models:
+  multi_label_classifier:
+    type: "random_forest"  # or "logistic_regression", "svm"
+    max_depth: 10
+    n_estimators: 100
+  
+  contrastive_learning:
+    type: "orchestration"
+    models_per_category: 4
+    loss_type: "triplet_loss"
+    margin: 0.3
+    temperature: 0.1
+
+# Evaluation (Step 6)
+evaluation:
+  metrics:
+    classification: ["precision", "recall", "f1", "hamming_loss"]
+    semantic: ["cosine_similarity", "semantic_similarity"]
+    performance: ["training_time", "inference_time", "model_size"]
+  
+  visualization:
+    comparison_charts: true
+    per_category_analysis: true
+    confusion_matrices: true
 
 # Training Configuration
 training:
-  batch_size: 32  # Increased for contrastive learning
+  batch_size: 32
   gradient_accumulation_steps: 2
   max_grad_norm: 1.0
   warmup_steps: 500
@@ -84,33 +118,12 @@ training:
   save_best_model: true
   checkpoint_dir: "experiments/checkpoints"
   log_dir: "experiments/logs"
-  
-  # Loss Weights
-  loss_weights:
-    contrastive_loss: 1.0
-    classification_loss: 1.0
-    semantic_similarity_loss: 0.5
-
-# Evaluation Configuration
-evaluation:
-  # Multi-Label Metrics
-  metrics: ["accuracy", "precision", "recall", "f1", "hamming_loss", "exact_match"]
-  per_book_analysis: true
-  semantic_similarity_evaluation: true
-  
-  # Visualization
-  visualization:
-    embedding_visualization: true  # t-SNE/UMAP of embeddings
-    similarity_matrix: true  # Cross-book similarity heatmap
-    specificity_analysis: true  # Book-specific vs generic sentence analysis
 
 # Logging Configuration
 logging:
   level: "INFO"
   format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
   file: "experiments/logs/project.log"
-  wandb_project: "semantic-book-classification"
-  wandb_entity: null  # Set your wandb username here
 
 # Hardware Configuration
 hardware:

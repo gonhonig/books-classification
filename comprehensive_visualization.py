@@ -13,6 +13,7 @@ from pathlib import Path
 import logging
 import warnings
 import argparse
+import sys
 warnings.filterwarnings('ignore')
 
 from models.semantic_embedding_model import SemanticEmbeddingModel
@@ -389,6 +390,74 @@ def create_similarity_improvement_plot(similar_pairs: list, output_path: str = "
     
     logger.info(f"Similarity improvement plot saved to {output_path}")
 
+def create_comprehensive_visualizations(device="auto", config_path="configs/config.yaml", output_dir="experiments/visualization"):
+    """Create comprehensive visualizations for semantic embedding analysis."""
+    # Load data
+    with open("data/semantic_analysis_data.json", 'r') as f:
+        semantic_data = json.load(f)
+    
+    # Load semantic embedding model
+    model_paths = [
+        "experiments/semantic_embedding/semantic_embedding_model.pt"
+    ]
+    
+    model = None
+    model_name = None
+    
+    for model_path in model_paths:
+        if Path(model_path).exists():
+            logger.info(f"Loading model from: {model_path}")
+            device = "cpu"  # Use CPU for visualization to avoid device issues
+            model = load_model(model_path, device)
+            model_name = "semantic"
+            logger.info(f"{model_name.capitalize()} model loaded successfully!")
+            break
+    
+    if model is None:
+        logger.error("No semantic model found. Please train a model first.")
+        return False
+    
+    # Get data for visualization
+    sentences = [signal['sentence'] for signal in semantic_data['training_signals']]
+    labels = [signal['original_book'] for signal in semantic_data['training_signals']]
+    
+    # Limit sentences for performance
+    max_sentences = 800
+    if len(sentences) > max_sentences:
+        logger.info(f"Limiting visualization to {max_sentences} sentences for performance")
+        sentences = sentences[:max_sentences]
+        labels = labels[:max_sentences]
+    
+    # Get embeddings
+    embeddings = get_embeddings_safe(model, sentences)
+    
+    # Create output directory
+    output_dir = Path(output_dir)
+    output_dir.mkdir(parents=True, exist_ok=True)
+    
+    # Run all visualizations
+    logger.info("Creating basic embedding space visualization...")
+    create_basic_embedding_space(embeddings, labels, sentences, 
+                               output_dir / "basic_embedding_space.png")
+    
+    logger.info("Creating book specificity analysis...")
+    create_book_specificity_analysis(embeddings, labels, sentences,
+                                   output_dir / "book_specificity.png")
+    
+    logger.info("Creating similarity improvement plot...")
+    create_similarity_improvement_plot(semantic_data['similar_pairs'],
+                                     output_dir / "similarity_improvements.png")
+    
+    # Model comparison not needed since we only have one semantic model
+    logger.info("Model comparison skipped - only one semantic model available")
+    
+    print(f"\n=== COMPREHENSIVE VISUALIZATION COMPLETED ===")
+    print(f"Model: {model_name}")
+    print(f"Output directory: {output_dir}")
+    print(f"Generated visualizations in: {output_dir}")
+    
+    return True
+
 def main():
     """Main visualization function with command line options."""
     parser = argparse.ArgumentParser(description="Comprehensive semantic embedding visualization")
@@ -405,70 +474,12 @@ def main():
     
     args = parser.parse_args()
     
-    # Load data
-    with open("data/semantic_analysis_data.json", 'r') as f:
-        semantic_data = json.load(f)
+    success = create_comprehensive_visualizations(
+        output_dir=args.output_dir
+    )
     
-    # Determine model path
-    if args.model == "original":
-        model_path = "experiments/semantic_embedding/semantic_embedding_model.pt"
-    else:
-        model_path = "experiments/improved_semantic_embedding/improved_semantic_embedding_model.pt"
-    
-    if not Path(model_path).exists():
-        logger.error(f"Model not found at {model_path}. Please train the model first.")
-        return
-    
-    # Load model
-    device = "cpu"  # Use CPU for visualization to avoid device issues
-    model = load_model(model_path, device)
-    logger.info(f"{args.model.capitalize()} model loaded successfully!")
-    
-    # Get data for visualization
-    sentences = [signal['sentence'] for signal in semantic_data['training_signals']]
-    labels = [signal['original_book'] for signal in semantic_data['training_signals']]
-    
-    # Limit sentences if needed
-    if len(sentences) > args.max_sentences:
-        logger.info(f"Limiting visualization to {args.max_sentences} sentences for performance")
-        sentences = sentences[:args.max_sentences]
-        labels = labels[:args.max_sentences]
-    
-    # Get embeddings
-    embeddings = get_embeddings_safe(model, sentences)
-    
-    # Create output directory
-    output_dir = Path(args.output_dir)
-    output_dir.mkdir(parents=True, exist_ok=True)
-    
-    # Run visualizations based on mode
-    if args.mode in ["basic", "all"]:
-        create_basic_embedding_space(embeddings, labels, sentences, 
-                                   output_dir / "basic_embedding_space.png")
-    
-    if args.mode in ["specificity", "all"]:
-        create_book_specificity_analysis(embeddings, labels, sentences,
-                                       output_dir / "book_specificity.png")
-    
-    if args.mode in ["similarity", "all"]:
-        create_similarity_improvement_plot(semantic_data['similar_pairs'],
-                                         output_dir / "similarity_improvements.png")
-    
-    if args.mode in ["comparison", "all"]:
-        original_model_path = "experiments/semantic_embedding/semantic_embedding_model.pt"
-        improved_model_path = "experiments/improved_semantic_embedding/improved_semantic_embedding_model.pt"
-        
-        if Path(original_model_path).exists() and Path(improved_model_path).exists():
-            create_model_comparison(original_model_path, improved_model_path,
-                                  output_dir / "model_comparison.png")
-        else:
-            logger.warning("Both models not found. Skipping comparison.")
-    
-    print(f"\n=== COMPREHENSIVE VISUALIZATION COMPLETED ===")
-    print(f"Mode: {args.mode}")
-    print(f"Model: {args.model}")
-    print(f"Output directory: {output_dir}")
-    print(f"Generated visualizations in: {output_dir}")
+    if not success:
+        sys.exit(1)
 
 if __name__ == "__main__":
     main() 

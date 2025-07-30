@@ -38,6 +38,9 @@ textstat>=0.7.0
 evaluate>=0.4.0
 rouge-score>=0.1.2
 
+# Hyperparameter optimization
+optuna>=3.2.0
+
 # Data handling
 huggingface-hub>=0.16.0
 requests>=2.31.0

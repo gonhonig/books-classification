@@ -8,6 +8,7 @@ import torch
 import json
 import yaml
 import argparse
+import sys
 from pathlib import Path
 import logging
 import numpy as np
@@ -248,7 +249,7 @@ def save_evaluation_report(multi_label_metrics, semantic_accuracy, book_to_id):
         'models_evaluated': {
             'semantic_embedding': {
                 'accuracy': semantic_accuracy,
-                'model_path': 'experiments/improved_semantic_embedding/improved_semantic_embedding_model.pt'
+                'model_path': 'experiments/semantic_embedding/semantic_embedding_model.pt'
             },
             'multi_label_classifier': {
                 'metrics': multi_label_metrics,
@@ -290,25 +291,13 @@ def save_evaluation_report(multi_label_metrics, semantic_accuracy, book_to_id):
     
     logger.info(f"Evaluation report saved to {results_dir}")
 
-def main():
-    """Main evaluation function."""
-    parser = argparse.ArgumentParser(description="Evaluate trained models")
-    parser.add_argument("--device", default="mps", 
-                       choices=["mps", "cpu", "cuda"],
-                       help="Device to use for evaluation")
-    parser.add_argument("--config", default="configs/config.yaml",
-                       help="Path to configuration file")
-    parser.add_argument("--output-dir", default="experiments/evaluation_results",
-                       help="Output directory for results")
-    
-    args = parser.parse_args()
-    
+def evaluate_all_models(device="mps", config_path="configs/config.yaml", output_dir="experiments/evaluation_results"):
+    """Evaluate semantic embedding and multi-label classifier models."""
     # Load config
-    with open(args.config, 'r') as f:
+    with open(config_path, 'r') as f:
         config = yaml.safe_load(f)
     
     # Setup device
-    device = args.device
     logger.info(f"Using device: {device}")
     
     # Load data
@@ -327,7 +316,7 @@ def main():
     logger.info(f"Test data: {len(test_sentences)} sentences")
     
     # Load semantic model
-    semantic_model_path = "experiments/improved_semantic_embedding/improved_semantic_embedding_model.pt"
+    semantic_model_path = "experiments/semantic_embedding/semantic_embedding_model.pt"
     if Path(semantic_model_path).exists():
         logger.info("Loading semantic embedding model...")
         semantic_model = load_semantic_model(semantic_model_path, config, device)
@@ -366,10 +355,34 @@ def main():
     # Print summary
     print(f"\n=== EVALUATION COMPLETED ===")
     print(f"Device used: {device}")
-    print(f"Results saved to: {args.output_dir}")
+    print(f"Results saved to: {output_dir}")
     print(f"\nSemantic Embedding Model Accuracy: {semantic_accuracy:.3f}")
     print(f"Multi-Label Classifier Accuracy: {multi_label_metrics['accuracy']:.3f}")
     print(f"Multi-Label Classifier F1-Score: {multi_label_metrics['f1']:.3f}")
+    
+    return True
+
+def main():
+    """Main evaluation function."""
+    parser = argparse.ArgumentParser(description="Evaluate trained models")
+    parser.add_argument("--device", default="mps", 
+                       choices=["mps", "cpu", "cuda"],
+                       help="Device to use for evaluation")
+    parser.add_argument("--config", default="configs/config.yaml",
+                       help="Path to configuration file")
+    parser.add_argument("--output-dir", default="experiments/evaluation_results",
+                       help="Output directory for results")
+    
+    args = parser.parse_args()
+    
+    success = evaluate_all_models(
+        device=args.device,
+        config_path=args.config,
+        output_dir=args.output_dir
+    )
+    
+    if not success:
+        sys.exit(1)
 
 if __name__ == "__main__":
     main() 

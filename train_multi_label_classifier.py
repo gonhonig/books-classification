@@ -7,6 +7,7 @@ import torch
 import json
 import yaml
 import argparse
+import sys
 from pathlib import Path
 import logging
 from models.semantic_embedding_model import SemanticEmbeddingModel
@@ -31,24 +32,10 @@ def load_semantic_model(model_path: str, config: dict, device: str = "cpu") -> S
     
     return model
 
-def main():
+def train_multi_label_classifier_model(device="auto", config_path="configs/config.yaml", semantic_model="improved", output_dir="experiments/multi_label_classifier"):
     """Train multi-label classifier."""
-    parser = argparse.ArgumentParser(description="Train multi-label classifier")
-    parser.add_argument("--device", default="auto", 
-                       choices=["auto", "cpu", "cuda", "mps"],
-                       help="Device to use for training")
-    parser.add_argument("--config", default="configs/config.yaml",
-                       help="Path to configuration file")
-    parser.add_argument("--semantic-model", default="improved",
-                       choices=["original", "improved"],
-                       help="Which semantic model to use")
-    parser.add_argument("--output-dir", default="experiments/multi_label_classifier",
-                       help="Output directory for model and logs")
-    
-    args = parser.parse_args()
-    
     # Load config
-    with open(args.config, 'r') as f:
+    with open(config_path, 'r') as f:
         config = yaml.safe_load(f)
     
     # Load data
@@ -60,19 +47,16 @@ def main():
         metadata = json.load(f)
     
     # Determine semantic model path
-    if args.semantic_model == "original":
-        semantic_model_path = "experiments/semantic_embedding/semantic_embedding_model.pt"
-    else:
-        semantic_model_path = "experiments/improved_semantic_embedding/improved_semantic_embedding_model.pt"
+    semantic_model_path = "experiments/semantic_embedding/semantic_embedding_model.pt"
     
     if not Path(semantic_model_path).exists():
         logger.error(f"Semantic model not found at {semantic_model_path}. Please train the semantic model first.")
-        return
+        return False
     
     # Load semantic model
     device = "cpu"  # Use CPU for loading
     semantic_model = load_semantic_model(semantic_model_path, config, device)
-    logger.info(f"{args.semantic_model.capitalize()} semantic model loaded successfully!")
+    logger.info(f"{semantic_model.capitalize()} semantic model loaded successfully!")
     
     # Get training data
     sentences = [signal['sentence'] for signal in semantic_data['training_signals']]
@@ -103,7 +87,7 @@ def main():
         book_labels=train_labels,
         book_to_id=book_to_id,
         config=config,
-        device=args.device
+        device=device
     )
     
     # Evaluate on validation set
@@ -125,7 +109,7 @@ def main():
     )
     
     # Save model
-    output_path = Path(args.output_dir)
+    output_path = Path(output_dir)
     output_path.mkdir(parents=True, exist_ok=True)
     
     checkpoint = {
@@ -142,7 +126,7 @@ def main():
     # Print results
     print(f"\n=== MULTI-LABEL CLASSIFIER TRAINING COMPLETED ===")
     print(f"Model saved to: {output_path / 'multi_label_classifier.pt'}")
-    print(f"Semantic model used: {args.semantic_model}")
+    print(f"Semantic model used: {semantic_model}")
     
     print(f"\n=== VALIDATION RESULTS ===")
     print(f"Overall accuracy: {val_results['overall_accuracy']:.3f}")
@@ -183,6 +167,34 @@ def main():
                 predicted = predictions[book_id].item()
                 print(f"  {book_name}: {score:.3f} {'✓' if predicted else '✗'}")
             print()
+    
+    return True
+
+def main():
+    """Train multi-label classifier."""
+    parser = argparse.ArgumentParser(description="Train multi-label classifier")
+    parser.add_argument("--device", default="auto", 
+                       choices=["auto", "cpu", "cuda", "mps"],
+                       help="Device to use for training")
+    parser.add_argument("--config", default="configs/config.yaml",
+                       help="Path to configuration file")
+    parser.add_argument("--semantic-model", default="improved",
+                       choices=["original", "improved"],
+                       help="Which semantic model to use")
+    parser.add_argument("--output-dir", default="experiments/multi_label_classifier",
+                       help="Output directory for model and logs")
+    
+    args = parser.parse_args()
+    
+    success = train_multi_label_classifier_model(
+        device=args.device,
+        config_path=args.config,
+        semantic_model=args.semantic_model,
+        output_dir=args.output_dir
+    )
+    
+    if not success:
+        sys.exit(1)
 
 if __name__ == "__main__":
     main() 

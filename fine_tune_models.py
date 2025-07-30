@@ -8,6 +8,7 @@ import torch
 import json
 import yaml
 import argparse
+import sys
 from pathlib import Path
 import logging
 from tqdm import tqdm
@@ -200,21 +201,9 @@ def save_fine_tuned_model(model, book_to_id, save_path: str):
     torch.save(checkpoint, save_path)
     logger.info(f"Fine-tuned model saved to {save_path}")
 
-def main():
-    parser = argparse.ArgumentParser(description="Fine-tune trained models")
-    parser.add_argument("--device", type=str, default="mps", help="Device to use")
-    parser.add_argument("--model-path", type=str, 
-                       default="experiments/multi_label_classifier/multi_label_classifier.pt",
-                       help="Path to existing model")
-    parser.add_argument("--learning-rate", type=float, default=1e-4, help="Learning rate")
-    parser.add_argument("--epochs", type=int, default=3, help="Number of fine-tuning epochs")
-    parser.add_argument("--batch-size", type=int, default=16, help="Batch size")
-    parser.add_argument("--save-path", type=str, 
-                       default="experiments/fine_tuned_model.pt", help="Path to save fine-tuned model")
-    
-    args = parser.parse_args()
-    
-    logger.info(f"Using device: {args.device}")
+def fine_tune_all_models(device="mps", config_path="configs/config.yaml", learning_rate=1e-4, epochs=5, batch_size=16):
+    """Fine-tune all trained models."""
+    logger.info(f"Using device: {device}")
     
     # Load data
     dataset = load_from_disk("data/processed_dataset")
@@ -230,27 +219,34 @@ def main():
     logger.info(f"Test data: {len(test_sentences)} sentences")
     
     # Load existing model
+    model_path = "experiments/multi_label_classifier/multi_label_classifier.pt"
+    if not Path(model_path).exists():
+        logger.error(f"Model not found at {model_path}. Please train the model first.")
+        return False
+    
     logger.info("Loading existing model...")
-    model, book_to_id = load_existing_model(args.model_path, args.device)
+    model, book_to_id = load_existing_model(model_path, device)
     
     # Fine-tune the model
     logger.info("Starting fine-tuning...")
     fine_tuned_model, train_losses, val_losses = fine_tune_model(
         model, train_sentences, train_labels, book_to_id,
-        val_sentences, val_labels, args.device,
-        learning_rate=args.learning_rate,
-        epochs=args.epochs,
-        batch_size=args.batch_size
+        val_sentences, val_labels, device,
+        learning_rate=learning_rate,
+        epochs=epochs,
+        batch_size=batch_size
     )
     
     # Evaluate fine-tuned model
     logger.info("Evaluating fine-tuned model...")
     results = evaluate_fine_tuned_model(
-        fine_tuned_model, test_sentences, test_labels, book_to_id, args.device
+        fine_tuned_model, test_sentences, test_labels, book_to_id, device
     )
     
     # Save fine-tuned model
-    save_fine_tuned_model(fine_tuned_model, book_to_id, args.save_path)
+    save_path = "experiments/fine_tuned_models/fine_tuned_model.pt"
+    Path(save_path).parent.mkdir(parents=True, exist_ok=True)
+    save_fine_tuned_model(fine_tuned_model, book_to_id, save_path)
     
     # Create visualization of training progress
     plt.figure(figsize=(10, 6))
@@ -263,31 +259,57 @@ def main():
     plt.grid(True)
     
     # Save plot
-    plot_path = Path("experiments/fine_tuning_progress.png")
+    plot_path = Path("experiments/fine_tuned_models/fine_tuning_progress.png")
     plot_path.parent.mkdir(exist_ok=True)
     plt.savefig(plot_path)
     plt.close()
     
     # Save results
-    results_path = Path("experiments/fine_tuning_results.json")
+    results_path = Path("experiments/fine_tuned_models/fine_tuning_results.json")
     results['train_losses'] = train_losses
     results['val_losses'] = val_losses
     results['hyperparameters'] = {
-        'learning_rate': args.learning_rate,
-        'epochs': args.epochs,
-        'batch_size': args.batch_size
+        'learning_rate': learning_rate,
+        'epochs': epochs,
+        'batch_size': batch_size
     }
     
     with open(results_path, 'w') as f:
         json.dump(results, f, indent=2)
     
     logger.info("=== FINE-TUNING COMPLETED ===")
-    logger.info(f"Device used: {args.device}")
-    logger.info(f"Fine-tuned model saved to: {args.save_path}")
+    logger.info(f"Device used: {device}")
+    logger.info(f"Fine-tuned model saved to: {save_path}")
     logger.info(f"Results saved to: {results_path}")
     logger.info(f"Training progress plot saved to: {plot_path}")
     logger.info(f"Final accuracy: {results['accuracy']:.3f}")
     logger.info(f"Final F1-score: {results['f1']:.3f}")
+    
+    return True
+
+def main():
+    parser = argparse.ArgumentParser(description="Fine-tune trained models")
+    parser.add_argument("--device", type=str, default="mps", help="Device to use")
+    parser.add_argument("--model-path", type=str, 
+                       default="experiments/multi_label_classifier/multi_label_classifier.pt",
+                       help="Path to existing model")
+    parser.add_argument("--learning-rate", type=float, default=1e-4, help="Learning rate")
+    parser.add_argument("--epochs", type=int, default=3, help="Number of fine-tuning epochs")
+    parser.add_argument("--batch-size", type=int, default=16, help="Batch size")
+    parser.add_argument("--save-path", type=str, 
+                       default="experiments/fine_tuned_model.pt", help="Path to save fine-tuned model")
+    
+    args = parser.parse_args()
+    
+    success = fine_tune_all_models(
+        device=args.device,
+        learning_rate=args.learning_rate,
+        epochs=args.epochs,
+        batch_size=args.batch_size
+    )
+    
+    if not success:
+        sys.exit(1)
 
 if __name__ == "__main__":
     main() 

@@ -7,6 +7,7 @@ Demonstrates model capabilities with various example sentences and provides deta
 import torch
 import json
 import argparse
+import sys
 from pathlib import Path
 import logging
 from tqdm import tqdm
@@ -294,6 +295,52 @@ def save_test_results(results, analysis, save_path: str = "experiments/test_resu
     
     logger.info(f"Test results saved to {save_dir}")
 
+def test_all_models(device="mps", config_path="configs/config.yaml", output_dir="experiments/test_results"):
+    """Test all trained models with example sentences."""
+    logger.info(f"Using device: {device}")
+    
+    # Try to load fine-tuned model first, then fall back to regular model
+    model_paths = [
+        "experiments/fine_tuned_models/fine_tuned_model.pt",
+        "experiments/multi_label_classifier/multi_label_classifier.pt"
+    ]
+    
+    model = None
+    book_to_id = None
+    
+    for model_path in model_paths:
+        if Path(model_path).exists():
+            logger.info(f"Loading model from: {model_path}")
+            model, book_to_id = load_model(model_path, device)
+            logger.info(f"Model loaded successfully. Number of books: {len(book_to_id)}")
+            break
+    
+    if model is None:
+        logger.error("No trained model found. Please train a model first.")
+        return False
+    
+    # Test with example sentences
+    results = test_with_example_sentences(model, book_to_id, device)
+    
+    # Analyze results
+    analysis = analyze_predictions(results, book_to_id)
+    
+    # Create visualizations
+    create_visualizations(results, analysis, output_dir)
+    
+    # Print detailed results
+    print_detailed_results(results, analysis)
+    
+    # Save results
+    save_test_results(results, analysis, output_dir)
+    
+    logger.info("=== TESTING COMPLETED ===")
+    logger.info(f"Device used: {device}")
+    logger.info(f"Results saved to: {output_dir}")
+    logger.info(f"Average confidence: {analysis['average_confidence']:.3f}")
+    
+    return True
+
 def main():
     parser = argparse.ArgumentParser(description="Test trained models with example sentences")
     parser.add_argument("--device", type=str, default="mps", help="Device to use")
@@ -305,32 +352,13 @@ def main():
     
     args = parser.parse_args()
     
-    logger.info(f"Using device: {args.device}")
-    logger.info(f"Loading model from: {args.model_path}")
+    success = test_all_models(
+        device=args.device,
+        output_dir=args.save_dir
+    )
     
-    # Load model
-    model, book_to_id = load_model(args.model_path, args.device)
-    logger.info(f"Model loaded successfully. Number of books: {len(book_to_id)}")
-    
-    # Test with example sentences
-    results = test_with_example_sentences(model, book_to_id, args.device)
-    
-    # Analyze results
-    analysis = analyze_predictions(results, book_to_id)
-    
-    # Create visualizations
-    create_visualizations(results, analysis, args.save_dir)
-    
-    # Print detailed results
-    print_detailed_results(results, analysis)
-    
-    # Save results
-    save_test_results(results, analysis, args.save_dir)
-    
-    logger.info("=== TESTING COMPLETED ===")
-    logger.info(f"Device used: {args.device}")
-    logger.info(f"Results saved to: {args.save_dir}")
-    logger.info(f"Average confidence: {analysis['average_confidence']:.3f}")
+    if not success:
+        sys.exit(1)
 
 if __name__ == "__main__":
     main() 

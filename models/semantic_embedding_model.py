@@ -69,16 +69,11 @@ class SemanticEmbeddingModel(nn.Module):
         self.embedding_dim = embedding_dim
         
         # Load pre-trained model and tokenizer
-        if model_name == "all-MiniLM-L6-v2":
-            # Use sentence-transformers for this model
-            from sentence_transformers import SentenceTransformer
-            self.sentence_transformer = SentenceTransformer(model_name)
-            self.tokenizer = self.sentence_transformer.tokenizer
-            self.encoder = self.sentence_transformer._first_module().auto_model
-        else:
-            # Use regular transformers for other models
-            self.tokenizer = AutoTokenizer.from_pretrained(model_name)
-            self.encoder = AutoModel.from_pretrained(model_name)
+        # Use sentence-transformers for all models
+        from sentence_transformers import SentenceTransformer
+        self.sentence_transformer = SentenceTransformer(model_name)
+        self.tokenizer = self.sentence_transformer.tokenizer
+        self.encoder = self.sentence_transformer._first_module().auto_model
         
         # Projection head for contrastive learning (optional)
         self.projection = nn.Sequential(

@@ -1,0 +1,88 @@
+{
+  "total_sentences": 21871,
+  "books": [
+    "The Adventures of Alice in Wonderland",
+    "Anna Karenina",
+    "Wuthering Heights",
+    "Frankenstein"
+  ],
+  "feature_columns": [
+    "similarity_The Adventures of Alice in Wonderland",
+    "similarity_Anna Karenina",
+    "similarity_Wuthering Heights",
+    "similarity_Frankenstein",
+    "belongs_to_The Adventures of Alice in Wonderland",
+    "belongs_to_Anna Karenina",
+    "belongs_to_Wuthering Heights",
+    "belongs_to_Frankenstein",
+    "knn_best_book",
+    "knn_best_score",
+    "knn_confidence"
+  ],
+  "similarity_stats": {
+    "The Adventures of Alice in Wonderland": {
+      "mean": 0.04282555835128806,
+      "std": 0.1274096470240442,
+      "min": 0.0,
+      "max": 1.0
+    },
+    "Anna Karenina": {
+      "mean": 0.6480753379820325,
+      "std": 0.336609675080403,
+      "min": 0.0,
+      "max": 1.0
+    },
+    "Wuthering Heights": {
+      "mean": 0.20666649245533963,
+      "std": 0.25346292547954685,
+      "min": 0.0,
+      "max": 1.0
+    },
+    "Frankenstein": {
+      "mean": 0.10243261121133965,
+      "std": 0.2184275045684864,
+      "min": 0.0,
+      "max": 1.0
+    }
+  },
+  "classification_stats": {
+    "The Adventures of Alice in Wonderland": {
+      "positive_samples": 1258,
+      "negative_samples": 20613,
+      "positive_ratio": 0.057519089204883175
+    },
+    "Anna Karenina": {
+      "positive_samples": 17085,
+      "negative_samples": 4786,
+      "positive_ratio": 0.781171414201454
+    },
+    "Wuthering Heights": {
+      "positive_samples": 5837,
+      "negative_samples": 16034,
+      "positive_ratio": 0.26688308719308673
+    },
+    "Frankenstein": {
+      "positive_samples": 2910,
+      "negative_samples": 18961,
+      "positive_ratio": 0.13305290110191578
+    }
+  },
+  "multi_label_stats": {
+    "mean_books_per_sentence": 1.2386264917013396,
+    "single_book_ratio": 0.7830917653513786,
+    "multi_book_ratio": 0.21690823464862147,
+    "max_books_per_sentence": 4,
+    "min_books_per_sentence": 1
+  },
+  "knn_stats": {
+    "accuracy": 0.8444058342096841,
+    "mean_confidence": 0.6101260512366531,
+    "high_confidence_ratio": 0.8552878240592565,
+    "book_distribution": {
+      "Anna Karenina": 15758,
+      "Wuthering Heights": 3655,
+      "Frankenstein": 1902,
+      "The Adventures of Alice in Wonderland": 556
+    }
+  }
+}
