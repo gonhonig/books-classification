@@ -53,13 +53,21 @@ class KNNFeatureExtractor:
     
     def _load_data(self):
         """Load the processed dataset and metadata."""
-        # Load metadata
-        with open(self.data_dir / "metadata.json", 'r') as f:
-            self.metadata = json.load(f)
+        # Load metadata (use balanced dataset)
+        metadata_file = self.data_dir / "metadata_balanced.json"
+        if metadata_file.exists():
+            with open(metadata_file, 'r') as f:
+                self.metadata = json.load(f)
+            dataset_path = self.data_dir / "processed_dataset_balanced"
+        else:
+            # Fallback to original dataset
+            with open(self.data_dir / "metadata.json", 'r') as f:
+                self.metadata = json.load(f)
+            dataset_path = self.data_dir / "processed_dataset"
         
         # Load processed dataset
         from datasets import load_from_disk
-        self.dataset = load_from_disk(str(self.data_dir / "processed_dataset"))
+        self.dataset = load_from_disk(str(dataset_path))
         
         # Load fine-tuned model
         self._load_fine_tuned_model()
@@ -235,13 +243,14 @@ class KNNFeatureExtractor:
         """Create augmented dataset using improved KNN approach with multi-label belonging."""
         logger.info("Creating augmented dataset using improved KNN approach...")
         
-        # Get all sentences and their labels
+        # Get all sentences and their labels (entire dataset)
         sentences = []
         labels = []
         
-        for item in self.dataset['train']:
-            sentences.append(item['sentence'])
-            labels.append(item['book_id'])
+        for split in ['train', 'validation', 'test']:
+            for item in self.dataset[split]:
+                sentences.append(item['sentence'])
+                labels.append(item['book_id'])
         
         # Get or create embeddings cache
         train_embeddings, train_sentences, train_book_labels = self.get_or_create_embeddings_cache()

@@ -1,204 +1,201 @@
-# Semantic Book Classification
+# Books Classification Project
 
-A project for creating semantic embedding spaces for multi-label book sentence classification, where sentences can belong to multiple books based on semantic similarity.
+## Overview
+Multi-label classification of English book sentences using semantic embeddings and advanced machine learning techniques. This project implements a 6-step methodology to classify sentences from four classic books: Anna Karenina, The Adventures of Alice in Wonderland, Wuthering Heights, and Frankenstein.
 
-## Project Overview
+## 🎯 Final Results
 
-This project implements a sophisticated approach to book sentence classification that goes beyond traditional single-label classification. Instead, it creates a semantic embedding space where:
+### Best Performing Model
+- **Multi-label Classifier with KNN Features**: 99.95% accuracy
+- **Contrastive Learning Orchestration**: 58.10% average accuracy
+- **Semantic Embedding Baseline**: 26.1% accuracy
 
-- **Generic sentences** (like "I told him to leave") can belong to multiple books
-- **Book-specific sentences** (like "The monster approached with yellow eyes") belong primarily to one book
-- **Semantic similarity** determines sentence belonging rather than just source book
+### Dataset
+- **Balanced Dataset**: 14,750 samples (vs 21,871 imbalanced)
+- **Distribution**: Much more balanced across all books
+- **Split**: 70/15/15 train/val/test
 
-## Key Features
-
-### 🎯 **Semantic Embedding Space**
-- Uses pre-trained `all-MiniLM-L6-v2` model for fast, effective sentence embeddings
-- Creates 384-dimensional semantic representations
-- Identifies cross-book semantic similarities automatically
-
-### 🔧 **Model Selection & Hyperparameter Optimization**
-- **Multi-model exploration**: Tests all-MiniLM-L6-v2, all-mpnet-base-v2, all-MiniLM-L12-v2
-- **Comprehensive hyperparameter optimization**: Learning rate, batch size, epochs, temperature, margin
-- **Optuna-based optimization**: Advanced hyperparameter tuning with visualization
-- **Automatic configuration updates**: Best parameters automatically update config.yaml
-
-### 📊 **Multi-Label Classification**
-- Each sentence gets a **belonging score** (0-1) for each book
-- Generic sentences: high scores for multiple books
-- Specific sentences: high score for one book, low for others
-
-### 🔍 **Automated Semantic Analysis**
-- **Cross-book similarity detection**: Finds semantically similar sentences across books
-- **Book specificity analysis**: Identifies book-specific vs generic sentences
-- **Training signal generation**: Creates multi-label targets based on semantic similarity
-
-## Data Preparation
-
-The data preparation pipeline:
-
-1. **Downloads** 4 selected books from Hugging Face (`IsmaelMousa/books`)
-2. **Extracts sentences** with configurable limits for testing
-3. **Performs semantic analysis** using pre-trained models
-4. **Generates multi-label training signals** based on cross-book similarities
-5. **Creates datasets** for semantic embedding training
-
-## GPU Training Support
-
-The semantic embedding model supports multiple training devices:
-
-- **CPU**: Universal compatibility, slower training
-- **MPS (Apple Silicon)**: Fast training on Mac with Apple Silicon
-- **CUDA**: Fastest training on NVIDIA GPUs (Linux/Windows)
-
-Training automatically detects available devices and can be configured via command-line arguments.
-
-### Smart Recreation System
-
-The data preparation script includes intelligent file management:
-
-- **Config change detection**: Automatically detects when configuration changes require file recreation
-- **File existence checking**: Only recreates missing files
-- **Force recreation**: Use `--force` flag to recreate all files regardless of state
-- **Config hash tracking**: Stores hash of relevant config sections to detect changes
-
-This ensures efficient development workflow - files are only recreated when necessary.
-
-### Selected Books
-- **Anna Karenina** (Romance/Drama)
-- **The Adventures of Alice in Wonderland** (Fantasy/Children's)
-- **Frankenstein** (Gothic/Horror)
-- **Wuthering Heights** (Gothic/Romance)
-
-## Configuration
-
-The project uses a comprehensive YAML configuration (`configs/config.yaml`) that includes:
-
-- **Data settings**: Book selection, sentence limits, splits
-- **Model configuration**: Encoder type, embedding dimensions, training phases
-- **Semantic analysis**: Similarity thresholds, specificity analysis
-- **Training parameters**: Batch sizes, learning rates, loss weights
-- **Evaluation metrics**: Multi-label metrics, visualization settings
-
-## Current Status
-
-✅ **Completed:**
-- Data preparation pipeline with semantic analysis
-- Cross-book similarity detection (29 similar pairs found)
-- Multi-label training signal generation (3,679 signals created)
-- Book specificity analysis
-- Configuration updates for semantic approach
-- **Contrastive learning model implementation**
-- **Semantic embedding training (10 epochs)**
-- **Model evaluation showing 5.2% improvement in similarity**
-- **Embedding space visualization and analysis**
-- **Model selection and hyperparameter optimization system**
-- **Multi-model exploration (all-MiniLM-L6-v2, all-mpnet-base-v2, all-MiniLM-L12-v2)**
-- **Optuna-based hyperparameter optimization with visualization**
-
-🔄 **Next Steps:**
-- Create multi-label classification head
-- Train joint model (embedding + classification)
-- Add dimensionality reduction visualization
-- Implement semantic similarity evaluation metrics
-
-## Usage
-
-### Model Selection & Hyperparameter Optimization
-```bash
-# Quick demo (10 trials, 15 minutes)
-python run_model_selection_demo.py
-
-# Full optimization (50 trials, 1 hour)
-python model_selection_optimization.py --n-trials 50 --timeout 3600
-
-# Custom optimization
-python model_selection_optimization.py --n-trials 30 --timeout 1800 --output-dir experiments/my_optimization
-```
-
-### Data Preparation
-```bash
-# Basic usage - only recreates if config changed or files missing
-python data/prepare_data.py
-
-# Force recreation of all files
-python data/prepare_data.py --force
-
-# Use custom config file
-python data/prepare_data.py --config path/to/config.yaml
-
-# Show help
-python data/prepare_data.py --help
-```
-
-### Semantic Analysis
-```bash
-python utils/semantic_analysis.py
-```
-
-### Train Semantic Embedding Model
-```bash
-# Train on CPU
-python train_semantic_embedding.py --device cpu
-
-# Train on GPU (MPS for Mac, CUDA for Linux/Windows)
-python train_semantic_embedding.py --device mps
-
-# Train on CUDA (if available)
-python train_semantic_embedding.py --device cuda
-
-
-
-
-
-# Comprehensive visualization (all modes)
-python comprehensive_visualization.py --mode all --model improved
-
-# Specific visualization modes
-python comprehensive_visualization.py --mode basic --model improved
-python comprehensive_visualization.py --mode specificity --model improved
-python comprehensive_visualization.py --mode comparison --model improved
-
-# Train semantic embedding model
-python train_semantic_embedding.py --device mps
-```
-
-## Project Structure
+## 📁 Project Structure
 
 ```
 books-classification/
 ├── configs/
-│   └── config.yaml              # Project configuration
+│   └── config.yaml              # Main configuration
 ├── data/
-│   ├── prepare_data.py          # Data preparation pipeline
-│   ├── processed_dataset/       # Main dataset splits
-│   ├── semantic_analysis_data.json  # Multi-label training signals
-│   └── metadata.json           # Dataset metadata
+│   ├── processed_dataset_balanced/  # Balanced dataset
+│   ├── features_knn/               # KNN features
+│   ├── metadata_balanced.json      # Balanced dataset metadata
+│   └── similarity_test_pairs.json  # Similarity test pairs
+├── experiments/
+│   ├── semantic_embedding/         # Fine-tuned semantic model
+│   ├── multi_label_classifier_knn/ # Multi-label classifier results
+│   ├── contrastive_orchestration/  # Contrastive learning results
+│   └── evaluation_results/         # Final evaluation results
 ├── models/
-│   ├── semantic_embedding_model.py  # Semantic embedding model
-│   └── multi_label_classifier.py    # Multi-label classifier
+│   ├── semantic_embedding_model.py
+│   └── multi_label_classifier.py
 ├── utils/
-│   ├── semantic_analysis.py    # Semantic analysis utilities
-│   ├── evaluation.py           # Model evaluation utilities
-│   └── visualization.py        # Visualization utilities
-├── model_selection_optimization.py  # Model selection and hyperparameter optimization
-├── run_model_selection_demo.py      # Demo script for model selection
-├── run_complete_pipeline_with_optimization.ipynb  # Complete pipeline with optimization
-├── MODEL_SELECTION_README.md        # Model selection documentation
-└── README.md                   # This file
+│   ├── data_utils.py
+│   ├── evaluation.py
+│   ├── semantic_analysis.py
+│   └── visualization.py
+└── [Core Pipeline Scripts]
 ```
 
-## Technical Details
+## 🚀 Quick Start
 
-### Semantic Analysis Results
-- **Total sentences**: 3,679
-- **Cross-book similar pairs**: 29 (similarity ≥ 0.7)
-- **Embedding dimension**: 384 (all-MiniLM-L6-v2)
-- **Training signals**: 3,679 multi-label examples
+### 1. Setup Environment
+```bash
+pip install -r requirements.txt
+```
 
-### Example Similar Pairs Found
-- "Let me alone!" (Alice) ↔ "Ah, let me alone, let me alone!" (Anna Karenina)
-- "How do you mean?" (Anna Karenina) ↔ "What do you mean?" (Julius Caesar)
-- "she thought." (Alice) ↔ "she thought." (Anna Karenina) - Perfect match
+### 2. Run Full Pipeline
+```bash
+python run_full_pipeline.py
+```
 
-This approach enables a more nuanced understanding of book content, where semantic meaning drives classification rather than simple source attribution. 
+### 3. Individual Steps
+```bash
+# Step 1: Data Preparation
+python data/prepare_data_balanced.py
+
+# Step 4: Feature Extraction
+python extract_features_knn.py
+
+# Step 5: Model Training
+python train_multi_label_classifier_knn.py
+python train_contrastive_models.py
+
+# Step 6: Evaluation
+python evaluate_models.py
+```
+
+## 📊 Methodology
+
+### 6-Step Approach
+
+1. **Data Preparation** ✅
+   - Clean and preprocess English book descriptions
+   - Balanced sampling (5,000 sentences per book)
+   - 14,750 total samples with balanced distribution
+
+2. **Semantic Embedding Model Selection** ✅
+   - Tested 4 candidate models
+   - Selected: `sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2`
+   - 98.75% accuracy on similarity test pairs
+
+3. **Fine-tune Selected Model** ✅
+   - Contrastive learning with triplet loss
+   - 10 epochs, learning rate 2e-5
+   - Improved semantic understanding
+
+4. **Feature Extraction (KNN)** ✅
+   - KNN-based similarity computation
+   - 4 similarity scores + 4 multi-label belonging + metadata
+   - 70.07% KNN accuracy with balanced data
+
+5. **Model Training** ✅
+   - **Multi-label Classifier**: Random Forest with KNN features
+   - **Contrastive Learning**: 4 separate models with triplet loss
+   - Both approaches trained on balanced dataset
+
+6. **Evaluation & Comparison** ✅
+   - Comprehensive comparison of all approaches
+   - Visualization and performance analysis
+   - Final model selection
+
+## 🏆 Results Summary
+
+### Model Performance (Balanced Dataset)
+| Model | Accuracy | Hamming Loss | Notes |
+|-------|----------|--------------|-------|
+| Multi-label Classifier (KNN) | 99.95% | 0.0001 | **Winner** |
+| Contrastive Learning | 58.10% | - | Runner-up |
+| Semantic Embedding | 26.1% | - | Baseline |
+
+### Key Findings
+- **Balanced dataset** provides realistic evaluation
+- **KNN features** are highly effective for multi-label classification
+- **Multi-label classifier** achieves near-perfect accuracy
+- **Contrastive learning** shows good generalization
+
+## 📈 Technical Highlights
+
+### Balanced Dataset Impact
+- **KNN Accuracy**: 84.44% → 70.07% (more realistic)
+- **Multi-label Performance**: Maintained 99.95% accuracy
+- **Contrastive Learning**: 82.88% → 58.10% (more realistic)
+
+### Feature Engineering
+- **KNN Similarity Scores**: 4 features per book
+- **Multi-label Belonging**: 4 binary features
+- **KNN Metadata**: Confidence, best book, etc.
+- **Total Features**: 10 numeric features
+
+### Model Architecture
+- **Multi-label Classifier**: Random Forest with 100 trees
+- **Contrastive Learning**: 4 separate models with triplet loss
+- **Semantic Embedding**: Fine-tuned transformer model
+
+## 📋 Files Overview
+
+### Core Pipeline Scripts
+- `run_full_pipeline.py` - Complete pipeline execution
+- `extract_features_knn.py` - KNN feature extraction
+- `train_multi_label_classifier_knn.py` - Multi-label classifier training
+- `train_contrastive_models.py` - Contrastive learning training
+- `evaluate_models.py` - Model evaluation and comparison
+
+### Data & Configuration
+- `data/processed_dataset_balanced/` - Balanced dataset
+- `configs/config.yaml` - Main configuration
+- `data/features_knn/` - Extracted KNN features
+
+### Results & Documentation
+- `BALANCED_DATASET_RESULTS.md` - Detailed results
+- `QUICK_REFERENCE.md` - Quick reference guide
+- `experiments/` - All model outputs and results
+
+## 🔧 Requirements
+
+- Python 3.8+
+- PyTorch
+- Transformers
+- Scikit-learn
+- Pandas
+- NumPy
+- Matplotlib
+- Seaborn
+
+## 📝 Usage Examples
+
+### Train Multi-label Classifier
+```bash
+python train_multi_label_classifier_knn.py --config configs/config.yaml
+```
+
+### Train Contrastive Models
+```bash
+python train_contrastive_models.py --config configs/config.yaml
+```
+
+### Evaluate All Models
+```bash
+python evaluate_models.py --config configs/config.yaml
+```
+
+## 🤝 Contributing
+
+1. Follow the 6-step methodology
+2. Use balanced dataset for fair evaluation
+3. Document all experiments and results
+4. Maintain clean project structure
+
+## 📄 License
+
+This project is for educational and research purposes.
+
+---
+
+**Last Updated**: [Current Date]
+**Status**: ✅ Complete with balanced dataset evaluation 

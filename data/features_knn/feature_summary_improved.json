@@ -1,5 +1,5 @@
 {
-  "total_sentences": 21871,
+  "total_sentences": 14750,
   "books": [
     "The Adventures of Alice in Wonderland",
     "Anna Karenina",
@@ -21,68 +21,68 @@
   ],
   "similarity_stats": {
     "The Adventures of Alice in Wonderland": {
-      "mean": 0.042825558345851236,
-      "std": 0.12740964697278495,
+      "mean": 0.06189012925379322,
+      "std": 0.15986934153326424,
       "min": 0.0,
       "max": 1.0
     },
     "Anna Karenina": {
-      "mean": 0.6480753380781578,
-      "std": 0.33660967520120816,
+      "mean": 0.501345650295956,
+      "std": 0.3484363836839416,
       "min": 0.0,
       "max": 1.0
     },
     "Wuthering Heights": {
-      "mean": 0.20666649259920175,
-      "std": 0.2534629255195711,
+      "mean": 0.26754634691065826,
+      "std": 0.27409685707001247,
       "min": 0.0,
       "max": 1.0
     },
     "Frankenstein": {
-      "mean": 0.10243261128883402,
-      "std": 0.21842750479823558,
+      "mean": 0.1692178735395925,
+      "std": 0.27784345282733147,
       "min": 0.0,
       "max": 1.0
     }
   },
   "classification_stats": {
     "The Adventures of Alice in Wonderland": {
-      "positive_samples": 1258,
-      "negative_samples": 20613,
-      "positive_ratio": 0.057519089204883175
+      "positive_samples": 1707,
+      "negative_samples": 13043,
+      "positive_ratio": 0.11572881355932203
     },
     "Anna Karenina": {
-      "positive_samples": 17085,
-      "negative_samples": 4786,
-      "positive_ratio": 0.781171414201454
+      "positive_samples": 9285,
+      "negative_samples": 5465,
+      "positive_ratio": 0.6294915254237288
     },
     "Wuthering Heights": {
-      "positive_samples": 5837,
-      "negative_samples": 16034,
-      "positive_ratio": 0.26688308719308673
+      "positive_samples": 6289,
+      "negative_samples": 8461,
+      "positive_ratio": 0.4263728813559322
     },
     "Frankenstein": {
-      "positive_samples": 2910,
-      "negative_samples": 18961,
-      "positive_ratio": 0.13305290110191578
+      "positive_samples": 3876,
+      "negative_samples": 10874,
+      "positive_ratio": 0.26277966101694916
     }
   },
   "multi_label_stats": {
-    "mean_books_per_sentence": 1.2386264917013396,
-    "single_book_ratio": 0.7830917653513786,
-    "multi_book_ratio": 0.21690823464862147,
+    "mean_books_per_sentence": 1.4343728813559322,
+    "single_book_ratio": 0.6153220338983051,
+    "multi_book_ratio": 0.3846779661016949,
     "max_books_per_sentence": 4,
     "min_books_per_sentence": 1
   },
   "knn_stats": {
-    "accuracy": 0.8444058342096841,
-    "mean_confidence": 0.6101260514094676,
-    "high_confidence_ratio": 0.8552878240592565,
+    "accuracy": 0.7006779661016949,
+    "mean_confidence": 0.5191719316750164,
+    "high_confidence_ratio": 0.7870508474576271,
     "book_distribution": {
-      "Anna Karenina": 15758,
-      "Wuthering Heights": 3655,
-      "Frankenstein": 1902,
-      "The Adventures of Alice in Wonderland": 556
+      "Anna Karenina": 8061,
+      "Wuthering Heights": 3584,
+      "Frankenstein": 2413,
+      "The Adventures of Alice in Wonderland": 692
     }
   }
 }

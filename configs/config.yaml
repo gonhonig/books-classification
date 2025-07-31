@@ -13,6 +13,7 @@ data:
     - "Frankenstein"
     - "Wuthering Heights"
   max_sentences_per_book: null  # Use all sentences
+  balanced_sentences_per_book: 5000  # Number of sentences to sample per book for balanced dataset
   train_split: 0.7
   val_split: 0.15
   test_split: 0.15

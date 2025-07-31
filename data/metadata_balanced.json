@@ -1,0 +1,52 @@
+{
+  "label_to_id": {
+    "The Adventures of Alice in Wonderland": 0,
+    "Anna Karenina": 1,
+    "Wuthering Heights": 2,
+    "Frankenstein": 3
+  },
+  "id_to_label": {
+    "0": "The Adventures of Alice in Wonderland",
+    "1": "Anna Karenina",
+    "2": "Wuthering Heights",
+    "3": "Frankenstein"
+  },
+  "num_classes": 4,
+  "train_size": 10324,
+  "val_size": 2213,
+  "test_size": 2213,
+  "total_size": 14750,
+  "books": [
+    "The Adventures of Alice in Wonderland",
+    "Anna Karenina",
+    "Wuthering Heights",
+    "Frankenstein"
+  ],
+  "balanced_sentences_per_book": 5000,
+  "book_stats": {
+    "The Adventures of Alice in Wonderland": {
+      "original_sentences": 1625,
+      "processed_sentences": 1511,
+      "sampled_sentences": 1511,
+      "sampling_method": "all_sentences"
+    },
+    "Anna Karenina": {
+      "original_sentences": 21050,
+      "processed_sentences": 20050,
+      "sampled_sentences": 5000,
+      "sampling_method": "random_sample"
+    },
+    "Wuthering Heights": {
+      "original_sentences": 6766,
+      "processed_sentences": 6445,
+      "sampled_sentences": 5000,
+      "sampling_method": "random_sample"
+    },
+    "Frankenstein": {
+      "original_sentences": 3316,
+      "processed_sentences": 3239,
+      "sampled_sentences": 3239,
+      "sampling_method": "all_sentences"
+    }
+  }
+}

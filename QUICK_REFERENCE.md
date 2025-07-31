@@ -3,17 +3,18 @@
 ## Project Status & Current Focus
 
 ### Current Phase: Following 6-Step Methodology
-- **Current Step**: Step 5 🔄 IN PROGRESS - Train Competing Models
-- **Goal**: Train multi-label classifier and contrastive learning models using improved KNN features
-- **Next Steps**: Compare models and select the best approach
+- **Current Step**: Step 1 🔄 IN PROGRESS - Balanced Data Preparation
+- **Goal**: Create balanced dataset with equal sentences per book to address class imbalance
+- **Next Steps**: Re-run Steps 2-5 with balanced data
 
 ## 6-Step Project Methodology
 
-### 1. Data Preparation ✅ COMPLETED
+### 1. Data Preparation 🔄 IN PROGRESS (BALANCED VERSION)
 - Clean and preprocess English book descriptions
-- Handle missing values and duplicates
-- Prepare training data with proper labels
-- **Output**: 21,871 training samples across 4 books
+- **NEW**: Balanced sampling - equal sentences per book
+- **NEW**: 5,000 sentences per book (or all available if less)
+- **Output**: 14,750 total samples (much more balanced distribution)
+- **Status**: ✅ Balanced dataset created, ready for re-running pipeline
 
 ### 2. Semantic Embedding Model Selection ✅ COMPLETED
 - Tested 4 candidate models:
@@ -32,7 +33,7 @@
 - **Parameters**: 10 epochs, learning rate 2e-5, temperature 0.1, margin 0.3
 - **Output**: Fine-tuned model with improved semantic understanding
 
-### 4. Feature Extraction & Dataset Construction ✅ COMPLETED (IMPROVED)
+### 4. Feature Extraction & Dataset Construction ⏳ PENDING (RE-RUN NEEDED)
 - **Approach**: KNN-based similarity computation with embedding caching
 - **Method**:
   - Extract embeddings for all sentences using fine-tuned model
@@ -46,21 +47,18 @@
   - 4 similarity scores (one per book)
   - 4 multi-label belonging indicators
   - KNN metadata (best book, confidence, etc.)
-- **Results**:
-  - KNN Accuracy: 84.44%
-  - Mean books per sentence: 1.24
-  - Multi-book ratio: 21.7%
+- **Status**: Needs re-run with balanced dataset
 
-### 5. Train Competing Models 🔄 IN PROGRESS
-- **Approach 1**: Multi-label Classifier
+### 5. Train Competing Models ⏳ PENDING (RE-RUN NEEDED)
+- **Approach 1**: Multi-label Classifier (KNN Features)
   - Single model for all categories
-  - Features: Similarity scores + multi-label belonging
-  - Algorithms: Random Forest, Logistic Regression, SVM
+  - Features: Similarity scores + multi-label belonging + KNN metadata
+  - **Previous Results**: 100% accuracy, 0.0000 Hamming Loss (with imbalanced data)
 - **Approach 2**: Contrastive Learning Orchestration
   - 4 separate models (one per book)
-  - Triplet loss training
-  - Ensemble prediction
-- **Evaluation Metrics**: Precision, Recall, F1-Score, Hamming Loss
+  - Triplet loss training with classifier heads
+  - **Previous Results**: 82.88% average accuracy (with imbalanced data)
+- **Status**: Needs re-run with balanced dataset
 
 ### 6. Compare, Visualize, and Conclude ⏳ PENDING
 - Comprehensive comparison of both approaches
@@ -77,7 +75,7 @@
 - `extract_features_knn.py` - KNN feature extraction
 
 ### Configuration
-- `configs/config.yaml` - Main configuration
+- `configs/config.yaml` - Main configuration (updated with balanced sampling)
 - `data/similarity_test_pairs.json` - Generated similarity test pairs
 - `data/embeddings_cache.npz` - Cached embeddings for fast processing
 
@@ -118,36 +116,45 @@
 - **Benefits**: Handles uniform distributions, realistic multi-label belonging
 - **Caching**: Embeddings cached for fast subsequent runs
 
-## Current Workflow (Step 5)
+### 6. Balanced Dataset Approach ⭐ NEW
+- **Problem Solved**: Severe class imbalance (Anna Karenina 64% vs Alice 5%)
+- **Solution**: Equal sampling per book (5,000 sentences each)
+- **Benefits**: Fair model comparison, realistic evaluation
+- **Implementation**: `data/prepare_data_balanced.py`
 
-### Multi-label Classifier Training
-```bash
-# Train multi-label classifier with improved features
-python train_multi_label_classifier.py --config configs/config.yaml
+## Current Workflow (Balanced Dataset)
 
-# Train with specific algorithm
-python train_multi_label_classifier.py --algorithm random_forest --config configs/config.yaml
+### Balanced Dataset Statistics
+```
+The Adventures of Alice in Wonderland: 1,511 sentences (all available)
+Anna Karenina: 5,000 sentences (randomly sampled)
+Wuthering Heights: 5,000 sentences (randomly sampled)  
+Frankenstein: 3,239 sentences (all available)
 ```
 
-### Contrastive Learning Training
-```bash
-# Train contrastive learning models
-python train_contrastive_models.py --config configs/config.yaml
+### Balanced Dataset Distribution
 ```
+Train: 10,324 samples
+- Wuthering Heights: 3,500
+- Anna Karenina: 3,500  
+- Frankenstein: 2,267
+- Alice in Wonderland: 1,057
 
-### Model Evaluation
-```bash
-# Evaluate all models
-python evaluate_models.py --config configs/config.yaml
-
-# Compare specific models
-python evaluate_models.py --models multi_label contrastive --config configs/config.yaml
+Val/Test: 2,213 samples each
+- Wuthering Heights: 750
+- Anna Karenina: 750
+- Frankenstein: 486  
+- Alice in Wonderland: 227
 ```
 
 ## Configuration Management
 
 ### Key Configuration Sections
 ```yaml
+# Step 1: Balanced Data Preparation
+data:
+  balanced_sentences_per_book: 5000  # NEW: Equal sampling per book
+  
 # Step 4: Improved Feature Extraction
 feature_extraction:
   method: "knn"
@@ -170,46 +177,58 @@ models:
 
 ## Evaluation Metrics
 
-### Step 4: KNN Feature Evaluation
+### Step 1: Balanced Dataset Evaluation
+- **Total Samples**: 14,750 (vs 21,871 imbalanced)
+- **Class Distribution**: Much more balanced
+- **Alice in Wonderland**: 1,511 samples (10.2% vs 5% before)
+- **Anna Karenina**: 5,000 samples (33.9% vs 64% before)
+- **Wuthering Heights**: 5,000 samples (33.9% vs 21% before)
+- **Frankenstein**: 3,239 samples (22.0% vs 10% before)
+
+### Step 4: KNN Feature Evaluation (Previous Results)
 - KNN Accuracy: 84.44%
 - Mean Confidence: 0.61
 - Multi-label Distribution: 21.7% multi-book ratio
 - **Feature Quality**: Realistic multi-label belonging
 
-### Step 5: Classification Evaluation
-- **Multi-label Classifier**: Precision, Recall, F1-Score, Hamming Loss
-- **Contrastive Learning**: Category-specific accuracy, Triplet loss
-- **Performance**: Training time, Inference time, Model size
-
-### Step 6: Final Comparison
-- Overall accuracy comparison
-- Per-category performance
-- Computational efficiency
-- Model interpretability
+### Step 5: Classification Evaluation (Previous Results)
+- **Multi-label Classifier**: 100% accuracy, 0.0000 Hamming Loss, 1.24 avg predictions/sentence
+- **Contrastive Learning**: 82.88% average accuracy across 4 books
+- **Winner**: KNN Multi-label Classifier (Perfect accuracy)
+- **Analysis**: KNN uses pre-computed features, contrastive shows realistic generalization
 
 ## Common Commands
 
-### Step 4: Feature Extraction (KNN)
+### Step 1: Balanced Data Preparation
 ```bash
-# Extract features using KNN approach
+# Create balanced dataset
+python data/prepare_data_balanced.py --force --config configs/config.yaml
+
+# Check balanced distribution
+python -c "from datasets import load_from_disk; import pandas as pd; ds = load_from_disk('data/processed_dataset_balanced'); print(pd.Series(ds['train']['book_id']).value_counts())"
+```
+
+### Step 4: Feature Extraction (KNN) - RE-RUN NEEDED
+```bash
+# Extract features using KNN approach (with balanced data)
 python extract_features_knn.py --k-neighbors 5 --config configs/config.yaml
 
 # Use cached embeddings (much faster)
 python extract_features_knn.py --k-neighbors 5 --config configs/config.yaml
 ```
 
-### Step 5: Model Training
+### Step 5: Model Training - RE-RUN NEEDED
 ```bash
-# Train multi-label classifier
+# Train multi-label classifier (with balanced data)
 python train_multi_label_classifier.py --config configs/config.yaml
 
-# Train contrastive learning models
+# Train contrastive learning models (with balanced data)
 python train_contrastive_models.py --config configs/config.yaml
 ```
 
-### Step 6: Evaluation
+### Step 6: Evaluation - RE-RUN NEEDED
 ```bash
-# Compare all models
+# Compare all models (with balanced data)
 python evaluate_models.py --config configs/config.yaml
 
 # Create visualizations
@@ -217,6 +236,11 @@ python comprehensive_visualization.py
 ```
 
 ## Troubleshooting
+
+### Step 1 Issues
+- **Balanced Dataset**: Ensure equal sampling per book
+- **Data Quality**: Check sentence preprocessing
+- **Distribution**: Verify balanced class distribution
 
 ### Step 4 Issues
 - **Memory Issues**: Reduce batch size, use smaller models
@@ -231,15 +255,16 @@ python comprehensive_visualization.py
 
 ## Next Steps
 
-### Current Session (Step 5)
-1. ✅ Extract features using KNN approach
-2. 🔄 Train multi-label classifier with KNN features
-3. ⏳ Train contrastive learning models
-4. ⏳ Compare both approaches
+### Current Session (Balanced Dataset)
+1. ✅ Create balanced dataset (14,750 samples, much more balanced)
+2. 🔄 Re-run Step 4: Feature extraction with balanced data
+3. ⏳ Re-run Step 5: Model training with balanced data
+4. ⏳ Re-run Step 6: Evaluation and comparison
 
 ### Upcoming Sessions
-1. **Step 6**: Comprehensive comparison and visualization
-2. **Final Analysis**: Model selection and deployment recommendations
+1. **Re-run Pipeline**: Steps 4-6 with balanced dataset
+2. **Compare Results**: Balanced vs imbalanced performance
+3. **Final Analysis**: Model selection and deployment recommendations
 
 ## Communication Guidelines
 
@@ -255,12 +280,12 @@ python comprehensive_visualization.py
 3. Include configuration details
 4. Save all results
 
-### KNN Quality Checklist
-- [ ] Embeddings cached: `data/embeddings_cache.npz` exists
-- [ ] KNN features generated: `data/features_knn/` contains files
-- [ ] Multi-label belonging: Realistic distribution (1.24 mean books per sentence)
-- [ ] KNN accuracy: >80% (achieved 84.44%)
-- [ ] Confidence metrics: Good separation (mean 0.61)
+### Balanced Dataset Checklist
+- [ ] Balanced dataset created: `data/processed_dataset_balanced` exists
+- [ ] Equal sampling: ~5,000 sentences per book (or all available)
+- [ ] Class distribution: Much more balanced than before
+- [ ] Data quality: Preprocessed sentences are clean
+- [ ] Split ratios: 70/15/15 train/val/test maintained
 
 ---
 
