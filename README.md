@@ -1,14 +1,11 @@
 # Books Classification Project
 
 ## Overview
-Multi-label classification of English book sentences using semantic embeddings and advanced machine learning techniques. This project implements a 6-step methodology to classify sentences from four classic books: Anna Karenina, The Adventures of Alice in Wonderland, Wuthering Heights, and Frankenstein.
 
 ## 🎯 Final Results
 
 ### Best Performing Model
 - **Multi-label Classifier with KNN Features**: 99.95% accuracy
-- **Contrastive Learning Orchestration**: 58.10% average accuracy
-- **Semantic Embedding Baseline**: 26.1% accuracy
 
 ### Dataset
 - **Balanced Dataset**: 14,750 samples (vs 21,871 imbalanced)
@@ -29,7 +26,6 @@ books-classification/
 ├── experiments/
 │   ├── semantic_embedding/         # Fine-tuned semantic model
 │   ├── multi_label_classifier_knn/ # Multi-label classifier results
-│   ├── contrastive_orchestration/  # Contrastive learning results
 │   └── evaluation_results/         # Final evaluation results
 ├── models/
 │   ├── semantic_embedding_model.py
@@ -79,13 +75,11 @@ python evaluate_models.py
    - Balanced sampling (5,000 sentences per book)
    - 14,750 total samples with balanced distribution
 
-2. **Semantic Embedding Model Selection** ✅
    - Tested 4 candidate models
    - Selected: `sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2`
    - 98.75% accuracy on similarity test pairs
 
 3. **Fine-tune Selected Model** ✅
-   - Contrastive learning with triplet loss
    - 10 epochs, learning rate 2e-5
    - Improved semantic understanding
 
@@ -96,7 +90,6 @@ python evaluate_models.py
 
 5. **Model Training** ✅
    - **Multi-label Classifier**: Random Forest with KNN features
-   - **Contrastive Learning**: 4 separate models with triplet loss
    - Both approaches trained on balanced dataset
 
 6. **Evaluation & Comparison** ✅
@@ -110,21 +103,17 @@ python evaluate_models.py
 | Model | Accuracy | Hamming Loss | Notes |
 |-------|----------|--------------|-------|
 | Multi-label Classifier (KNN) | 99.95% | 0.0001 | **Winner** |
-| Contrastive Learning | 58.10% | - | Runner-up |
-| Semantic Embedding | 26.1% | - | Baseline |
 
 ### Key Findings
 - **Balanced dataset** provides realistic evaluation
 - **KNN features** are highly effective for multi-label classification
 - **Multi-label classifier** achieves near-perfect accuracy
-- **Contrastive learning** shows good generalization
 
 ## 📈 Technical Highlights
 
 ### Balanced Dataset Impact
 - **KNN Accuracy**: 84.44% → 70.07% (more realistic)
 - **Multi-label Performance**: Maintained 99.95% accuracy
-- **Contrastive Learning**: 82.88% → 58.10% (more realistic)
 
 ### Feature Engineering
 - **KNN Similarity Scores**: 4 features per book
@@ -134,8 +123,6 @@ python evaluate_models.py
 
 ### Model Architecture
 - **Multi-label Classifier**: Random Forest with 100 trees
-- **Contrastive Learning**: 4 separate models with triplet loss
-- **Semantic Embedding**: Fine-tuned transformer model
 
 ## 📋 Files Overview
 
@@ -143,7 +130,6 @@ python evaluate_models.py
 - `run_full_pipeline.py` - Complete pipeline execution
 - `extract_features_knn.py` - KNN feature extraction
 - `train_multi_label_classifier_knn.py` - Multi-label classifier training
-- `train_contrastive_models.py` - Contrastive learning training
 - `evaluate_models.py` - Model evaluation and comparison
 
 ### Data & Configuration

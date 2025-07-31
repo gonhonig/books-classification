@@ -1,353 +1,267 @@
-#!/usr/bin/env python3
 """
-Multi-label classification model for book sentence classification.
-Uses semantic embeddings to predict which books a sentence could belong to.
+Multi-Label Classifier Model
+Trains multi-label classifiers using KNN features for book classification.
 """
 
 import torch
-import torch.nn as nn
-import torch.nn.functional as F
-from typing import List, Dict, Optional, Tuple
 import numpy as np
-from pathlib import Path
+import pandas as pd
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.linear_model import LogisticRegression
+from sklearn.svm import SVC
+from sklearn.multioutput import MultiOutputClassifier
+from sklearn.metrics import accuracy_score, hamming_loss, precision_score, recall_score, f1_score
 import logging
-from tqdm import tqdm
+from typing import Dict, List, Tuple, Optional
+import json
+from pathlib import Path
 
 logger = logging.getLogger(__name__)
 
-class MultiLabelClassifier(nn.Module):
-    """Multi-label classifier that predicts book belonging scores."""
+class MultiLabelClassifier:
+    """Multi-label classifier using KNN features."""
     
-    def __init__(self, embedding_dim: int = 384, num_books: int = 4, 
-                 hidden_size: int = 256, num_layers: int = 2, dropout: float = 0.2):
-        super().__init__()
-        
-        self.embedding_dim = embedding_dim
-        self.num_books = num_books
-        self.hidden_size = hidden_size
-        
-        # Classification head
-        layers = []
-        input_dim = embedding_dim
-        
-        for i in range(num_layers):
-            layers.append(nn.Linear(input_dim, hidden_size))
-            layers.append(nn.ReLU())
-            layers.append(nn.Dropout(dropout))
-            input_dim = hidden_size
-        
-        # Final output layer - one score per book
-        layers.append(nn.Linear(hidden_size, num_books))
-        layers.append(nn.Sigmoid())  # Output probabilities between 0 and 1
-        
-        self.classifier = nn.Sequential(*layers)
-        
-    def forward(self, embeddings: torch.Tensor) -> torch.Tensor:
+    def __init__(self, model_type: str = "random_forest", **kwargs):
         """
-        Forward pass for multi-label classification.
+        Initialize multi-label classifier.
         
         Args:
-            embeddings: Tensor of shape (batch_size, embedding_dim)
+            model_type: Type of classifier ('random_forest', 'logistic_regression', 'svm')
+            **kwargs: Model-specific parameters
+        """
+        self.model_type = model_type
+        self.kwargs = kwargs
+        self.model = None
+        self.feature_columns = None
+        self.label_columns = None
+        self.metadata = None
+        
+    def build_model(self) -> MultiOutputClassifier:
+        """Build the multi-label classifier model."""
+        if self.model_type == "random_forest":
+            base_model = RandomForestClassifier(
+                n_estimators=self.kwargs.get('n_estimators', 100),
+                max_depth=self.kwargs.get('max_depth', None),
+                min_samples_split=self.kwargs.get('min_samples_split', 2),
+                min_samples_leaf=self.kwargs.get('min_samples_leaf', 1),
+                random_state=self.kwargs.get('random_state', 42),
+                **{k: v for k, v in self.kwargs.items() 
+                   if k not in ['n_estimators', 'max_depth', 'min_samples_split', 'min_samples_leaf', 'random_state']}
+            )
             
-        Returns:
-            book_scores: Tensor of shape (batch_size, num_books) with belonging scores
-        """
-        return self.classifier(embeddings)
-
-class SemanticMultiLabelModel(nn.Module):
-    """Complete model combining semantic embedding and multi-label classification."""
+        elif self.model_type == "logistic_regression":
+            base_model = LogisticRegression(
+                random_state=self.kwargs.get('random_state', 42),
+                max_iter=self.kwargs.get('max_iter', 1000),
+                C=self.kwargs.get('C', 1.0),
+                penalty=self.kwargs.get('penalty', 'l2'),
+                solver=self.kwargs.get('solver', 'lbfgs'),
+                **{k: v for k, v in self.kwargs.items() 
+                   if k not in ['random_state', 'max_iter', 'C', 'penalty', 'solver']}
+            )
+            
+        elif self.model_type == "svm":
+            base_model = SVC(
+                kernel=self.kwargs.get('kernel', 'linear'),
+                C=self.kwargs.get('C', 1.0),
+                gamma=self.kwargs.get('gamma', 'scale'),
+                probability=self.kwargs.get('probability', True),
+                random_state=self.kwargs.get('random_state', 42),
+                **{k: v for k, v in self.kwargs.items() 
+                   if k not in ['kernel', 'C', 'gamma', 'probability', 'random_state']}
+            )
+            
+        else:
+            raise ValueError(f"Unknown model type: {self.model_type}")
+        
+        self.model = MultiOutputClassifier(base_model)
+        return self.model
     
-    def __init__(self, semantic_model: nn.Module, num_books: int = 4,
-                 hidden_size: int = 256, num_layers: int = 2, dropout: float = 0.2):
-        super().__init__()
-        
-        self.semantic_model = semantic_model
-        self.classifier = MultiLabelClassifier(
-            embedding_dim=semantic_model.embedding_dim,
-            num_books=num_books,
-            hidden_size=hidden_size,
-            num_layers=num_layers,
-            dropout=dropout
-        )
-        
-    def forward(self, sentences: List[str], return_embeddings: bool = False) -> Dict:
+    def load_data(self, data_dir: str = "data") -> Tuple[np.ndarray, np.ndarray]:
         """
-        Forward pass through semantic embedding and classification.
+        Load and prepare training data.
         
         Args:
-            sentences: List of sentences to classify
-            return_embeddings: Whether to return embeddings as well
+            data_dir: Directory containing the data
             
         Returns:
-            Dictionary with 'book_scores' and optionally 'embeddings'
+            X: Feature matrix
+            y: Label matrix
         """
-        # Get semantic embeddings
-        with torch.no_grad():
-            embeddings = self.semantic_model.encode_sentences(sentences)
+        data_path = Path(data_dir)
         
-        # Move embeddings to the same device as classifier
-        device = next(self.classifier.parameters()).device
-        embeddings = embeddings.to(device)
+        # Load metadata
+        metadata_file = data_path / "metadata_balanced.json"
+        if metadata_file.exists():
+            with open(metadata_file, 'r') as f:
+                self.metadata = json.load(f)
+        else:
+            # Fallback to original dataset
+            with open(data_path / "metadata.json", 'r') as f:
+                self.metadata = json.load(f)
         
-        # Get book belonging scores
-        book_scores = self.classifier(embeddings)
+        # Load KNN features
+        features_file = data_path / "features_knn" / "augmented_dataset.csv"
         
-        result = {'book_scores': book_scores}
+        if not features_file.exists():
+            raise FileNotFoundError(
+                f"KNN features not found: {features_file}\n"
+                "Please run 'python extract_features_knn.py' first to extract features."
+            )
         
-        if return_embeddings:
-            result['embeddings'] = embeddings
+        df = pd.read_csv(features_file)
+        logger.info(f"Loaded KNN features: {df.shape}")
+        
+        # Separate features from labels
+        self.feature_columns = [
+            col for col in df.columns 
+            if col.startswith('similarity_') or 
+               col in ['knn_best_score', 'knn_confidence', 'num_books_belongs_to']
+        ]
+        
+        self.label_columns = [col for col in df.columns if col.startswith('belongs_to_')]
+        
+        logger.info(f"Feature columns: {len(self.feature_columns)}")
+        logger.info(f"Label columns: {len(self.label_columns)}")
+        
+        # Prepare data
+        X = df[self.feature_columns].values
+        y = df[self.label_columns].values
+        
+        return X, y
+    
+    def train(self, X: np.ndarray, y: np.ndarray) -> MultiOutputClassifier:
+        """
+        Train the multi-label classifier.
+        
+        Args:
+            X: Feature matrix
+            y: Label matrix
             
-        return result
-
-class MultiLabelDataset:
-    """Dataset for multi-label classification training."""
+        Returns:
+            Trained model
+        """
+        if self.model is None:
+            self.build_model()
+        
+        logger.info(f"Training {self.model_type} multi-label classifier...")
+        self.model.fit(X, y)
+        logger.info("Training completed!")
+        
+        return self.model
     
-    def __init__(self, sentences: List[str], book_labels: List[str], 
-                 book_to_id: Dict[str, int], semantic_model: nn.Module):
-        self.sentences = sentences
-        self.book_labels = book_labels
-        self.book_to_id = book_to_id
-        self.semantic_model = semantic_model
+    def predict(self, X: np.ndarray) -> np.ndarray:
+        """
+        Make predictions.
         
-        # Create multi-label targets
-        self.targets = self._create_multi_label_targets()
-        
-    def _create_multi_label_targets(self) -> torch.Tensor:
-        """Create multi-label targets based on original book and semantic similarity."""
-        num_books = len(self.book_to_id)
-        targets = torch.zeros(len(self.sentences), num_books)
-        
-        # Get embeddings for similarity calculation
-        with torch.no_grad():
-            embeddings = self.semantic_model.encode_sentences(self.sentences)
-        
-        # Calculate similarity to each book's sentences
-        for i, sentence in enumerate(self.sentences):
-            original_book = self.book_labels[i]
-            original_book_id = self.book_to_id[original_book]
+        Args:
+            X: Feature matrix
             
-            # Set high score for original book
-            targets[i, original_book_id] = 1.0
-            
-            # Calculate similarity to other books
-            for book_name, book_id in self.book_to_id.items():
-                if book_name != original_book:
-                    # Find sentences from this book
-                    book_sentences = [j for j, label in enumerate(self.book_labels) 
-                                    if label == book_name]
-                    
-                    if book_sentences:
-                        # Calculate average similarity to this book's sentences
-                        book_embeddings = embeddings[book_sentences]
-                        current_embedding = embeddings[i:i+1]
-                        
-                        similarities = torch.cosine_similarity(
-                            current_embedding, book_embeddings, dim=1
-                        )
-                        avg_similarity = torch.mean(similarities).item()
-                        
-                        # Set score based on similarity (threshold at 0.6)
-                        if avg_similarity > 0.6:
-                            targets[i, book_id] = avg_similarity
+        Returns:
+            Predictions
+        """
+        if self.model is None:
+            raise ValueError("Model not trained. Call train() first.")
         
-        return targets
+        return self.model.predict(X)
     
-    def __len__(self) -> int:
-        return len(self.sentences)
-    
-    def __getitem__(self, idx: int) -> Tuple[str, torch.Tensor]:
-        return self.sentences[idx], self.targets[idx]
-
-def create_multi_label_dataloader(sentences: List[str], book_labels: List[str],
-                                book_to_id: Dict[str, int], semantic_model: nn.Module,
-                                batch_size: int = 32, shuffle: bool = True):
-    """Create dataloader for multi-label classification."""
-    from torch.utils.data import DataLoader
-    
-    dataset = MultiLabelDataset(sentences, book_labels, book_to_id, semantic_model)
-    
-    def collate_fn(batch):
-        sentences, targets = zip(*batch)
-        return list(sentences), torch.stack(targets)
-    
-    return DataLoader(dataset, batch_size=batch_size, shuffle=shuffle, collate_fn=collate_fn)
-
-def train_multi_label_classifier(semantic_model: nn.Module, 
-                               sentences: List[str], 
-                               book_labels: List[str],
-                               book_to_id: Dict[str, int],
-                               config: Dict,
-                               device: str = "auto") -> nn.Module:
-    """
-    Train multi-label classifier on semantic embeddings.
-    
-    Args:
-        semantic_model: Pre-trained semantic embedding model
-        sentences: Training sentences
-        book_labels: Original book labels
-        book_to_id: Mapping from book names to IDs
-        config: Training configuration
-        device: Device to train on
+    def predict_proba(self, X: np.ndarray) -> np.ndarray:
+        """
+        Get prediction probabilities.
         
-    Returns:
-        Trained multi-label classifier
-    """
-    # Set device
-    if device == "auto":
-        device = "cuda" if torch.cuda.is_available() else "mps" if torch.backends.mps.is_available() else "cpu"
-    
-    logger.info(f"Training multi-label classifier on device: {device}")
-    
-    # Create complete model
-    model = SemanticMultiLabelModel(
-        semantic_model=semantic_model,
-        num_books=len(book_to_id),
-        hidden_size=config['model']['semantic_embedding']['multi_label_classifier']['hidden_size'],
-        num_layers=config['model']['semantic_embedding']['multi_label_classifier']['num_layers'],
-        dropout=config['model']['semantic_embedding']['multi_label_classifier']['dropout']
-    )
-    model.to(device)
-    
-    # Create dataloader
-    dataloader = create_multi_label_dataloader(
-        sentences=sentences,
-        book_labels=book_labels,
-        book_to_id=book_to_id,
-        semantic_model=semantic_model,
-        batch_size=config['training']['batch_size']
-    )
-    
-    # Loss function and optimizer
-    criterion = nn.BCELoss()  # Binary Cross Entropy for multi-label
-    optimizer = torch.optim.AdamW(
-        model.classifier.parameters(),
-        lr=float(config['model']['training_phases'][1]['learning_rate']),
-        weight_decay=float(config['training']['weight_decay'])
-    )
-    
-    # Training loop
-    num_epochs = config['model']['training_phases'][1]['epochs']
-    
-    logger.info(f"Starting multi-label training for {num_epochs} epochs...")
-    
-    for epoch in range(num_epochs):
-        model.train()
-        total_loss = 0
+        Args:
+            X: Feature matrix
+            
+        Returns:
+            Prediction probabilities
+        """
+        if self.model is None:
+            raise ValueError("Model not trained. Call train() first.")
         
-        for batch_idx, (sentences_batch, targets) in enumerate(tqdm(dataloader, desc=f"Epoch {epoch+1}")):
-            targets = targets.to(device)
-            
-            # Forward pass
-            outputs = model(sentences_batch)
-            book_scores = outputs['book_scores']
-            
-            # Calculate loss
-            loss = criterion(book_scores, targets)
-            
-            # Backward pass
-            optimizer.zero_grad()
-            loss.backward()
-            optimizer.step()
-            
-            total_loss += loss.item()
-            
-            # Log progress
-            if batch_idx % 10 == 0:
-                logger.info(f"Epoch {epoch+1}, Batch {batch_idx}, Loss: {loss.item():.4f}")
-        
-        avg_loss = total_loss / len(dataloader)
-        logger.info(f"Epoch {epoch+1} completed. Average loss: {avg_loss:.4f}")
+        return self.model.predict_proba(X)
     
-    logger.info("Multi-label training completed!")
-    return model
-
-def evaluate_multi_label_model(model: nn.Module, test_sentences: List[str], 
-                             test_labels: List[str], book_to_id: Dict[str, int],
-                             threshold: float = 0.5) -> Dict:
-    """Evaluate multi-label classification performance."""
-    model.eval()
-    
-    with torch.no_grad():
-        outputs = model(test_sentences)
-        book_scores = outputs['book_scores']
+    def evaluate(self, X: np.ndarray, y: np.ndarray) -> Dict:
+        """
+        Evaluate the model.
         
-        # Convert to predictions using threshold
-        predictions = (book_scores > threshold).float()
+        Args:
+            X: Feature matrix
+            y: True labels
+            
+        Returns:
+            Dictionary of metrics
+        """
+        if self.model is None:
+            raise ValueError("Model not trained. Call train() first.")
+        
+        y_pred = self.predict(X)
         
         # Calculate metrics
-        total_correct = 0
-        total_predictions = 0
+        accuracy = accuracy_score(y, y_pred)
+        hamming = hamming_loss(y, y_pred)
+        precision = precision_score(y, y_pred, average='weighted', zero_division=0)
+        recall = recall_score(y, y_pred, average='weighted', zero_division=0)
+        f1 = f1_score(y, y_pred, average='weighted', zero_division=0)
         
-        for i, sentence in enumerate(test_sentences):
-            original_book = test_labels[i]
-            original_book_id = book_to_id[original_book]
-            
-            # Check if original book is predicted
-            if predictions[i, original_book_id] > 0:
-                total_correct += 1
-            
-            # Count total predictions
-            total_predictions += torch.sum(predictions[i]).item()
-        
-        accuracy = total_correct / len(test_sentences)
-        avg_predictions = total_predictions / len(test_sentences)
-        
-        # Calculate per-book metrics
+        # Per-book accuracy
         book_metrics = {}
-        for book_name, book_id in book_to_id.items():
-            book_sentences = [i for i, label in enumerate(test_labels) if label == book_name]
-            
-            if book_sentences:
-                book_correct = 0
-                for idx in book_sentences:
-                    if predictions[idx, book_id] > 0:
-                        book_correct += 1
-                
-                book_accuracy = book_correct / len(book_sentences)
-                book_metrics[book_name] = book_accuracy
+        if self.metadata and 'books' in self.metadata:
+            for i, book in enumerate(self.metadata['books']):
+                if i < y.shape[1]:
+                    book_accuracy = accuracy_score(y[:, i], y_pred[:, i])
+                    book_metrics[book] = book_accuracy
+        
+        # Average predictions per sentence
+        avg_predictions = np.mean(np.sum(y_pred, axis=1))
         
         return {
-            'overall_accuracy': accuracy,
-            'avg_predictions_per_sentence': avg_predictions,
+            'accuracy': accuracy,
+            'hamming_loss': hamming,
+            'precision': precision,
+            'recall': recall,
+            'f1_score': f1,
             'book_metrics': book_metrics,
-            'predictions': predictions.cpu().numpy(),
-            'scores': book_scores.cpu().numpy()
+            'avg_predictions_per_sentence': avg_predictions
         }
+    
+    def save_model(self, filepath: str):
+        """
+        Save the trained model.
+        
+        Args:
+            filepath: Path to save the model
+        """
+        if self.model is None:
+            raise ValueError("Model not trained. Call train() first.")
+        
+        import pickle
+        with open(filepath, 'wb') as f:
+            pickle.dump(self.model, f)
+        
+        logger.info(f"Model saved to {filepath}")
+    
+    def load_model(self, filepath: str):
+        """
+        Load a trained model.
+        
+        Args:
+            filepath: Path to the saved model
+        """
+        import pickle
+        with open(filepath, 'rb') as f:
+            self.model = pickle.load(f)
+        
+        logger.info(f"Model loaded from {filepath}")
 
-if __name__ == "__main__":
-    # Test the multi-label classifier
-    import yaml
+def create_multi_label_classifier(model_type: str = "random_forest", **kwargs) -> MultiLabelClassifier:
+    """
+    Factory function to create a multi-label classifier.
     
-    # Load config
-    with open("configs/config.yaml", 'r') as f:
-        config = yaml.safe_load(f)
-    
-    # Load semantic model
-    from models.semantic_embedding_model import SemanticEmbeddingModel
-    
-    semantic_model = SemanticEmbeddingModel(
-        model_name=config['model']['encoder']['model_name'],
-        embedding_dim=config['model']['encoder']['hidden_size']
-    )
-    
-    # Test sentences
-    test_sentences = [
-        "What could I do?",
-        "The monster approached slowly.",
-        "Alice fell down the rabbit hole.",
-        "Caesar crossed the Rubicon."
-    ]
-    
-    # Create multi-label model
-    model = SemanticMultiLabelModel(semantic_model, num_books=4)
-    
-    # Test forward pass
-    outputs = model(test_sentences)
-    book_scores = outputs['book_scores']
-    
-    print("Multi-label classification test:")
-    for i, sentence in enumerate(test_sentences):
-        scores = book_scores[i]
-        print(f"'{sentence}': {scores}")
-    
-    print("Multi-label classifier test completed!") 
+    Args:
+        model_type: Type of classifier
+        **kwargs: Model-specific parameters
+        
+    Returns:
+        MultiLabelClassifier instance
+    """
+    return MultiLabelClassifier(model_type=model_type, **kwargs) 
