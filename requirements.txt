@@ -34,6 +34,9 @@ nltk>=3.8.0
 spacy>=3.6.0
 textstat>=0.7.0
 
+# Sentence embeddings
+sentence-transformers>=2.2.0
+
 # Model evaluation
 evaluate>=0.4.0
 rouge-score>=0.1.2
