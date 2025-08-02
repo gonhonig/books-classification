@@ -1,0 +1,876 @@
+{
+  "single_label_examples": [
+    {
+      "sentence": "Down the Rabbit-Hole Alice was beginning to get very tired of sitting by her sister on the bank, and of having nothing to do: once or twice she had peeped into the book her sister was reading, but it had no pictures or conversations in it, and what is the use of a book, thought Alice without pictures or conversations?",
+      "original_book": "The Adventures of Alice in Wonderland",
+      "original_label": 0,
+      "true_labels": {
+        "book_1": 0,
+        "book_2": 0,
+        "book_3": 0,
+        "book_4": 1
+      },
+      "predictions": {
+        "book_1": {
+          "probability": 0.007814819924533367,
+          "prediction": 0
+        },
+        "book_2": {
+          "probability": 0.04000747948884964,
+          "prediction": 0
+        },
+        "book_3": {
+          "probability": 0.0018905182369053364,
+          "prediction": 0
+        },
+        "book_4": {
+          "probability": 0.9902329444885254,
+          "prediction": 1
+        }
+      }
+    },
+    {
+      "sentence": "So she was considering in her own mind (as well as she could, for the hot day made her feel very sleepy and stupid), whether the pleasure of making a daisy-chain would be worth the trouble of getting up and picking the daisies, when suddenly a White Rabbit with pink eyes ran close by her.",
+      "original_book": "The Adventures of Alice in Wonderland",
+      "original_label": 0,
+      "true_labels": {
+        "book_1": 0,
+        "book_2": 0,
+        "book_3": 0,
+        "book_4": 1
+      },
+      "predictions": {
+        "book_1": {
+          "probability": 0.024569306522607803,
+          "prediction": 0
+        },
+        "book_2": {
+          "probability": 0.0469520203769207,
+          "prediction": 0
+        },
+        "book_3": {
+          "probability": 0.018772117793560028,
+          "prediction": 0
+        },
+        "book_4": {
+          "probability": 0.9778335094451904,
+          "prediction": 1
+        }
+      }
+    },
+    {
+      "sentence": "There was nothing so _very_ remarkable in that; nor did Alice think it so _very_ much out of the way to hear the Rabbit say to itself, Oh dear!",
+      "original_book": "The Adventures of Alice in Wonderland",
+      "original_label": 0,
+      "true_labels": {
+        "book_1": 0,
+        "book_2": 0,
+        "book_3": 0,
+        "book_4": 1
+      },
+      "predictions": {
+        "book_1": {
+          "probability": 0.013689979910850525,
+          "prediction": 0
+        },
+        "book_2": {
+          "probability": 0.01940663531422615,
+          "prediction": 0
+        },
+        "book_3": {
+          "probability": 0.021539980545639992,
+          "prediction": 0
+        },
+        "book_4": {
+          "probability": 0.9996045231819153,
+          "prediction": 1
+        }
+      }
+    },
+    {
+      "sentence": "(when she thought it over afterwards, it occurred to her that she ought to have wondered at this, but at the time it all seemed quite natural); but when the Rabbit actually _took a watch out of its waistcoat-pocket_, and looked at it, and then hurried on, Alice started to her feet, for it flashed across her mind that she had never before seen a rabbit with either a waistcoat-pocket, or a watch to take out of it, and burning with curiosity, she ran across the field after it, and fortunately was just in time to see it pop down a large rabbit-hole under the hedge.",
+      "original_book": "The Adventures of Alice in Wonderland",
+      "original_label": 0,
+      "true_labels": {
+        "book_1": 0,
+        "book_2": 0,
+        "book_3": 0,
+        "book_4": 1
+      },
+      "predictions": {
+        "book_1": {
+          "probability": 0.016562316566705704,
+          "prediction": 0
+        },
+        "book_2": {
+          "probability": 0.08544295281171799,
+          "prediction": 0
+        },
+        "book_3": {
+          "probability": 0.00951968040317297,
+          "prediction": 0
+        },
+        "book_4": {
+          "probability": 0.9972658157348633,
+          "prediction": 1
+        }
+      }
+    },
+    {
+      "sentence": "In another moment down went Alice after it, never once considering how in the world she was to get out again.",
+      "original_book": "The Adventures of Alice in Wonderland",
+      "original_label": 0,
+      "true_labels": {
+        "book_1": 0,
+        "book_2": 0,
+        "book_3": 0,
+        "book_4": 1
+      },
+      "predictions": {
+        "book_1": {
+          "probability": 0.021100668236613274,
+          "prediction": 0
+        },
+        "book_2": {
+          "probability": 0.01965419575572014,
+          "prediction": 0
+        },
+        "book_3": {
+          "probability": 0.00800291821360588,
+          "prediction": 0
+        },
+        "book_4": {
+          "probability": 0.9886690974235535,
+          "prediction": 1
+        }
+      }
+    },
+    {
+      "sentence": "The rabbit-hole went straight on like a tunnel for some way, and then dipped suddenly down, so suddenly that Alice had not a moment to think about stopping herself before she found herself falling down a very deep well.",
+      "original_book": "The Adventures of Alice in Wonderland",
+      "original_label": 0,
+      "true_labels": {
+        "book_1": 0,
+        "book_2": 0,
+        "book_3": 0,
+        "book_4": 1
+      },
+      "predictions": {
+        "book_1": {
+          "probability": 0.02551501989364624,
+          "prediction": 0
+        },
+        "book_2": {
+          "probability": 0.0886288583278656,
+          "prediction": 0
+        },
+        "book_3": {
+          "probability": 0.043200645595788956,
+          "prediction": 0
+        },
+        "book_4": {
+          "probability": 0.9990665316581726,
+          "prediction": 1
+        }
+      }
+    },
+    {
+      "sentence": "Either the well was very deep, or she fell very slowly, for she had plenty of time as she went down to look about her and to wonder what was going to happen next.",
+      "original_book": "The Adventures of Alice in Wonderland",
+      "original_label": 0,
+      "true_labels": {
+        "book_1": 0,
+        "book_2": 0,
+        "book_3": 0,
+        "book_4": 1
+      },
+      "predictions": {
+        "book_1": {
+          "probability": 0.15449866652488708,
+          "prediction": 0
+        },
+        "book_2": {
+          "probability": 0.5763255953788757,
+          "prediction": 1
+        },
+        "book_3": {
+          "probability": 0.11233847588300705,
+          "prediction": 0
+        },
+        "book_4": {
+          "probability": 0.9898235201835632,
+          "prediction": 1
+        }
+      }
+    },
+    {
+      "sentence": "First, she tried to look down and make out what she was coming to, but it was too dark to see anything; then she looked at the sides of the well, and noticed that they were filled with cupboards and book-shelves; here and there she saw maps and pictures hung upon pegs.",
+      "original_book": "The Adventures of Alice in Wonderland",
+      "original_label": 0,
+      "true_labels": {
+        "book_1": 0,
+        "book_2": 0,
+        "book_3": 0,
+        "book_4": 1
+      },
+      "predictions": {
+        "book_1": {
+          "probability": 0.043567951768636703,
+          "prediction": 0
+        },
+        "book_2": {
+          "probability": 0.0987892895936966,
+          "prediction": 0
+        },
+        "book_3": {
+          "probability": 0.285637766122818,
+          "prediction": 0
+        },
+        "book_4": {
+          "probability": 0.9648833274841309,
+          "prediction": 1
+        }
+      }
+    },
+    {
+      "sentence": "She took down a jar from one of the shelves as she passed; it was labelled ORANGE MARMALADE , but to her great disappointment it was empty: she did not like to drop the jar for fear of killing somebody underneath, so managed to put it into one of the cupboards as she fell past it.",
+      "original_book": "The Adventures of Alice in Wonderland",
+      "original_label": 0,
+      "true_labels": {
+        "book_1": 0,
+        "book_2": 0,
+        "book_3": 0,
+        "book_4": 1
+      },
+      "predictions": {
+        "book_1": {
+          "probability": 0.04308618977665901,
+          "prediction": 0
+        },
+        "book_2": {
+          "probability": 0.00936571042984724,
+          "prediction": 0
+        },
+        "book_3": {
+          "probability": 0.03556562960147858,
+          "prediction": 0
+        },
+        "book_4": {
+          "probability": 0.8236200213432312,
+          "prediction": 1
+        }
+      }
+    },
+    {
+      "sentence": "thought Alice to herself, after such a fall as this, I shall think nothing of tumbling down stairs!",
+      "original_book": "The Adventures of Alice in Wonderland",
+      "original_label": 0,
+      "true_labels": {
+        "book_1": 0,
+        "book_2": 0,
+        "book_3": 0,
+        "book_4": 1
+      },
+      "predictions": {
+        "book_1": {
+          "probability": 0.04077070206403732,
+          "prediction": 0
+        },
+        "book_2": {
+          "probability": 0.2724774479866028,
+          "prediction": 0
+        },
+        "book_3": {
+          "probability": 0.04809826612472534,
+          "prediction": 0
+        },
+        "book_4": {
+          "probability": 0.9991149306297302,
+          "prediction": 1
+        }
+      }
+    },
+    {
+      "sentence": "How brave they ll all think me at home!",
+      "original_book": "The Adventures of Alice in Wonderland",
+      "original_label": 0,
+      "true_labels": {
+        "book_1": 0,
+        "book_2": 0,
+        "book_3": 0,
+        "book_4": 1
+      },
+      "predictions": {
+        "book_1": {
+          "probability": 0.05473395809531212,
+          "prediction": 0
+        },
+        "book_2": {
+          "probability": 0.7533361911773682,
+          "prediction": 1
+        },
+        "book_3": {
+          "probability": 0.6399893760681152,
+          "prediction": 1
+        },
+        "book_4": {
+          "probability": 0.8849354982376099,
+          "prediction": 1
+        }
+      }
+    },
+    {
+      "sentence": "Why, I wouldn t say anything about it, even if I fell off the top of the house!",
+      "original_book": "The Adventures of Alice in Wonderland",
+      "original_label": 0,
+      "true_labels": {
+        "book_1": 0,
+        "book_2": 0,
+        "book_3": 0,
+        "book_4": 1
+      },
+      "predictions": {
+        "book_1": {
+          "probability": 0.03527257218956947,
+          "prediction": 0
+        },
+        "book_2": {
+          "probability": 0.7787426710128784,
+          "prediction": 1
+        },
+        "book_3": {
+          "probability": 0.04473159834742546,
+          "prediction": 0
+        },
+        "book_4": {
+          "probability": 0.7624109387397766,
+          "prediction": 1
+        }
+      }
+    },
+    {
+      "sentence": "Would the fall _never_ come to an end?",
+      "original_book": "The Adventures of Alice in Wonderland",
+      "original_label": 0,
+      "true_labels": {
+        "book_1": 0,
+        "book_2": 0,
+        "book_3": 0,
+        "book_4": 1
+      },
+      "predictions": {
+        "book_1": {
+          "probability": 0.028834553435444832,
+          "prediction": 0
+        },
+        "book_2": {
+          "probability": 0.363459974527359,
+          "prediction": 0
+        },
+        "book_3": {
+          "probability": 0.41762682795524597,
+          "prediction": 0
+        },
+        "book_4": {
+          "probability": 0.9794566035270691,
+          "prediction": 1
+        }
+      }
+    },
+    {
+      "sentence": "I wonder how many miles I ve fallen by this time?",
+      "original_book": "The Adventures of Alice in Wonderland",
+      "original_label": 0,
+      "true_labels": {
+        "book_1": 0,
+        "book_2": 0,
+        "book_3": 0,
+        "book_4": 1
+      },
+      "predictions": {
+        "book_1": {
+          "probability": 0.011303075589239597,
+          "prediction": 0
+        },
+        "book_2": {
+          "probability": 0.16083841025829315,
+          "prediction": 0
+        },
+        "book_3": {
+          "probability": 0.7784731388092041,
+          "prediction": 1
+        },
+        "book_4": {
+          "probability": 0.8424670696258545,
+          "prediction": 1
+        }
+      }
+    },
+    {
+      "sentence": "I must be getting somewhere near the centre of the earth.",
+      "original_book": "The Adventures of Alice in Wonderland",
+      "original_label": 0,
+      "true_labels": {
+        "book_1": 0,
+        "book_2": 0,
+        "book_3": 0,
+        "book_4": 1
+      },
+      "predictions": {
+        "book_1": {
+          "probability": 0.02490275725722313,
+          "prediction": 0
+        },
+        "book_2": {
+          "probability": 0.39100995659828186,
+          "prediction": 0
+        },
+        "book_3": {
+          "probability": 0.7560422420501709,
+          "prediction": 1
+        },
+        "book_4": {
+          "probability": 0.7836350798606873,
+          "prediction": 1
+        }
+      }
+    }
+  ],
+  "multi_label_examples": [
+    {
+      "sentence": "CHAPTER I.",
+      "original_book": "The Adventures of Alice in Wonderland",
+      "original_label": 0,
+      "true_labels": {
+        "book_1": 1,
+        "book_2": 1,
+        "book_3": 0,
+        "book_4": 1
+      },
+      "predictions": {
+        "book_1": {
+          "probability": 0.8938438892364502,
+          "prediction": 1
+        },
+        "book_2": {
+          "probability": 0.8122543692588806,
+          "prediction": 1
+        },
+        "book_3": {
+          "probability": 0.9128434062004089,
+          "prediction": 1
+        },
+        "book_4": {
+          "probability": 0.971062958240509,
+          "prediction": 1
+        }
+      }
+    },
+    {
+      "sentence": "Oh dear!",
+      "original_book": "The Adventures of Alice in Wonderland",
+      "original_label": 0,
+      "true_labels": {
+        "book_1": 1,
+        "book_2": 1,
+        "book_3": 1,
+        "book_4": 1
+      },
+      "predictions": {
+        "book_1": {
+          "probability": 0.9994094371795654,
+          "prediction": 1
+        },
+        "book_2": {
+          "probability": 0.9997962117195129,
+          "prediction": 1
+        },
+        "book_3": {
+          "probability": 0.9976786971092224,
+          "prediction": 1
+        },
+        "book_4": {
+          "probability": 0.9999850988388062,
+          "prediction": 1
+        }
+      }
+    },
+    {
+      "sentence": "I shall be late!",
+      "original_book": "The Adventures of Alice in Wonderland",
+      "original_label": 0,
+      "true_labels": {
+        "book_1": 1,
+        "book_2": 1,
+        "book_3": 0,
+        "book_4": 1
+      },
+      "predictions": {
+        "book_1": {
+          "probability": 0.9888506531715393,
+          "prediction": 1
+        },
+        "book_2": {
+          "probability": 0.9941984415054321,
+          "prediction": 1
+        },
+        "book_3": {
+          "probability": 0.8245314359664917,
+          "prediction": 1
+        },
+        "book_4": {
+          "probability": 0.9899791479110718,
+          "prediction": 1
+        }
+      }
+    },
+    {
+      "sentence": "Well!",
+      "original_book": "The Adventures of Alice in Wonderland",
+      "original_label": 0,
+      "true_labels": {
+        "book_1": 1,
+        "book_2": 1,
+        "book_3": 1,
+        "book_4": 1
+      },
+      "predictions": {
+        "book_1": {
+          "probability": 0.999923586845398,
+          "prediction": 1
+        },
+        "book_2": {
+          "probability": 0.9996713399887085,
+          "prediction": 1
+        },
+        "book_3": {
+          "probability": 0.981533944606781,
+          "prediction": 1
+        },
+        "book_4": {
+          "probability": 0.9999897480010986,
+          "prediction": 1
+        }
+      }
+    },
+    {
+      "sentence": "(Which was very likely true.)",
+      "original_book": "The Adventures of Alice in Wonderland",
+      "original_label": 0,
+      "true_labels": {
+        "book_1": 1,
+        "book_2": 1,
+        "book_3": 0,
+        "book_4": 1
+      },
+      "predictions": {
+        "book_1": {
+          "probability": 0.7155763506889343,
+          "prediction": 1
+        },
+        "book_2": {
+          "probability": 0.6871761679649353,
+          "prediction": 1
+        },
+        "book_3": {
+          "probability": 0.4324328899383545,
+          "prediction": 0
+        },
+        "book_4": {
+          "probability": 0.8995587825775146,
+          "prediction": 1
+        }
+      }
+    },
+    {
+      "sentence": "Down, down, down.",
+      "original_book": "The Adventures of Alice in Wonderland",
+      "original_label": 0,
+      "true_labels": {
+        "book_1": 1,
+        "book_2": 1,
+        "book_3": 0,
+        "book_4": 1
+      },
+      "predictions": {
+        "book_1": {
+          "probability": 0.936629056930542,
+          "prediction": 1
+        },
+        "book_2": {
+          "probability": 0.411038339138031,
+          "prediction": 0
+        },
+        "book_3": {
+          "probability": 0.7212026715278625,
+          "prediction": 1
+        },
+        "book_4": {
+          "probability": 0.9990395903587341,
+          "prediction": 1
+        }
+      }
+    },
+    {
+      "sentence": "she said aloud.",
+      "original_book": "The Adventures of Alice in Wonderland",
+      "original_label": 0,
+      "true_labels": {
+        "book_1": 1,
+        "book_2": 1,
+        "book_3": 1,
+        "book_4": 1
+      },
+      "predictions": {
+        "book_1": {
+          "probability": 0.9993160963058472,
+          "prediction": 1
+        },
+        "book_2": {
+          "probability": 0.99907386302948,
+          "prediction": 1
+        },
+        "book_3": {
+          "probability": 0.984435498714447,
+          "prediction": 1
+        },
+        "book_4": {
+          "probability": 0.9999873638153076,
+          "prediction": 1
+        }
+      }
+    },
+    {
+      "sentence": "Presently she began again.",
+      "original_book": "The Adventures of Alice in Wonderland",
+      "original_label": 0,
+      "true_labels": {
+        "book_1": 1,
+        "book_2": 1,
+        "book_3": 0,
+        "book_4": 1
+      },
+      "predictions": {
+        "book_1": {
+          "probability": 0.9791716933250427,
+          "prediction": 1
+        },
+        "book_2": {
+          "probability": 0.850054144859314,
+          "prediction": 1
+        },
+        "book_3": {
+          "probability": 0.9275849461555481,
+          "prediction": 1
+        },
+        "book_4": {
+          "probability": 0.984534502029419,
+          "prediction": 1
+        }
+      }
+    },
+    {
+      "sentence": "(and she tried to curtsey as she spoke fancy _curtseying_ as you re falling through the air!",
+      "original_book": "The Adventures of Alice in Wonderland",
+      "original_label": 0,
+      "true_labels": {
+        "book_1": 1,
+        "book_2": 0,
+        "book_3": 0,
+        "book_4": 1
+      },
+      "predictions": {
+        "book_1": {
+          "probability": 0.7205914258956909,
+          "prediction": 1
+        },
+        "book_2": {
+          "probability": 0.8773893117904663,
+          "prediction": 1
+        },
+        "book_3": {
+          "probability": 0.07687947899103165,
+          "prediction": 0
+        },
+        "book_4": {
+          "probability": 0.9923345446586609,
+          "prediction": 1
+        }
+      }
+    },
+    {
+      "sentence": "Do you think you could manage it?)",
+      "original_book": "The Adventures of Alice in Wonderland",
+      "original_label": 0,
+      "true_labels": {
+        "book_1": 1,
+        "book_2": 0,
+        "book_3": 0,
+        "book_4": 1
+      },
+      "predictions": {
+        "book_1": {
+          "probability": 0.5559549927711487,
+          "prediction": 1
+        },
+        "book_2": {
+          "probability": 0.35396575927734375,
+          "prediction": 0
+        },
+        "book_3": {
+          "probability": 0.08548624068498611,
+          "prediction": 0
+        },
+        "book_4": {
+          "probability": 0.30711835622787476,
+          "prediction": 0
+        }
+      }
+    },
+    {
+      "sentence": "(Dinah was the cat.)",
+      "original_book": "The Adventures of Alice in Wonderland",
+      "original_label": 0,
+      "true_labels": {
+        "book_1": 1,
+        "book_2": 0,
+        "book_3": 0,
+        "book_4": 1
+      },
+      "predictions": {
+        "book_1": {
+          "probability": 0.8913393020629883,
+          "prediction": 1
+        },
+        "book_2": {
+          "probability": 0.004406590946018696,
+          "prediction": 0
+        },
+        "book_3": {
+          "probability": 0.001256746705621481,
+          "prediction": 0
+        },
+        "book_4": {
+          "probability": 0.9991067051887512,
+          "prediction": 1
+        }
+      }
+    },
+    {
+      "sentence": "Dinah my dear!",
+      "original_book": "The Adventures of Alice in Wonderland",
+      "original_label": 0,
+      "true_labels": {
+        "book_1": 1,
+        "book_2": 0,
+        "book_3": 0,
+        "book_4": 1
+      },
+      "predictions": {
+        "book_1": {
+          "probability": 0.9579833745956421,
+          "prediction": 1
+        },
+        "book_2": {
+          "probability": 0.9821181297302246,
+          "prediction": 1
+        },
+        "book_3": {
+          "probability": 0.9814790487289429,
+          "prediction": 1
+        },
+        "book_4": {
+          "probability": 0.9979950189590454,
+          "prediction": 1
+        }
+      }
+    },
+    {
+      "sentence": "I wish you were down here with me!",
+      "original_book": "The Adventures of Alice in Wonderland",
+      "original_label": 0,
+      "true_labels": {
+        "book_1": 1,
+        "book_2": 1,
+        "book_3": 0,
+        "book_4": 1
+      },
+      "predictions": {
+        "book_1": {
+          "probability": 0.8752785921096802,
+          "prediction": 1
+        },
+        "book_2": {
+          "probability": 0.9896557331085205,
+          "prediction": 1
+        },
+        "book_3": {
+          "probability": 0.6002377271652222,
+          "prediction": 1
+        },
+        "book_4": {
+          "probability": 0.9918924570083618,
+          "prediction": 1
+        }
+      }
+    },
+    {
+      "sentence": "for, you see, as she couldn t answer either question, it didn t much matter which way she put it.",
+      "original_book": "The Adventures of Alice in Wonderland",
+      "original_label": 0,
+      "true_labels": {
+        "book_1": 1,
+        "book_2": 0,
+        "book_3": 0,
+        "book_4": 1
+      },
+      "predictions": {
+        "book_1": {
+          "probability": 0.940168023109436,
+          "prediction": 1
+        },
+        "book_2": {
+          "probability": 0.1368040293455124,
+          "prediction": 0
+        },
+        "book_3": {
+          "probability": 0.036058831959962845,
+          "prediction": 0
+        },
+        "book_4": {
+          "probability": 0.9596484899520874,
+          "prediction": 1
+        }
+      }
+    },
+    {
+      "sentence": "when suddenly, thump!",
+      "original_book": "The Adventures of Alice in Wonderland",
+      "original_label": 0,
+      "true_labels": {
+        "book_1": 1,
+        "book_2": 0,
+        "book_3": 0,
+        "book_4": 1
+      },
+      "predictions": {
+        "book_1": {
+          "probability": 0.6296693086624146,
+          "prediction": 1
+        },
+        "book_2": {
+          "probability": 0.9872811436653137,
+          "prediction": 1
+        },
+        "book_3": {
+          "probability": 0.922010600566864,
+          "prediction": 1
+        },
+        "book_4": {
+          "probability": 0.9992794394493103,
+          "prediction": 1
+        }
+      }
+    }
+  ]
+}
