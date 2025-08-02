@@ -1,0 +1,92 @@
+{
+  "logistic_regression": {
+    "unique_sentences": {
+      "count": 5307,
+      "accuracy": 0.9549651403806294,
+      "f1_score": 0.9580453565463016,
+      "precision": 0.9212763322107118,
+      "recall": 1.0
+    },
+    "multi_label_sentences": {
+      "count": 1045,
+      "accuracy": 0.016267942583732056,
+      "f1_score": 0.5868773604626819,
+      "precision": 0.9677391969526433,
+      "recall": 0.44483985765124556
+    },
+    "high_similarity_sentences": {
+      "count": 1045,
+      "accuracy": 0.016267942583732056,
+      "f1_score": 0.5868773604626819,
+      "precision": 0.9677391969526433,
+      "recall": 0.44483985765124556
+    },
+    "low_similarity_sentences": {
+      "count": 5307,
+      "accuracy": 0.9549651403806294,
+      "f1_score": 0.9580453565463016,
+      "precision": 0.9212763322107118,
+      "recall": 1.0
+    }
+  },
+  "svm": {
+    "unique_sentences": {
+      "count": 5307,
+      "accuracy": 1.0,
+      "f1_score": 1.0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    "multi_label_sentences": {
+      "count": 1045,
+      "accuracy": 0.0,
+      "f1_score": 0.5656756277670213,
+      "precision": 1.0,
+      "recall": 0.41320680110715696
+    },
+    "high_similarity_sentences": {
+      "count": 1045,
+      "accuracy": 0.0,
+      "f1_score": 0.5656756277670213,
+      "precision": 1.0,
+      "recall": 0.41320680110715696
+    },
+    "low_similarity_sentences": {
+      "count": 5307,
+      "accuracy": 1.0,
+      "f1_score": 1.0,
+      "precision": 1.0,
+      "recall": 1.0
+    }
+  },
+  "random_forest": {
+    "unique_sentences": {
+      "count": 5307,
+      "accuracy": 1.0,
+      "f1_score": 1.0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    "multi_label_sentences": {
+      "count": 1045,
+      "accuracy": 0.0,
+      "f1_score": 0.5656756277670213,
+      "precision": 1.0,
+      "recall": 0.41320680110715696
+    },
+    "high_similarity_sentences": {
+      "count": 1045,
+      "accuracy": 0.0,
+      "f1_score": 0.5656756277670213,
+      "precision": 1.0,
+      "recall": 0.41320680110715696
+    },
+    "low_similarity_sentences": {
+      "count": 5307,
+      "accuracy": 1.0,
+      "f1_score": 1.0,
+      "precision": 1.0,
+      "recall": 1.0
+    }
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "best_model": "random_forest",
+  "best_score": 0.8891936199149938,
+  "all_results": {
+    "random_forest": {
+      "best_params": {
+        "estimator__max_depth": null,
+        "estimator__max_features": "sqrt",
+        "estimator__min_samples_leaf": 1,
+        "estimator__min_samples_split": 2,
+        "estimator__n_estimators": 50
+      },
+      "cv_score": 0.8929377577008154,
+      "validation_f1": 0.8891936199149938
+    },
+    "logistic_regression": {
+      "best_params": {
+        "estimator__C": 0.1,
+        "estimator__max_iter": 1000,
+        "estimator__penalty": "l1",
+        "estimator__solver": "liblinear"
+      },
+      "cv_score": 0.868959514034724,
+      "validation_f1": 0.8645051043621335
+    },
+    "svm": {
+      "best_params": {
+        "estimator__C": 0.1,
+        "estimator__gamma": "scale",
+        "estimator__kernel": "rbf"
+      },
+      "cv_score": 0.8929377577008154,
+      "validation_f1": 0.8891936199149938
+    }
+  }
+}
