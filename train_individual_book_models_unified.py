@@ -70,6 +70,16 @@ class UnifiedIndividualBookTrainer:
         self.scalers = {}
         self.results = {}
         
+        # Unified dataset properties
+        self.X_unified = None
+        self.y_unified = {}
+        self.selected_indices = None
+        
+        # Train/val/test splits for each book
+        self.train_splits = {}
+        self.val_splits = {}
+        self.test_splits = {}
+        
         # Book names mapping
         self.book_names = {
             'book_1': 'Anna Karenina',
@@ -182,20 +192,56 @@ class UnifiedIndividualBookTrainer:
         np.random.shuffle(selected_indices)
         
         # Create the unified dataset
-        X_unified = self.embeddings[selected_indices]
-        y_unified = {}
+        self.X_unified = self.embeddings[selected_indices]
+        self.y_unified = {}
         for book_col in ['book_1', 'book_2', 'book_3', 'book_4']:
-            y_unified[book_col] = self.book_labels[book_col][selected_indices]
+            self.y_unified[book_col] = self.book_labels[book_col][selected_indices]
+        
+        # Store selected indices for later use
+        self.selected_indices = selected_indices
         
         # Log dataset statistics
-        logger.info(f"Created unified dataset with {len(X_unified)} samples")
+        logger.info(f"Created unified dataset with {len(self.X_unified)} samples")
         for book_col in ['book_1', 'book_2', 'book_3', 'book_4']:
-            positive_count = np.sum(y_unified[book_col] == 1)
-            negative_count = np.sum(y_unified[book_col] == 0)
+            positive_count = np.sum(self.y_unified[book_col] == 1)
+            negative_count = np.sum(self.y_unified[book_col] == 0)
             multi_label_count = sum(1 for i in selected_indices if i in multi_label_indices)
             logger.info(f"{self.book_names[book_col]}: {positive_count} positive, {negative_count} negative, {multi_label_count} multi-label")
         
-        return X_unified, y_unified, selected_indices
+        return self.X_unified, self.y_unified, self.selected_indices
+    
+    def create_train_val_test_splits(self):
+        """Create train/val/test splits for all books once and store them."""
+        logger.info("Creating train/val/test splits for all books...")
+        
+        for book_col in ['book_1', 'book_2', 'book_3', 'book_4']:
+            y_book = self.y_unified[book_col]
+            
+            # Use the same random seed as training
+            np.random.seed(42)
+            X_train, X_temp, y_train, y_temp = train_test_split(
+                self.X_unified, y_book, test_size=0.3, random_state=42, stratify=y_book
+            )
+            X_val, X_test, y_val, y_test = train_test_split(
+                X_temp, y_temp, test_size=0.5, random_state=42, stratify=y_temp
+            )
+            
+            # Store splits
+            self.train_splits[book_col] = {
+                'X': X_train,
+                'y': y_train
+            }
+            self.val_splits[book_col] = {
+                'X': X_val,
+                'y': y_val
+            }
+            self.test_splits[book_col] = {
+                'X': X_test,
+                'y': y_test
+            }
+            
+            logger.info(f"Created splits for {self.book_names[book_col]}: "
+                       f"Train={len(X_train)}, Val={len(X_val)}, Test={len(X_test)}")
     
     def train_book_model(self, book_col, X_unified, y_unified, hidden_dims=[256, 128, 64], dropout_rate=0.3,
                         epochs=100, batch_size=32, learning_rate=0.001, patience=15):
@@ -203,16 +249,14 @@ class UnifiedIndividualBookTrainer:
         book_name = self.book_names[book_col]
         logger.info(f"Training model for {book_name}")
         
-        # Get labels for this book
-        y_book = y_unified[book_col]
+        # Get stored splits for this book
+        train_data = self.train_splits[book_col]
+        val_data = self.val_splits[book_col]
+        test_data = self.test_splits[book_col]
         
-        # Split data
-        X_train, X_temp, y_train, y_temp = train_test_split(
-            X_unified, y_book, test_size=0.3, random_state=42, stratify=y_book
-        )
-        X_val, X_test, y_val, y_test = train_test_split(
-            X_temp, y_temp, test_size=0.5, random_state=42, stratify=y_temp
-        )
+        X_train, y_train = train_data['X'], train_data['y']
+        X_val, y_val = val_data['X'], val_data['y']
+        X_test, y_test = test_data['X'], test_data['y']
         
         # Scale features
         scaler = StandardScaler()
@@ -373,15 +417,15 @@ class UnifiedIndividualBookTrainer:
         # Create models directory if it doesn't exist
         Path("models").mkdir(exist_ok=True)
         
-        # Create unified balanced dataset
-        X_unified, y_unified, selected_indices = self.create_unified_balanced_dataset()
+        # Create unified balanced dataset (stored as properties)
+        self.create_unified_balanced_dataset()
         
-        # Save the unified dataset indices for later evaluation
-        self.unified_dataset_indices = selected_indices
+        # Create train/val/test splits once
+        self.create_train_val_test_splits()
         
         for book_col in ['book_1', 'book_2', 'book_3', 'book_4']:
             try:
-                self.train_book_model(book_col, X_unified, y_unified)
+                self.train_book_model(book_col, self.X_unified, self.y_unified)
             except Exception as e:
                 logger.error(f"Error training model for {book_col}: {e}")
         
@@ -458,27 +502,17 @@ class UnifiedIndividualBookTrainer:
         book_name = self.book_names[book_col]
         
         # We need to identify multi-label sentences in the test set
-        # Since we don't have direct access to the original indices, we'll need to
-        # recreate the test split and identify multi-label sentences properly
-        
-        # Recreate the unified dataset to get the original indices
-        X_unified, y_unified, selected_indices = self.create_unified_balanced_dataset()
-        
-        # Recreate the exact train/val/test split for this book
-        y_book = y_unified[book_col]
-        X_train, X_temp, y_train, y_temp = train_test_split(
-            X_unified, y_book, test_size=0.3, random_state=42, stratify=y_book
-        )
-        X_val, X_test_full, y_val, y_test_full = train_test_split(
-            X_temp, y_temp, test_size=0.5, random_state=42, stratify=y_temp
-        )
+        # Use the stored test split for this book
+        test_data = self.test_splits[book_col]
+        X_test_full = test_data['X']
+        y_test_full = test_data['y']
         
         # Get the test indices in the unified dataset
         test_size = len(X_test_full)
-        test_indices_in_unified = list(range(len(X_unified) - test_size, len(X_unified)))
+        test_indices_in_unified = list(range(len(self.X_unified) - test_size, len(self.X_unified)))
         
         # Convert unified dataset indices back to original dataset indices
-        original_test_indices = [selected_indices[i] for i in test_indices_in_unified]
+        original_test_indices = [self.selected_indices[i] for i in test_indices_in_unified]
         
         # Identify multi-label sentences in the test set
         test_multi_label_indices = []
@@ -568,30 +602,19 @@ class UnifiedIndividualBookTrainer:
                 logger.info(f"Loaded model for {book_name}")
         
         # Get test indices from the unified dataset
-        # We need to recreate the exact test splits used during training
-        X_unified, y_unified, selected_indices = self.create_unified_balanced_dataset()
-        
-        # Recreate the exact train/val/test splits for each book
+        # Use the stored test splits for all books
         test_indices_all_books = set()
         for book_col in ['book_1', 'book_2', 'book_3', 'book_4']:
-            y_book = y_unified[book_col]
-            
-            # Use the same random seed as training
-            np.random.seed(42)
-            X_train, X_temp, y_train, y_temp = train_test_split(
-                X_unified, y_book, test_size=0.3, random_state=42, stratify=y_book
-            )
-            X_val, X_test, y_val, y_test = train_test_split(
-                X_temp, y_temp, test_size=0.5, random_state=42, stratify=y_temp
-            )
+            test_data = self.test_splits[book_col]
+            X_test = test_data['X']
             
             # Get test indices in the unified dataset
             test_size = len(X_test)
-            test_indices = list(range(len(X_unified) - test_size, len(X_unified)))
+            test_indices = list(range(len(self.X_unified) - test_size, len(self.X_unified)))
             test_indices_all_books.update(test_indices)
         
         # Convert unified dataset indices back to original dataset indices
-        original_test_indices = [selected_indices[i] for i in test_indices_all_books]
+        original_test_indices = [self.selected_indices[i] for i in test_indices_all_books]
         
         # Identify single-label and multi-label sentences in test set
         single_label_test_indices = []
