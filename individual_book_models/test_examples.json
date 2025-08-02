@@ -1,0 +1,456 @@
+{
+  "single_label_examples": [
+    {
+      "sentence": "I know, continued the unhappy victim, how heavily and fatally this one circumstance weighs against me, but I have no power of explaining it; and when I have expressed my utter ignorance, I am only left to conjecture concerning the probabilities by which it might have been placed in my pocket.",
+      "true_labels": {
+        "book_1": 0,
+        "book_2": 0,
+        "book_3": 1,
+        "book_4": 0
+      },
+      "predictions": {
+        "book_1": 0.019544053822755814,
+        "book_2": 0.022654635831713676,
+        "book_3": 0.9981599450111389,
+        "book_4": 0.00021595763973891735
+      }
+    },
+    {
+      "sentence": "No, I didn t, said Alice: I don t think it s at all a pity.",
+      "true_labels": {
+        "book_1": 0,
+        "book_2": 0,
+        "book_3": 0,
+        "book_4": 1
+      },
+      "predictions": {
+        "book_1": 0.5865128040313721,
+        "book_2": 0.02834000252187252,
+        "book_3": 0.0029845351818948984,
+        "book_4": 0.7659080028533936
+      }
+    },
+    {
+      "sentence": "These wonderful narrations inspired me with strange feelings.",
+      "true_labels": {
+        "book_1": 0,
+        "book_2": 0,
+        "book_3": 1,
+        "book_4": 0
+      },
+      "predictions": {
+        "book_1": 0.03732806071639061,
+        "book_2": 0.05736292898654938,
+        "book_3": 0.9990063309669495,
+        "book_4": 0.00419573811814189
+      }
+    },
+    {
+      "sentence": "You are a dog in the manger, Cathy, and desire no one to be loved but yourself!",
+      "true_labels": {
+        "book_1": 0,
+        "book_2": 1,
+        "book_3": 0,
+        "book_4": 0
+      },
+      "predictions": {
+        "book_1": 0.657539427280426,
+        "book_2": 0.8062414526939392,
+        "book_3": 0.30972081422805786,
+        "book_4": 0.020889267325401306
+      }
+    },
+    {
+      "sentence": "So Bill s got to come down the chimney, has he?",
+      "true_labels": {
+        "book_1": 0,
+        "book_2": 0,
+        "book_3": 0,
+        "book_4": 1
+      },
+      "predictions": {
+        "book_1": 0.5334523320198059,
+        "book_2": 0.9286318421363831,
+        "book_3": 0.0008016950450837612,
+        "book_4": 0.31907403469085693
+      }
+    },
+    {
+      "sentence": "I would have made a pilgrimage to the highest peak of the Andes, could I, when there, have precipitated him to their base.",
+      "true_labels": {
+        "book_1": 0,
+        "book_2": 0,
+        "book_3": 1,
+        "book_4": 0
+      },
+      "predictions": {
+        "book_1": 0.019826747477054596,
+        "book_2": 0.02082092873752117,
+        "book_3": 0.9982663989067078,
+        "book_4": 0.00030148832593113184
+      }
+    },
+    {
+      "sentence": "I had sufficient leisure for these and many other reflections during my journey to Ingolstadt, which was long and fatiguing.",
+      "true_labels": {
+        "book_1": 0,
+        "book_2": 0,
+        "book_3": 1,
+        "book_4": 0
+      },
+      "predictions": {
+        "book_1": 0.005875846371054649,
+        "book_2": 0.004566022660583258,
+        "book_3": 0.9964190721511841,
+        "book_4": 0.0002988828346133232
+      }
+    },
+    {
+      "sentence": "But he has already recovered his spirits, and is reported to be on the point of marrying a lively pretty Frenchwoman, Madame Tavernier.",
+      "true_labels": {
+        "book_1": 0,
+        "book_2": 0,
+        "book_3": 1,
+        "book_4": 0
+      },
+      "predictions": {
+        "book_1": 0.172923281788826,
+        "book_2": 0.12255300581455231,
+        "book_3": 0.19626808166503906,
+        "book_4": 0.0011895706411451101
+      }
+    },
+    {
+      "sentence": "how sincerely you did love me, and endeavour to elevate my mind until it was on a level with your own.",
+      "true_labels": {
+        "book_1": 0,
+        "book_2": 0,
+        "book_3": 1,
+        "book_4": 0
+      },
+      "predictions": {
+        "book_1": 0.2754993140697479,
+        "book_2": 0.32464298605918884,
+        "book_3": 0.8631435036659241,
+        "book_4": 0.009286416694521904
+      }
+    },
+    {
+      "sentence": "Elizabeth read my anguish in my countenance, and kindly taking my hand, said, My dearest friend, you must calm yourself.",
+      "true_labels": {
+        "book_1": 0,
+        "book_2": 0,
+        "book_3": 1,
+        "book_4": 0
+      },
+      "predictions": {
+        "book_1": 0.005490797571837902,
+        "book_2": 0.013587191700935364,
+        "book_3": 0.9986599683761597,
+        "book_4": 0.0007727594929747283
+      }
+    },
+    {
+      "sentence": "Sometimes they were the expressive eyes of Henry, languishing in death, the dark orbs nearly covered by the lids and the long black lashes that fringed them; sometimes it was the watery, clouded eyes of the monster, as I first saw them in my chamber at Ingolstadt.",
+      "true_labels": {
+        "book_1": 0,
+        "book_2": 0,
+        "book_3": 1,
+        "book_4": 0
+      },
+      "predictions": {
+        "book_1": 0.015920909121632576,
+        "book_2": 0.02817627228796482,
+        "book_3": 0.8880984783172607,
+        "book_4": 0.0017055015778169036
+      }
+    },
+    {
+      "sentence": "I remained for several years their only child.",
+      "true_labels": {
+        "book_1": 0,
+        "book_2": 0,
+        "book_3": 1,
+        "book_4": 0
+      },
+      "predictions": {
+        "book_1": 0.0034128129482269287,
+        "book_2": 0.0034902053885161877,
+        "book_3": 0.9606226086616516,
+        "book_4": 0.06883692741394043
+      }
+    },
+    {
+      "sentence": "When my hunger was appeased, I directed my steps towards the well-known path that conducted to the cottage.",
+      "true_labels": {
+        "book_1": 0,
+        "book_2": 0,
+        "book_3": 1,
+        "book_4": 0
+      },
+      "predictions": {
+        "book_1": 0.0077484468929469585,
+        "book_2": 0.02757801115512848,
+        "book_3": 0.9950326681137085,
+        "book_4": 0.0005762829096056521
+      }
+    },
+    {
+      "sentence": "If you like Isabella, you shall marry her.",
+      "true_labels": {
+        "book_1": 0,
+        "book_2": 1,
+        "book_3": 0,
+        "book_4": 0
+      },
+      "predictions": {
+        "book_1": 0.4210216999053955,
+        "book_2": 0.517094612121582,
+        "book_3": 0.36696386337280273,
+        "book_4": 0.0033183612395077944
+      }
+    },
+    {
+      "sentence": "Well, perhaps you haven t found it so yet, said Alice; but when you have to turn into a chrysalis you will some day, you know and then after that into a butterfly, I should think you ll feel it a little queer, won t you?",
+      "true_labels": {
+        "book_1": 0,
+        "book_2": 0,
+        "book_3": 0,
+        "book_4": 1
+      },
+      "predictions": {
+        "book_1": 0.026165293529629707,
+        "book_2": 0.02463296800851822,
+        "book_3": 0.024764327332377434,
+        "book_4": 0.9426167011260986
+      }
+    }
+  ],
+  "multi_label_examples": [
+    {
+      "sentence": "Poor papa!",
+      "true_labels": {
+        "book_1": 1,
+        "book_2": 1,
+        "book_3": 1,
+        "book_4": 0
+      },
+      "predictions": {
+        "book_1": 0.9894896149635315,
+        "book_2": 0.9944400787353516,
+        "book_3": 0.8545266389846802,
+        "book_4": 0.4887906312942505
+      }
+    },
+    {
+      "sentence": "I said, passionately.",
+      "true_labels": {
+        "book_1": 0,
+        "book_2": 1,
+        "book_3": 1,
+        "book_4": 0
+      },
+      "predictions": {
+        "book_1": 0.38106298446655273,
+        "book_2": 0.9705917239189148,
+        "book_3": 0.7506743669509888,
+        "book_4": 0.044419389218091965
+      }
+    },
+    {
+      "sentence": "Go away!",
+      "true_labels": {
+        "book_1": 1,
+        "book_2": 1,
+        "book_3": 1,
+        "book_4": 1
+      },
+      "predictions": {
+        "book_1": 0.9900968074798584,
+        "book_2": 0.9844316840171814,
+        "book_3": 0.6658333539962769,
+        "book_4": 0.2205565720796585
+      }
+    },
+    {
+      "sentence": "The infant had been placed with these good people to nurse: they were better off then.",
+      "true_labels": {
+        "book_1": 1,
+        "book_2": 0,
+        "book_3": 1,
+        "book_4": 0
+      },
+      "predictions": {
+        "book_1": 0.09434153884649277,
+        "book_2": 0.048020344227552414,
+        "book_3": 0.9656718373298645,
+        "book_4": 0.0020600117277354
+      }
+    },
+    {
+      "sentence": "But, away with you!",
+      "true_labels": {
+        "book_1": 1,
+        "book_2": 1,
+        "book_3": 0,
+        "book_4": 0
+      },
+      "predictions": {
+        "book_1": 0.9876156449317932,
+        "book_2": 0.9849694967269897,
+        "book_3": 0.2869766056537628,
+        "book_4": 0.4003320634365082
+      }
+    },
+    {
+      "sentence": "she continued.",
+      "true_labels": {
+        "book_1": 1,
+        "book_2": 1,
+        "book_3": 0,
+        "book_4": 1
+      },
+      "predictions": {
+        "book_1": 0.9673064351081848,
+        "book_2": 0.9862386584281921,
+        "book_3": 0.042110688984394073,
+        "book_4": 0.9815964102745056
+      }
+    },
+    {
+      "sentence": "She looked nice.",
+      "true_labels": {
+        "book_1": 1,
+        "book_2": 1,
+        "book_3": 0,
+        "book_4": 0
+      },
+      "predictions": {
+        "book_1": 0.9962510466575623,
+        "book_2": 0.9780940413475037,
+        "book_3": 0.37118956446647644,
+        "book_4": 0.00835351925343275
+      }
+    },
+    {
+      "sentence": "Then she turned up.",
+      "true_labels": {
+        "book_1": 1,
+        "book_2": 1,
+        "book_3": 0,
+        "book_4": 0
+      },
+      "predictions": {
+        "book_1": 0.9919392466545105,
+        "book_2": 0.9486197233200073,
+        "book_3": 0.03255721181631088,
+        "book_4": 0.9574288725852966
+      }
+    },
+    {
+      "sentence": "said Alice, in a great hurry to change the subject of conversation.",
+      "true_labels": {
+        "book_1": 1,
+        "book_2": 0,
+        "book_3": 0,
+        "book_4": 1
+      },
+      "predictions": {
+        "book_1": 0.2308988720178604,
+        "book_2": 0.010935934260487556,
+        "book_3": 0.002249648794531822,
+        "book_4": 0.9975448250770569
+      }
+    },
+    {
+      "sentence": "he asked.",
+      "true_labels": {
+        "book_1": 1,
+        "book_2": 1,
+        "book_3": 0,
+        "book_4": 1
+      },
+      "predictions": {
+        "book_1": 0.9994798302650452,
+        "book_2": 0.9985567927360535,
+        "book_3": 0.04358027130365372,
+        "book_4": 0.9502658843994141
+      }
+    },
+    {
+      "sentence": "Ah, there he is!",
+      "true_labels": {
+        "book_1": 1,
+        "book_2": 1,
+        "book_3": 0,
+        "book_4": 0
+      },
+      "predictions": {
+        "book_1": 0.9971174001693726,
+        "book_2": 0.9965918064117432,
+        "book_3": 0.27837318181991577,
+        "book_4": 0.10769988596439362
+      }
+    },
+    {
+      "sentence": "Away after them!",
+      "true_labels": {
+        "book_1": 1,
+        "book_2": 1,
+        "book_3": 0,
+        "book_4": 0
+      },
+      "predictions": {
+        "book_1": 0.865949273109436,
+        "book_2": 0.808269739151001,
+        "book_3": 0.34165558218955994,
+        "book_4": 0.27841421961784363
+      }
+    },
+    {
+      "sentence": "It is over!",
+      "true_labels": {
+        "book_1": 1,
+        "book_2": 1,
+        "book_3": 0,
+        "book_4": 0
+      },
+      "predictions": {
+        "book_1": 0.9787821173667908,
+        "book_2": 0.8248146176338196,
+        "book_3": 0.07387407124042511,
+        "book_4": 0.03013734146952629
+      }
+    },
+    {
+      "sentence": "She d soon fetch it back!",
+      "true_labels": {
+        "book_1": 1,
+        "book_2": 1,
+        "book_3": 0,
+        "book_4": 1
+      },
+      "predictions": {
+        "book_1": 0.4444815218448639,
+        "book_2": 0.6952628493309021,
+        "book_3": 0.06558962166309357,
+        "book_4": 0.8768289089202881
+      }
+    },
+    {
+      "sentence": "I followed.",
+      "true_labels": {
+        "book_1": 0,
+        "book_2": 1,
+        "book_3": 0,
+        "book_4": 1
+      },
+      "predictions": {
+        "book_1": 0.5423533320426941,
+        "book_2": 0.7510361075401306,
+        "book_3": 0.4160502552986145,
+        "book_4": 0.6467885971069336
+      }
+    }
+  ]
+}

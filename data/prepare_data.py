@@ -1,6 +1,6 @@
 """
-Balanced data preparation for English book classification project.
-Step 1: Clean and preprocess English book descriptions with balanced sampling.
+Data preparation for English book classification project.
+Step 1: Clean and preprocess English book descriptions without balancing.
 """
 
 import os
@@ -27,11 +27,11 @@ try:
 except LookupError:
     nltk.download('punkt')
 
-class BalancedDataPreparator:
-    """Balanced data preparation for English book classification."""
+class DataPreparator:
+    """Data preparation for English book classification."""
     
     def __init__(self, config_path: str = "configs/config.yaml"):
-        """Initialize the balanced data preparator."""
+        """Initialize the data preparator."""
         with open(config_path, 'r') as f:
             self.config = yaml.safe_load(f)
         
@@ -44,9 +44,6 @@ class BalancedDataPreparator:
         
         # Set random seed
         np.random.seed(self.config['data']['random_seed'])
-        
-        # Get balanced sampling parameters
-        self.sentences_per_book = self.config['data'].get('balanced_sentences_per_book', 5000)
         
     def _get_config_hash(self) -> str:
         """Generate a hash of the data config for change detection."""
@@ -63,7 +60,7 @@ class BalancedDataPreparator:
         required_files = [
             self.data_dir / "corpus.json",
             self.data_dir / "corpus_deduplicated.json",
-            self.data_dir / "dataset",
+            self.data_dir / "full_dataset.csv",
             self.data_dir / "metadata.json"
         ]
         
@@ -225,9 +222,9 @@ class BalancedDataPreparator:
                 
         return processed
         
-    def create_balanced_dataset(self) -> Tuple[DatasetDict, Dict]:
-        """Create a balanced dataset with equal sentences per book."""
-        self.logger.info("Creating balanced dataset...")
+    def create_dataset(self) -> Tuple[Dict, Dict]:
+        """Create a dataset with all sentences from each book."""
+        self.logger.info("Creating dataset with all sentences...")
         
         # Load deduplicated corpus
         corpus_path = self.data_dir / "corpus.json"
@@ -241,11 +238,11 @@ class BalancedDataPreparator:
                 corpus_data = json.load(f)
             self.create_deduplicated_corpus(corpus_data)
             
-        # Load the deduplicated corpus for balanced dataset creation
+        # Load the deduplicated corpus for dataset creation
         with open(deduplicated_corpus_path, 'r') as f:
             corpus = json.load(f)
         
-        # Prepare balanced data
+        # Prepare data with all sentences
         all_sentences = []
         all_labels = []
         label_to_id = {}
@@ -262,27 +259,11 @@ class BalancedDataPreparator:
                 'processed_sentences': len(sentences)
             }
             
-            # Sample balanced number of sentences
-            if len(sentences) >= self.sentences_per_book:
-                # Sample randomly if we have enough sentences
-                sampled_sentences = np.random.choice(
-                    sentences, 
-                    size=self.sentences_per_book, 
-                    replace=False
-                ).tolist()
-                book_stats[book_id]['sampled_sentences'] = self.sentences_per_book
-                book_stats[book_id]['sampling_method'] = 'random_sample'
-            else:
-                # Use all sentences if we don't have enough
-                sampled_sentences = sentences
-                book_stats[book_id]['sampled_sentences'] = len(sentences)
-                book_stats[book_id]['sampling_method'] = 'all_sentences'
-                self.logger.warning(f"Book '{book_id}' has only {len(sentences)} sentences (less than {self.sentences_per_book})")
+            # Use all sentences (no balancing/sampling)
+            all_sentences.extend(sentences)
+            all_labels.extend([label_to_id[book_id]] * len(sentences))
             
-            # Add to dataset
-            for sentence in sampled_sentences:
-                all_sentences.append(sentence)
-                all_labels.append(label_to_id[book_id])
+            self.logger.info(f"Book '{book_id}': {len(sentences)} sentences")
         
         # Create DataFrame
         df = pd.DataFrame({
@@ -291,51 +272,20 @@ class BalancedDataPreparator:
             'book_id': [list(corpus.keys())[label] for label in all_labels]
         })
         
-        # Log balanced statistics
-        self.logger.info("=== BALANCED DATASET STATISTICS (FROM DEDUPLICATED CORPUS) ===")
+        # Log dataset statistics
+        self.logger.info("=== DATASET STATISTICS ===")
         for book_id in corpus.keys():
             book_mask = df['book_id'] == book_id
             book_count = book_mask.sum()
             self.logger.info(f"{book_id}: {book_count} sentences")
-        
-        # Split data
-        train_df, temp_df = train_test_split(
-            df, 
-            test_size=1-self.config['data']['train_split'],
-            stratify=df['label'],
-            random_state=self.config['data']['random_seed']
-        )
-        
-        val_size = self.config['data']['val_split'] / (self.config['data']['val_split'] + self.config['data']['test_split'])
-        val_df, test_df = train_test_split(
-            temp_df,
-            test_size=1-val_size,
-            stratify=temp_df['label'],
-            random_state=self.config['data']['random_seed']
-        )
-        
-        # Create datasets
-        train_dataset = Dataset.from_pandas(train_df)
-        val_dataset = Dataset.from_pandas(val_df)
-        test_dataset = Dataset.from_pandas(test_df)
-        
-        dataset_dict = DatasetDict({
-            'train': train_dataset,
-            'validation': val_dataset,
-            'test': test_dataset
-        })
         
         # Save metadata
         metadata = {
             'label_to_id': label_to_id,
             'id_to_label': {v: k for k, v in label_to_id.items()},
             'num_classes': len(label_to_id),
-            'train_size': len(train_df),
-            'val_size': len(val_df),
-            'test_size': len(test_df),
             'total_size': len(df),
             'books': list(corpus.keys()),
-            'balanced_sentences_per_book': self.sentences_per_book,
             'book_stats': book_stats
         }
         
@@ -343,14 +293,14 @@ class BalancedDataPreparator:
         with open(metadata_path, 'w') as f:
             json.dump(metadata, f, indent=2)
             
-        # Save processed dataset
-        dataset_path = self.data_dir / "dataset"
-        dataset_dict.save_to_disk(str(dataset_path))
+        # Save the full dataset as a single file
+        dataset_path = self.data_dir / "full_dataset.csv"
+        df.to_csv(dataset_path, index=False)
         
         self.logger.info(f"Dataset created and saved to {dataset_path}")
-        self.logger.info(f"Train: {len(train_df)}, Val: {len(val_df)}, Test: {len(test_df)}")
+        self.logger.info(f"Total sentences: {len(df)}")
         
-        return dataset_dict, metadata
+        return df.to_dict('records'), metadata
         
     def save_config_hash(self):
         """Save current config hash."""
@@ -360,21 +310,21 @@ class BalancedDataPreparator:
         with open(config_hash_file, 'w') as f:
             f.write(current_hash)
 
-def prepare_balanced_data(force_recreate=False, config_path="configs/config.yaml"):
-    """Prepare the balanced dataset for English book classification."""
-    preparator = BalancedDataPreparator(config_path=config_path)
+def prepare_data(force_recreate=False, config_path="configs/config.yaml"):
+    """Prepare the dataset for English book classification."""
+    preparator = DataPreparator(config_path=config_path)
     
     # Check if recreation is needed
     if preparator.needs_recreation(force_recreate=force_recreate):
-        preparator.logger.info("Creating balanced dataset...")
+        preparator.logger.info("Creating dataset...")
         
         # Create dataset
-        dataset_dict, metadata = preparator.create_balanced_dataset()
+        dataset_dict, metadata = preparator.create_dataset()
         
         # Save config hash
         preparator.save_config_hash()
         
-        print("✅ Balanced data preparation completed successfully!")
+        print("✅ Data preparation completed successfully!")
         print(f"📁 Dataset saved to: {preparator.data_dir}")
         print(f"📊 Metadata: {metadata}")
         return True
@@ -384,8 +334,8 @@ def prepare_balanced_data(force_recreate=False, config_path="configs/config.yaml
         return True
 
 def main():
-    """Main function to prepare the balanced dataset."""
-    parser = argparse.ArgumentParser(description="Prepare balanced English book classification dataset")
+    """Main function to prepare the dataset."""
+    parser = argparse.ArgumentParser(description="Prepare English book classification dataset")
     parser.add_argument("--force", "-f", action="store_true", 
                        help="Force recreation of all files even if they exist")
     parser.add_argument("--config", "-c", default="configs/config.yaml",
@@ -393,7 +343,7 @@ def main():
     
     args = parser.parse_args()
     
-    success = prepare_balanced_data(
+    success = prepare_data(
         force_recreate=args.force, 
         config_path=args.config
     )
