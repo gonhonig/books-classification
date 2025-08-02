@@ -457,13 +457,42 @@ class UnifiedIndividualBookTrainer:
         """Evaluate model performance specifically on multi-label sentences in test set."""
         book_name = self.book_names[book_col]
         
-        # Identify multi-label sentences in test set
+        # We need to identify multi-label sentences in the test set
+        # Since we don't have direct access to the original indices, we'll need to
+        # recreate the test split and identify multi-label sentences properly
+        
+        # Recreate the unified dataset to get the original indices
+        X_unified, y_unified, selected_indices = self.create_unified_balanced_dataset()
+        
+        # Recreate the exact train/val/test split for this book
+        y_book = y_unified[book_col]
+        X_train, X_temp, y_train, y_temp = train_test_split(
+            X_unified, y_book, test_size=0.3, random_state=42, stratify=y_book
+        )
+        X_val, X_test_full, y_val, y_test_full = train_test_split(
+            X_temp, y_temp, test_size=0.5, random_state=42, stratify=y_temp
+        )
+        
+        # Get the test indices in the unified dataset
+        test_size = len(X_test_full)
+        test_indices_in_unified = list(range(len(X_unified) - test_size, len(X_unified)))
+        
+        # Convert unified dataset indices back to original dataset indices
+        original_test_indices = [selected_indices[i] for i in test_indices_in_unified]
+        
+        # Identify multi-label sentences in the test set
         test_multi_label_indices = []
-        for i in range(len(X_test)):
-            # Get the original index in the unified dataset
-            # This is a simplified approach - in practice we'd need to track original indices
-            # For now, we'll evaluate on all test samples and identify multi-label ones
-            test_multi_label_indices.append(i)
+        for i, original_idx in enumerate(original_test_indices):
+            # Get all book labels for this sentence
+            book_labels_for_sentence = [
+                self.book_labels['book_1'][original_idx],
+                self.book_labels['book_2'][original_idx], 
+                self.book_labels['book_3'][original_idx],
+                self.book_labels['book_4'][original_idx]
+            ]
+            # Check if this is a multi-label sentence (belongs to more than one book)
+            if sum(book_labels_for_sentence) > 1:
+                test_multi_label_indices.append(i)
         
         if len(test_multi_label_indices) == 0:
             logger.info(f"No multi-label sentences found in test set for {book_name}")
@@ -475,7 +504,7 @@ class UnifiedIndividualBookTrainer:
                 'multi_label_count': 0
             }
         
-        # Get predictions for multi-label sentences
+        # Get predictions for multi-label sentences only
         model.eval()
         multi_label_predictions = []
         multi_label_targets = []
