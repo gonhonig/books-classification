@@ -2,19 +2,29 @@
 
 ## Project Status & Current Focus
 
-### Current Phase: Following 6-Step Methodology
-- **Current Step**: Step 1 🔄 IN PROGRESS - Balanced Data Preparation
-- **Goal**: Create balanced dataset with equal sentences per book to address class imbalance
-- **Next Steps**: Re-run Steps 2-5 with balanced data
+### Current Phase: Semantic Augmented Dataset Implementation
+- **Current Step**: ✅ COMPLETED - Semantic Augmented Dataset Creation
+- **Goal**: Use semantic pairs to create multi-label dataset for improved classification
+- **Next Steps**: Train models on the new semantic augmented dataset
 
 ## 6-Step Project Methodology
 
-### 1. Data Preparation 🔄 IN PROGRESS (BALANCED VERSION)
+### 1. Data Preparation ✅ COMPLETED
 - Clean and preprocess English book descriptions
-- **NEW**: Balanced sampling - equal sentences per book
-- **NEW**: 5,000 sentences per book (or all available if less)
-- **Output**: 14,750 total samples (much more balanced distribution)
-- **Status**: ✅ Balanced dataset created, ready for re-running pipeline
+- **Output**: 14,750 total samples (balanced distribution)
+- **Status**: ✅ Completed
+
+### 1.5. Semantic Augmented Dataset Creation ✅ COMPLETED
+- **Input**: Deduplicated corpus (31,760 sentences) + semantic pairs (11,861 pairs)
+- **Process**: 
+  - Start with all sentences from deduplicated corpus
+  - Mark each sentence with its original book (1 label)
+  - Use semantic pairs to add cross-book similarities
+  - Create multi-label annotations (1-4 labels per sentence)
+- **Output**: 31,760 sentences with multi-label format
+- **Dataset Splits**: Train=22,231, Val=4,764, Test=4,765
+- **Label Distribution**: 1-label (83.8%), 2-labels (11.0%), 3-labels (4.0%), 4-labels (1.3%)
+- **Status**: ✅ Completed and ready for model training
 
 ### 2. Semantic Embedding Model Selection ✅ COMPLETED
 - Tested 4 candidate models:
@@ -106,6 +116,8 @@
 ## Key Files & Their Purposes
 
 ### Core Pipeline Files
+- `create_semantic_augmented_dataset.py` - Create semantic augmented dataset
+- `analyze_semantic_augmented_dataset.py` - Analyze semantic augmented dataset
 - `run_full_pipeline.py` - Main pipeline execution
 - `model_selection_optimization.py` - Hyperparameter optimization
 - `evaluate_models.py` - Model evaluation
@@ -114,6 +126,7 @@
 
 ### Configuration
 - `configs/config.yaml` - Main configuration (updated with balanced sampling)
+- `data/semantic_pairs.json` - Semantic pairs for augmentation
 - `data/similarity_test_pairs.json` - Generated similarity test pairs
 - `data/embeddings_cache.npz` - Cached embeddings for fast processing
 
@@ -160,29 +173,43 @@
 - **Benefits**: Fair model comparison, realistic evaluation
 - **Implementation**: `data/prepare_data_balanced.py`
 
-## Current Workflow (Balanced Dataset)
+## Current Workflow (Semantic Augmented Dataset)
 
-### Balanced Dataset Statistics
+### Semantic Augmented Dataset Statistics
+```
+Total sentences: 31,760
+Train: 22,231 samples
+Val: 4,764 samples  
+Test: 4,765 samples
+
+Label distribution:
+- 1 label: 26,606 sentences (83.8%)
+- 2 labels: 3,479 sentences (11.0%)
+- 3 labels: 1,264 sentences (4.0%)
+- 4 labels: 411 sentences (1.3%)
+```
+
+### Dataset Structure
+```
+Features:
+- sentence: Text content
+- labels: Multi-label array [0,1,0,1] for 4 books
+- original_label: Single-label classification (0-3)
+- original_book: Source book name
+
+Books:
+- Anna Karenina
+- Frankenstein  
+- The Adventures of Alice in Wonderland
+- Wuthering Heights
+```
+
+### Previous Balanced Dataset (for reference)
 ```
 The Adventures of Alice in Wonderland: 1,511 sentences (all available)
 Anna Karenina: 5,000 sentences (randomly sampled)
 Wuthering Heights: 5,000 sentences (randomly sampled)  
 Frankenstein: 3,239 sentences (all available)
-```
-
-### Balanced Dataset Distribution
-```
-Train: 10,324 samples
-- Wuthering Heights: 3,500
-- Anna Karenina: 3,500  
-- Frankenstein: 2,267
-- Alice in Wonderland: 1,057
-
-Val/Test: 2,213 samples each
-- Wuthering Heights: 750
-- Anna Karenina: 750
-- Frankenstein: 486  
-- Alice in Wonderland: 227
 ```
 
 ## Configuration Management

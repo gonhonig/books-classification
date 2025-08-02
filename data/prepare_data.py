@@ -140,11 +140,10 @@ class BalancedDataPreparator:
             raise
     
     def create_deduplicated_corpus(self, corpus_data: Dict) -> Dict:
-        """Create a deduplicated version of the corpus."""
-        self.logger.info("Creating deduplicated corpus...")
+        """Create a deduplicated version of the corpus (within each book only)."""
+        self.logger.info("Creating deduplicated corpus (within books only)...")
         
         deduplicated_corpus = {}
-        global_used_sentences = set()  # Track sentences across all books
         total_original = 0
         total_deduplicated = 0
         
@@ -152,9 +151,9 @@ class BalancedDataPreparator:
             original_sentences = book_data['sentences']
             total_original += len(original_sentences)
             
-            # Clean and deduplicate sentences for this book
+            # Clean and deduplicate sentences for this book only
             cleaned_sentences = []
-            book_used_sentences = set()  # Track sentences within this book
+            book_used_sentences = set()  # Track sentences within this book only
             
             for sentence in original_sentences:
                 # Clean the sentence
@@ -165,13 +164,12 @@ class BalancedDataPreparator:
                 # Normalize for comparison (lowercase)
                 normalized_sentence = cleaned_sentence.lower().strip()
                 
-                # Skip if already used in this book or globally
-                if normalized_sentence in book_used_sentences or normalized_sentence in global_used_sentences:
+                # Skip if already used in this book only
+                if normalized_sentence in book_used_sentences:
                     continue
                 
-                # Add to both local and global sets
+                # Add to local set and keep the sentence
                 book_used_sentences.add(normalized_sentence)
-                global_used_sentences.add(normalized_sentence)
                 cleaned_sentences.append(cleaned_sentence)
             
             # Create deduplicated book data
@@ -231,7 +229,7 @@ class BalancedDataPreparator:
         """Create a balanced dataset with equal sentences per book."""
         self.logger.info("Creating balanced dataset...")
         
-        # Load corpus
+        # Load deduplicated corpus
         corpus_path = self.data_dir / "corpus.json"
         deduplicated_corpus_path = self.data_dir / "corpus_deduplicated.json"
         
@@ -243,7 +241,8 @@ class BalancedDataPreparator:
                 corpus_data = json.load(f)
             self.create_deduplicated_corpus(corpus_data)
             
-        with open(corpus_path, 'r') as f:
+        # Load the deduplicated corpus for balanced dataset creation
+        with open(deduplicated_corpus_path, 'r') as f:
             corpus = json.load(f)
         
         # Prepare balanced data
@@ -293,7 +292,7 @@ class BalancedDataPreparator:
         })
         
         # Log balanced statistics
-        self.logger.info("=== BALANCED DATASET STATISTICS ===")
+        self.logger.info("=== BALANCED DATASET STATISTICS (FROM DEDUPLICATED CORPUS) ===")
         for book_id in corpus.keys():
             book_mask = df['book_id'] == book_id
             book_count = book_mask.sum()

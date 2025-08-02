@@ -1,0 +1,60 @@
+{
+  "total_sentences": 31760,
+  "unique_sentences": 31667,
+  "original_label_distribution": {
+    "1": 20344,
+    "2": 6583,
+    "3": 3269,
+    "0": 1564
+  },
+  "original_book_distribution": {
+    "Anna Karenina": 20344,
+    "Wuthering Heights": 6583,
+    "Frankenstein": 3269,
+    "The Adventures of Alice in Wonderland": 1564
+  },
+  "multi_label_distribution": {
+    "Anna Karenina": 22244,
+    "Frankenstein": 4443,
+    "The Adventures of Alice in Wonderland": 2917,
+    "Wuthering Heights": 9396
+  },
+  "label_count_distribution": {
+    "1": 26606,
+    "2": 3479,
+    "3": 1264,
+    "4": 411
+  },
+  "cross_book_similarities": {
+    "Anna Karenina_vs_Frankenstein": {
+      "shared_sentences": 1361,
+      "total_marked": 25326,
+      "similarity_percentage": 5.37
+    },
+    "Anna Karenina_vs_The Adventures of Alice in Wonderland": {
+      "shared_sentences": 1593,
+      "total_marked": 23568,
+      "similarity_percentage": 6.76
+    },
+    "Anna Karenina_vs_Wuthering Heights": {
+      "shared_sentences": 3889,
+      "total_marked": 27751,
+      "similarity_percentage": 14.01
+    },
+    "Frankenstein_vs_The Adventures of Alice in Wonderland": {
+      "shared_sentences": 457,
+      "total_marked": 6903,
+      "similarity_percentage": 6.62
+    },
+    "Frankenstein_vs_Wuthering Heights": {
+      "shared_sentences": 1233,
+      "total_marked": 12606,
+      "similarity_percentage": 9.78
+    },
+    "The Adventures of Alice in Wonderland_vs_Wuthering Heights": {
+      "shared_sentences": 1204,
+      "total_marked": 11109,
+      "similarity_percentage": 10.84
+    }
+  }
+}

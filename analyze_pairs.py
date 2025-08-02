@@ -5,7 +5,7 @@ Analyze the semantic pairs to find more meaningful similarities.
 
 import json
 
-def analyze_pairs(filename='semantic_pairs.json'):
+def analyze_pairs(filename='data/semantic_pairs.json'):
     """Analyze pairs and show meaningful results"""
     
     print("Loading pairs...")

@@ -14,7 +14,22 @@ This project implements a comprehensive approach to classify English book senten
   - Train/validation/test split (70/15/15)
   - Metadata creation and storage
 - **Output**: Processed dataset with 21,871 training samples
-- **Files**: `data/processed_dataset/`, `data/metadata.json`
+- **Files**: `data/dataset/`, `data/metadata.json`
+
+### Step 1.5: Semantic Augmented Dataset Creation ✅ COMPLETED
+**Objective**: Create multi-label dataset using semantic pairs
+- **Input**: Deduplicated corpus + semantic pairs
+- **Process**:
+  - Start with all sentences from deduplicated corpus (31,760 sentences)
+  - Mark each sentence with its original book (1 label)
+  - Use semantic pairs to add cross-book similarities
+  - Create multi-label annotations (1-4 labels per sentence)
+- **Output**: Semantic augmented dataset with multi-label format
+- **Dataset Statistics**:
+  - Total sentences: 31,760
+  - Train/Val/Test: 22,231/4,764/4,765
+  - Label distribution: 1-label (83.8%), 2-labels (11.0%), 3-labels (4.0%), 4-labels (1.3%)
+- **Files**: `data/dataset/` (multi-label format), `data/semantic_augmented/`
 
 ### Step 2: Semantic Embedding Model Selection ✅ COMPLETED
 **Objective**: Test and select the best semantic embedding model
@@ -57,6 +72,8 @@ This project implements a comprehensive approach to classify English book senten
   - Mean books per sentence: 1.24
   - Multi-book ratio: 21.7%
 - **Files**: `data/features_knn/augmented_dataset.csv`
+
+**Note**: This step has been superseded by the semantic augmented dataset approach, which provides better multi-label classification capabilities.
 
 ### Step 5: Train Competing Models ⏳ IN PROGRESS
 **Objective**: Train and compare different classification approaches

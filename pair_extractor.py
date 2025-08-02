@@ -257,7 +257,7 @@ def compute_similarity_pairs(embeddings: np.ndarray,
 def save_results(pairs: List[Dict], 
                 sentences_by_book: Dict[str, List[str]], 
                 book_metadata: Dict[str, Dict],
-                output_file: str = 'semantic_pairs.json'):
+                output_file: str = 'data/semantic_pairs.json'):
     """Save results to JSON file"""
     print(f"Saving {len(pairs)} pairs to {output_file}")
     
@@ -297,8 +297,8 @@ def main():
     parser = argparse.ArgumentParser(description='Simple pair extractor for semantic similarity')
     parser.add_argument('--min_similarity', type=float, default=0.7, 
                        help='Minimum similarity threshold (default: 0.7)')
-    parser.add_argument('--output', type=str, default='semantic_pairs.json',
-                       help='Output file name (default: semantic_pairs.json)')
+    parser.add_argument('--output', type=str, default='data/semantic_pairs.json',
+                       help='Output file name (default: data/semantic_pairs.json)')
     parser.add_argument('--top_n', type=int, default=10,
                        help='Number of top pairs to display (default: 10)')
     

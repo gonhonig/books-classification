@@ -1,0 +1,78 @@
+{
+  "analyses": [
+    {
+      "split_name": "train",
+      "total_samples": 22231,
+      "label_count_distribution": {
+        "1": 18652,
+        "2": 2414,
+        "3": 886,
+        "4": 279
+      },
+      "book_distribution": {
+        "Anna Karenina": 15524,
+        "Frankenstein": 3132,
+        "The Adventures of Alice in Wonderland": 2029,
+        "Wuthering Heights": 6569
+      },
+      "original_label_distribution": {
+        "0": 1096,
+        "1": 14211,
+        "2": 4606,
+        "3": 2318
+      }
+    },
+    {
+      "split_name": "validation",
+      "total_samples": 4764,
+      "label_count_distribution": {
+        "1": 3964,
+        "2": 532,
+        "3": 195,
+        "4": 73
+      },
+      "book_distribution": {
+        "Anna Karenina": 3397,
+        "Frankenstein": 684,
+        "The Adventures of Alice in Wonderland": 414,
+        "Wuthering Heights": 1410
+      },
+      "original_label_distribution": {
+        "0": 201,
+        "1": 3107,
+        "2": 961,
+        "3": 495
+      }
+    },
+    {
+      "split_name": "test",
+      "total_samples": 4765,
+      "label_count_distribution": {
+        "1": 3990,
+        "2": 533,
+        "3": 183,
+        "4": 59
+      },
+      "book_distribution": {
+        "Anna Karenina": 3323,
+        "Frankenstein": 627,
+        "The Adventures of Alice in Wonderland": 474,
+        "Wuthering Heights": 1417
+      },
+      "original_label_distribution": {
+        "0": 267,
+        "1": 3026,
+        "2": 1016,
+        "3": 456
+      }
+    }
+  ],
+  "summary": {
+    "total_samples": 31760,
+    "split_ratios": {
+      "train": 22231,
+      "validation": 4764,
+      "test": 4765
+    }
+  }
+}

@@ -6,11 +6,18 @@
       "dtype": "string",
       "_type": "Value"
     },
-    "label": {
+    "labels": {
+      "feature": {
+        "dtype": "int64",
+        "_type": "Value"
+      },
+      "_type": "Sequence"
+    },
+    "original_label": {
       "dtype": "int64",
       "_type": "Value"
     },
-    "book_id": {
+    "original_book": {
       "dtype": "string",
       "_type": "Value"
     },
