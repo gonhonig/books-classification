@@ -51,26 +51,18 @@ class MultiLabelTrainer:
         df = pd.read_csv(self.data_path)
         logger.info(f"Loaded dataset with shape: {df.shape}")
         
-        # Separate features and labels
-        # Use sentence text as features (we'll create simple features for now)
-        # For now, let's use the original_label and original_book as features
-        feature_cols = ['original_label', 'original_book']
+        # Load semantic embeddings
+        logger.info("Loading semantic embeddings...")
+        embeddings = np.load('data/embeddings_cache_4bdc0800b2ede390f133eed833a83211.npz')
+        semantic_features = embeddings['embeddings']
+        logger.info(f"Loaded semantic embeddings with shape: {semantic_features.shape}")
+        
+        # Separate labels
         label_cols = [col for col in df.columns if col.startswith('book_')]
-        
-        # Create simple features
-        X = df[feature_cols].copy()
-        
-        # Convert original_book to numeric features
-        book_mapping = {
-            'Anna Karenina': 0,
-            'Frankenstein': 1, 
-            'The Adventures of Alice in Wonderland': 2,
-            'Wuthering Heights': 3
-        }
-        X['original_book_encoded'] = X['original_book'].map(book_mapping)
-        X = X[['original_label', 'original_book_encoded']].values
-        
         y = df[label_cols].values
+        
+        # Use semantic embeddings as features
+        X = semantic_features
         
         logger.info(f"Features shape: {X.shape}")
         logger.info(f"Labels shape: {y.shape}")

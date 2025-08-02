@@ -50,26 +50,18 @@ class HyperparameterOptimizer:
         df = pd.read_csv(self.data_path)
         logger.info(f"Loaded dataset with shape: {df.shape}")
         
-        # Separate features and labels
-        # Use sentence text as features (we'll create simple features for now)
-        # For now, let's use the original_label and original_book as features
-        feature_cols = ['original_label', 'original_book']
+        # Load semantic embeddings
+        logger.info("Loading semantic embeddings...")
+        embeddings = np.load('data/embeddings_cache_4bdc0800b2ede390f133eed833a83211.npz')
+        semantic_features = embeddings['embeddings']
+        logger.info(f"Loaded semantic embeddings with shape: {semantic_features.shape}")
+        
+        # Separate labels
         label_cols = [col for col in df.columns if col.startswith('book_')]
-        
-        # Create simple features
-        X = df[feature_cols].copy()
-        
-        # Convert original_book to numeric features
-        book_mapping = {
-            'Anna Karenina': 0,
-            'Frankenstein': 1, 
-            'The Adventures of Alice in Wonderland': 2,
-            'Wuthering Heights': 3
-        }
-        X['original_book_encoded'] = X['original_book'].map(book_mapping)
-        X = X[['original_label', 'original_book_encoded']].values
-        
         y = df[label_cols].values
+        
+        # Use semantic embeddings as features
+        X = semantic_features
         
         logger.info(f"Features shape: {X.shape}")
         logger.info(f"Labels shape: {y.shape}")
@@ -89,13 +81,13 @@ class HyperparameterOptimizer:
         """Optimize Random Forest hyperparameters."""
         logger.info("Optimizing Random Forest hyperparameters...")
         
-        # Define parameter grid
+        # Define parameter grid (reduced for faster optimization)
         param_grid = {
-            'estimator__n_estimators': [50, 100, 200],
-            'estimator__max_depth': [None, 10, 20, 30],
-            'estimator__min_samples_split': [2, 5, 10],
-            'estimator__min_samples_leaf': [1, 2, 4],
-            'estimator__max_features': ['sqrt', 'log2', None]
+            'estimator__n_estimators': [50, 100],
+            'estimator__max_depth': [None, 10, 20],
+            'estimator__min_samples_split': [2, 5],
+            'estimator__min_samples_leaf': [1, 2],
+            'estimator__max_features': ['sqrt', 'log2']
         }
         
         # Create base model
@@ -107,7 +99,7 @@ class HyperparameterOptimizer:
         
         # Perform grid search
         grid_search = GridSearchCV(
-            model, param_grid, cv=3, scoring=scorer, n_jobs=-1, verbose=1
+            model, param_grid, cv=3, scoring=scorer, n_jobs=-1, verbose=3
         )
         
         grid_search.fit(self.X_train, self.y_train)
@@ -140,12 +132,12 @@ class HyperparameterOptimizer:
         """Optimize Logistic Regression hyperparameters."""
         logger.info("Optimizing Logistic Regression hyperparameters...")
         
-        # Define parameter grid
+        # Define parameter grid (reduced for faster optimization)
         param_grid = {
-            'estimator__C': [0.1, 1.0, 10.0, 100.0],
+            'estimator__C': [0.1, 1.0],
             'estimator__penalty': ['l1', 'l2'],
-            'estimator__solver': ['liblinear', 'saga'],
-            'estimator__max_iter': [1000, 2000]
+            'estimator__solver': ['liblinear'],
+            'estimator__max_iter': [1000]
         }
         
         # Create base model
@@ -157,7 +149,7 @@ class HyperparameterOptimizer:
         
         # Perform grid search
         grid_search = GridSearchCV(
-            model, param_grid, cv=3, scoring=scorer, n_jobs=-1, verbose=1
+            model, param_grid, cv=3, scoring=scorer, n_jobs=-1, verbose=3
         )
         
         grid_search.fit(self.X_train, self.y_train)
@@ -190,11 +182,11 @@ class HyperparameterOptimizer:
         """Optimize SVM hyperparameters."""
         logger.info("Optimizing SVM hyperparameters...")
         
-        # Define parameter grid
+        # Define parameter grid (reduced for faster optimization)
         param_grid = {
-            'estimator__C': [0.1, 1.0, 10.0, 100.0],
-            'estimator__kernel': ['linear', 'rbf', 'poly'],
-            'estimator__gamma': ['scale', 'auto', 0.001, 0.01, 0.1]
+            'estimator__C': [0.1, 1.0],
+            'estimator__kernel': ['rbf'],
+            'estimator__gamma': ['scale', 'auto']
         }
         
         # Create base model
@@ -206,7 +198,7 @@ class HyperparameterOptimizer:
         
         # Perform grid search
         grid_search = GridSearchCV(
-            model, param_grid, cv=3, scoring=scorer, n_jobs=-1, verbose=1
+            model, param_grid, cv=3, scoring=scorer, n_jobs=-1, verbose=3
         )
         
         grid_search.fit(self.X_train, self.y_train)
