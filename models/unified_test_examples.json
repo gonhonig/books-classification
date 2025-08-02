@@ -1,0 +1,456 @@
+{
+  "single_label_examples": [
+    {
+      "sentence": "Spring advanced rapidly; the weather became fine and the skies cloudless.",
+      "true_labels": {
+        "book_1": 0,
+        "book_2": 0,
+        "book_3": 1,
+        "book_4": 0
+      },
+      "predictions": {
+        "book_1": 0.014533045701682568,
+        "book_2": 0.019719768315553665,
+        "book_3": 0.9798439741134644,
+        "book_4": 0.0034255546052008867
+      }
+    },
+    {
+      "sentence": "Why, I haven t had a wink of sleep these three weeks!",
+      "true_labels": {
+        "book_1": 0,
+        "book_2": 0,
+        "book_3": 0,
+        "book_4": 1
+      },
+      "predictions": {
+        "book_1": 0.37259650230407715,
+        "book_2": 0.7187659740447998,
+        "book_3": 0.05065801367163658,
+        "book_4": 0.7960813045501709
+      }
+    },
+    {
+      "sentence": "He is an Englishman, and in the midst of national and professional prejudices, unsoftened by cultivation, retains some of the noblest endowments of humanity.",
+      "true_labels": {
+        "book_1": 0,
+        "book_2": 0,
+        "book_3": 1,
+        "book_4": 0
+      },
+      "predictions": {
+        "book_1": 0.0046641090884804726,
+        "book_2": 0.03930987790226936,
+        "book_3": 0.9877793192863464,
+        "book_4": 0.004367772489786148
+      }
+    },
+    {
+      "sentence": "Alice did not at all like the tone of this remark, and thought it would be as well to introduce some other subject of conversation.",
+      "true_labels": {
+        "book_1": 0,
+        "book_2": 0,
+        "book_3": 0,
+        "book_4": 1
+      },
+      "predictions": {
+        "book_1": 0.11468358337879181,
+        "book_2": 0.03981948271393776,
+        "book_3": 0.008477904833853245,
+        "book_4": 0.9891856908798218
+      }
+    },
+    {
+      "sentence": "If the dead villain could rise from his grave to abuse me for his offspring s wrongs, I should have the fun of seeing the said offspring fight him back again, indignant that he should dare to rail at the one friend he has in the world!",
+      "true_labels": {
+        "book_1": 0,
+        "book_2": 1,
+        "book_3": 0,
+        "book_4": 0
+      },
+      "predictions": {
+        "book_1": 0.010453990660607815,
+        "book_2": 0.10278847813606262,
+        "book_3": 0.9204021692276001,
+        "book_4": 0.007976251654326916
+      }
+    },
+    {
+      "sentence": "The gentle words of Agatha and the animated smiles of the charming Arabian were not for me.",
+      "true_labels": {
+        "book_1": 0,
+        "book_2": 0,
+        "book_3": 1,
+        "book_4": 0
+      },
+      "predictions": {
+        "book_1": 0.010506650432944298,
+        "book_2": 0.09883202612400055,
+        "book_3": 0.9781543612480164,
+        "book_4": 0.00707304896786809
+      }
+    },
+    {
+      "sentence": "However, that s none of my business; I am sent to nurse you and get you well; I do my duty with a safe conscience; it were well if everybody did the same.",
+      "true_labels": {
+        "book_1": 0,
+        "book_2": 0,
+        "book_3": 1,
+        "book_4": 0
+      },
+      "predictions": {
+        "book_1": 0.24918489158153534,
+        "book_2": 0.2920933663845062,
+        "book_3": 0.5766717791557312,
+        "book_4": 0.007917236536741257
+      }
+    },
+    {
+      "sentence": "The Greeks wept for joy when they beheld the Mediterranean from the hills of Asia, and hailed with rapture the boundary of their toils.",
+      "true_labels": {
+        "book_1": 0,
+        "book_2": 0,
+        "book_3": 1,
+        "book_4": 0
+      },
+      "predictions": {
+        "book_1": 0.09242719411849976,
+        "book_2": 0.002691655419766903,
+        "book_3": 0.8154326677322388,
+        "book_4": 0.016118375584483147
+      }
+    },
+    {
+      "sentence": "It was the White Rabbit returning, splendidly dressed, with a pair of white kid gloves in one hand and a large fan in the other: he came trotting along in a great hurry, muttering to himself as he came, Oh!",
+      "true_labels": {
+        "book_1": 0,
+        "book_2": 0,
+        "book_3": 0,
+        "book_4": 1
+      },
+      "predictions": {
+        "book_1": 0.06982248276472092,
+        "book_2": 0.1577705591917038,
+        "book_3": 0.04900861158967018,
+        "book_4": 0.9666265845298767
+      }
+    },
+    {
+      "sentence": "Oh, my poor little feet, I wonder who will put on your shoes and stockings for you now, dears?",
+      "true_labels": {
+        "book_1": 0,
+        "book_2": 0,
+        "book_3": 0,
+        "book_4": 1
+      },
+      "predictions": {
+        "book_1": 0.14892706274986267,
+        "book_2": 0.15959389507770538,
+        "book_3": 0.002766503719612956,
+        "book_4": 0.9372924566268921
+      }
+    },
+    {
+      "sentence": "And yet you rescued me from a strange and perilous situation; you have benevolently restored me to life.",
+      "true_labels": {
+        "book_1": 0,
+        "book_2": 0,
+        "book_3": 1,
+        "book_4": 0
+      },
+      "predictions": {
+        "book_1": 0.03503694757819176,
+        "book_2": 0.14998209476470947,
+        "book_3": 0.9974033236503601,
+        "book_4": 0.00040428046486340463
+      }
+    },
+    {
+      "sentence": "So you see, Miss, we re doing our best, afore she comes, to At this moment Five, who had been anxiously looking across the garden, called out The Queen!",
+      "true_labels": {
+        "book_1": 0,
+        "book_2": 0,
+        "book_3": 0,
+        "book_4": 1
+      },
+      "predictions": {
+        "book_1": 0.3632494807243347,
+        "book_2": 0.10038070380687714,
+        "book_3": 0.04551250487565994,
+        "book_4": 0.8660394549369812
+      }
+    },
+    {
+      "sentence": "During this interval, one of the servants, happening to examine the apparel she had worn on the night of the murder, had discovered in her pocket the picture of my mother, which had been judged to be the temptation of the murderer.",
+      "true_labels": {
+        "book_1": 0,
+        "book_2": 0,
+        "book_3": 1,
+        "book_4": 0
+      },
+      "predictions": {
+        "book_1": 0.013492868281900883,
+        "book_2": 0.06995286792516708,
+        "book_3": 0.9784608483314514,
+        "book_4": 0.0004991247551515698
+      }
+    },
+    {
+      "sentence": "We discerned Linton watching at the same spot he had selected before.",
+      "true_labels": {
+        "book_1": 0,
+        "book_2": 1,
+        "book_3": 0,
+        "book_4": 0
+      },
+      "predictions": {
+        "book_1": 0.11568067222833633,
+        "book_2": 0.293154239654541,
+        "book_3": 0.013027317821979523,
+        "book_4": 0.001087530399672687
+      }
+    },
+    {
+      "sentence": "Down the Rabbit-Hole Alice was beginning to get very tired of sitting by her sister on the bank, and of having nothing to do: once or twice she had peeped into the book her sister was reading, but it had no pictures or conversations in it, and what is the use of a book, thought Alice without pictures or conversations?",
+      "true_labels": {
+        "book_1": 0,
+        "book_2": 0,
+        "book_3": 0,
+        "book_4": 1
+      },
+      "predictions": {
+        "book_1": 0.011733735911548138,
+        "book_2": 0.04408055543899536,
+        "book_3": 0.005459484178572893,
+        "book_4": 0.9838380813598633
+      }
+    }
+  ],
+  "multi_label_examples": [
+    {
+      "sentence": "O the darling!",
+      "true_labels": {
+        "book_1": 1,
+        "book_2": 1,
+        "book_3": 0,
+        "book_4": 1
+      },
+      "predictions": {
+        "book_1": 0.869005560874939,
+        "book_2": 0.8969041109085083,
+        "book_3": 0.22336959838867188,
+        "book_4": 0.90752112865448
+      }
+    },
+    {
+      "sentence": "Amen!",
+      "true_labels": {
+        "book_1": 1,
+        "book_2": 1,
+        "book_3": 1,
+        "book_4": 0
+      },
+      "predictions": {
+        "book_1": 0.9879562258720398,
+        "book_2": 0.9697032570838928,
+        "book_3": 0.7171968221664429,
+        "book_4": 0.018078522756695747
+      }
+    },
+    {
+      "sentence": "I am wretched; you are wretched.",
+      "true_labels": {
+        "book_1": 1,
+        "book_2": 1,
+        "book_3": 1,
+        "book_4": 0
+      },
+      "predictions": {
+        "book_1": 0.9233885407447815,
+        "book_2": 0.6976118087768555,
+        "book_3": 0.9086701273918152,
+        "book_4": 0.044835176318883896
+      }
+    },
+    {
+      "sentence": "Fair means!",
+      "true_labels": {
+        "book_1": 1,
+        "book_2": 1,
+        "book_3": 0,
+        "book_4": 0
+      },
+      "predictions": {
+        "book_1": 0.6645269393920898,
+        "book_2": 0.6105685830116272,
+        "book_3": 0.063868947327137,
+        "book_4": 0.051579248160123825
+      }
+    },
+    {
+      "sentence": "Wonderfully good-hearted fellow!",
+      "true_labels": {
+        "book_1": 1,
+        "book_2": 0,
+        "book_3": 1,
+        "book_4": 0
+      },
+      "predictions": {
+        "book_1": 0.9778769612312317,
+        "book_2": 0.9199828505516052,
+        "book_3": 0.6725966334342957,
+        "book_4": 0.040119417011737823
+      }
+    },
+    {
+      "sentence": "she thought, looking at his frigid and imposing figure, and especially the ears that struck her at the moment as propping up the brim of his round hat.",
+      "true_labels": {
+        "book_1": 1,
+        "book_2": 1,
+        "book_3": 0,
+        "book_4": 0
+      },
+      "predictions": {
+        "book_1": 0.74249666929245,
+        "book_2": 0.8052077293395996,
+        "book_3": 0.021576538681983948,
+        "book_4": 0.11253076791763306
+      }
+    },
+    {
+      "sentence": "It will be lighter for you here, answered her sister-in-law.",
+      "true_labels": {
+        "book_1": 1,
+        "book_2": 1,
+        "book_3": 0,
+        "book_4": 0
+      },
+      "predictions": {
+        "book_1": 0.5678948163986206,
+        "book_2": 0.841995894908905,
+        "book_3": 0.03253369405865669,
+        "book_4": 0.004025627858936787
+      }
+    },
+    {
+      "sentence": "What are you saying?",
+      "true_labels": {
+        "book_1": 1,
+        "book_2": 1,
+        "book_3": 0,
+        "book_4": 0
+      },
+      "predictions": {
+        "book_1": 0.9848620891571045,
+        "book_2": 0.9570797681808472,
+        "book_3": 0.09679878503084183,
+        "book_4": 0.370718389749527
+      }
+    },
+    {
+      "sentence": "And the more he tried to compose himself, the more breathless he found himself.",
+      "true_labels": {
+        "book_1": 1,
+        "book_2": 1,
+        "book_3": 1,
+        "book_4": 0
+      },
+      "predictions": {
+        "book_1": 0.9655038118362427,
+        "book_2": 0.7618260979652405,
+        "book_3": 0.2781343460083008,
+        "book_4": 0.013424945995211601
+      }
+    },
+    {
+      "sentence": "But he said not at all what he had to say.",
+      "true_labels": {
+        "book_1": 1,
+        "book_2": 1,
+        "book_3": 0,
+        "book_4": 0
+      },
+      "predictions": {
+        "book_1": 0.9963366985321045,
+        "book_2": 0.9455478191375732,
+        "book_3": 0.07365082204341888,
+        "book_4": 0.1891876608133316
+      }
+    },
+    {
+      "sentence": "Down with them!",
+      "true_labels": {
+        "book_1": 1,
+        "book_2": 1,
+        "book_3": 0,
+        "book_4": 0
+      },
+      "predictions": {
+        "book_1": 0.9600127935409546,
+        "book_2": 0.759573221206665,
+        "book_3": 0.08948647230863571,
+        "book_4": 0.24405227601528168
+      }
+    },
+    {
+      "sentence": "answered Kitty.",
+      "true_labels": {
+        "book_1": 1,
+        "book_2": 0,
+        "book_3": 0,
+        "book_4": 1
+      },
+      "predictions": {
+        "book_1": 0.9695034027099609,
+        "book_2": 0.010940995998680592,
+        "book_3": 0.0026931995525956154,
+        "book_4": 0.9992960691452026
+      }
+    },
+    {
+      "sentence": "he would commonly cry in such cases.",
+      "true_labels": {
+        "book_1": 1,
+        "book_2": 1,
+        "book_3": 0,
+        "book_4": 0
+      },
+      "predictions": {
+        "book_1": 0.9839455485343933,
+        "book_2": 0.8601052165031433,
+        "book_3": 0.5776403546333313,
+        "book_4": 0.3488144278526306
+      }
+    },
+    {
+      "sentence": "Yes, yes, yes you re right; you re right!",
+      "true_labels": {
+        "book_1": 1,
+        "book_2": 1,
+        "book_3": 0,
+        "book_4": 1
+      },
+      "predictions": {
+        "book_1": 0.9730356931686401,
+        "book_2": 0.975671648979187,
+        "book_3": 0.14314281940460205,
+        "book_4": 0.9048925042152405
+      }
+    },
+    {
+      "sentence": "Alice felt dreadfully puzzled.",
+      "true_labels": {
+        "book_1": 1,
+        "book_2": 0,
+        "book_3": 0,
+        "book_4": 1
+      },
+      "predictions": {
+        "book_1": 0.42825424671173096,
+        "book_2": 0.14018774032592773,
+        "book_3": 0.0091359568759799,
+        "book_4": 0.9982933402061462
+      }
+    }
+  ]
+}
