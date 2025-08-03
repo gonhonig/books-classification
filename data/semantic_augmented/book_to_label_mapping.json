@@ -1,0 +1,21 @@
+{
+  "book_to_label": {
+    "Anna Karenina": 0,
+    "Frankenstein": 1,
+    "The Adventures of Alice in Wonderland": 2,
+    "Wuthering Heights": 3
+  },
+  "label_to_book": {
+    "0": "Anna Karenina",
+    "1": "Frankenstein",
+    "2": "The Adventures of Alice in Wonderland",
+    "3": "Wuthering Heights"
+  },
+  "num_classes": 4,
+  "books": [
+    "Anna Karenina",
+    "Frankenstein",
+    "The Adventures of Alice in Wonderland",
+    "Wuthering Heights"
+  ]
+}

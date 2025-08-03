@@ -25,7 +25,7 @@ multi_label:
     patience: 30
     weight_decay: 6.618617548521995e-05
 per_book:
-  book_1:
+  book_Anna_Karenina:
     architecture:
       dropout_rate: 0.33284564045759835
       hidden_dims:
@@ -44,7 +44,7 @@ per_book:
       learning_rate: 0.004604798510104055
       patience: 20
       weight_decay: 0.00048258145679797216
-  book_2:
+  book_Frankenstein:
     architecture:
       dropout_rate: 0.28118224911006295
       hidden_dims:
@@ -66,7 +66,7 @@ per_book:
       learning_rate: 0.0005761750693312183
       patience: 16
       weight_decay: 0.0001821053318024581
-  book_3:
+  book_The_Adventures_of_Alice_in_Wonderland:
     architecture:
       dropout_rate: 0.4868379827843776
       hidden_dims:
@@ -86,7 +86,7 @@ per_book:
       learning_rate: 0.0012306371788169933
       patience: 26
       weight_decay: 1.2455291296976507e-06
-  book_4:
+  book_Wuthering_Heights:
     architecture:
       dropout_rate: 0.298716075406882
       hidden_dims:

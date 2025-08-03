@@ -11,7 +11,7 @@
         "dtype": "int64",
         "_type": "Value"
       },
-      "_type": "Sequence"
+      "_type": "List"
     },
     "original_label": {
       "dtype": "int64",

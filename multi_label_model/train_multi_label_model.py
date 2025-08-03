@@ -74,24 +74,80 @@ class NeuralNetworkTrainer:
         self.dataset = None
         self.embeddings = None
         
-        # Book order in labels list (based on the dataset creation order)
-        self.book_order = [
-            'Anna Karenina',
-            'Frankenstein', 
-            'The Adventures of Alice in Wonderland',
-            'Wuthering Heights'
-        ]
+        # Load book-to-label mapping from JSON file
+        self.book_mapping = self.load_book_mapping()
         
-        # Book names mapping
-        self.book_names = {
-            'book_1': 'Anna Karenina',
-            'book_2': 'Wuthering Heights', 
-            'book_3': 'Frankenstein',
-            'book_4': 'The Adventures of Alice in Wonderland'
-        }
+        # Book order in labels list (from the mapping file)
+        self.book_order = self.book_mapping['books']
+        
+        # Book names mapping - using actual column names from the dataset
+        # Generate from the loaded mapping to ensure correct order
+        self.book_names = {}
+        for book_name in self.book_mapping['books']:
+            # Convert book name to column format (replace spaces with underscores, remove apostrophes)
+            clean_name = book_name.replace(' ', '_').replace("'", '')
+            book_col = f"book_{clean_name}"
+            self.book_names[book_col] = book_name
         
         logger.info(f"Using device: {self.device}")
         
+    def load_book_mapping(self):
+        """Load book-to-label mapping from JSON file."""
+        mapping_file = Path("data/semantic_augmented/book_to_label_mapping.json")
+        if not mapping_file.exists():
+            logger.warning(f"Book mapping file not found: {mapping_file}. Using default order.")
+            return {
+                'books': [
+                    'Anna Karenina',
+                    'Frankenstein',
+                    'The Adventures of Alice in Wonderland',
+                    'Wuthering Heights'
+                ],
+                'book_to_label': {
+                    'Anna Karenina': 0,
+                    'Frankenstein': 1,
+                    'The Adventures of Alice in Wonderland': 2,
+                    'Wuthering Heights': 3
+                },
+                'label_to_book': {
+                    '0': 'Anna Karenina',
+                    '1': 'Frankenstein',
+                    '2': 'The Adventures of Alice in Wonderland',
+                    '3': 'Wuthering Heights'
+                },
+                'num_classes': 4
+            }
+        
+        try:
+            with open(mapping_file, 'r') as f:
+                mapping = json.load(f)
+            logger.info(f"Loaded book mapping from: {mapping_file}")
+            logger.info(f"Book order: {mapping['books']}")
+            return mapping
+        except Exception as e:
+            logger.error(f"Failed to load book mapping: {e}. Using default order.")
+            return {
+                'books': [
+                    'Anna Karenina',
+                    'Frankenstein',
+                    'The Adventures of Alice in Wonderland',
+                    'Wuthering Heights'
+                ],
+                'book_to_label': {
+                    'Anna Karenina': 0,
+                    'Frankenstein': 1,
+                    'The Adventures of Alice in Wonderland': 2,
+                    'Wuthering Heights': 3
+                },
+                'label_to_book': {
+                    '0': 'Anna Karenina',
+                    '1': 'Frankenstein',
+                    '2': 'The Adventures of Alice in Wonderland',
+                    '3': 'Wuthering Heights'
+                },
+                'num_classes': 4
+            }
+
     def load_config(self):
         """Load configuration from YAML file."""
         config_file = Path(self.config_path)
@@ -470,7 +526,7 @@ class NeuralNetworkTrainer:
         # Calculate per-book metrics
         per_book_metrics = {}
         
-        for book_col in ['book_1', 'book_2', 'book_3', 'book_4']:
+        for book_col in ['book_Anna_Karenina', 'book_Frankenstein', 'book_The_Adventures_of_Alice_in_Wonderland', 'book_Wuthering_Heights']:
             book_name = self.book_names[book_col]
             book_idx = self.book_order.index(book_name)
             
@@ -552,12 +608,12 @@ class NeuralNetworkTrainer:
             logger.info(f"  Multi-label: Acc={multi_label_accuracy:.3f}, F1={multi_label_f1:.3f} ({len(multi_label_test_indices)} samples)")
         
         # Save detailed metrics
-        metrics_path = "multi_label_model/per_book_detailed_metrics.json"
+        metrics_path = "multi_label_model/multi_label_detailed_metrics.json"
         with open(metrics_path, 'w') as f:
             json.dump(per_book_metrics, f, indent=2)
         
         # Create detailed report
-        report_path = "multi_label_model/per_book_detailed_metrics_report.md"
+        report_path = "multi_label_model/multi_label_detailed_metrics_report.md"
         with open(report_path, 'w') as f:
             f.write("# Multi-Label Model - Per-Book Single-Label vs Multi-Label Performance Report\n\n")
             
@@ -727,14 +783,14 @@ class NeuralNetworkTrainer:
             
             # Get true labels
             true_labels = {}
-            for book_col in ['book_1', 'book_2', 'book_3', 'book_4']:
+            for book_col in ['book_Anna_Karenina', 'book_Frankenstein', 'book_The_Adventures_of_Alice_in_Wonderland', 'book_Wuthering_Heights']:
                 book_name = self.book_names[book_col]
                 book_idx = self.book_order.index(book_name)
                 true_labels[book_col] = int(labels[book_idx])
             
             # Get predictions
             predictions = {}
-            for book_col in ['book_1', 'book_2', 'book_3', 'book_4']:
+            for book_col in ['book_Anna_Karenina', 'book_Frankenstein', 'book_The_Adventures_of_Alice_in_Wonderland', 'book_Wuthering_Heights']:
                 book_name = self.book_names[book_col]
                 book_idx = self.book_order.index(book_name)
                 predictions[book_col] = float(test_probabilities[idx][book_idx])
@@ -753,14 +809,14 @@ class NeuralNetworkTrainer:
             
             # Get true labels
             true_labels = {}
-            for book_col in ['book_1', 'book_2', 'book_3', 'book_4']:
+            for book_col in ['book_Anna_Karenina', 'book_Frankenstein', 'book_The_Adventures_of_Alice_in_Wonderland', 'book_Wuthering_Heights']:
                 book_name = self.book_names[book_col]
                 book_idx = self.book_order.index(book_name)
                 true_labels[book_col] = int(labels[book_idx])
             
             # Get predictions
             predictions = {}
-            for book_col in ['book_1', 'book_2', 'book_3', 'book_4']:
+            for book_col in ['book_Anna_Karenina', 'book_Frankenstein', 'book_The_Adventures_of_Alice_in_Wonderland', 'book_Wuthering_Heights']:
                 book_name = self.book_names[book_col]
                 book_idx = self.book_order.index(book_name)
                 predictions[book_col] = float(test_probabilities[idx][book_idx])
@@ -778,7 +834,7 @@ class NeuralNetworkTrainer:
         for example in examples['single_label_examples']:
             correct_predictions = 0
             total_predictions = 0
-            for book_col in ['book_1', 'book_2', 'book_3', 'book_4']:
+            for book_col in ['book_Anna_Karenina', 'book_Frankenstein', 'book_The_Adventures_of_Alice_in_Wonderland', 'book_Wuthering_Heights']:
                 pred_binary = 1 if example['predictions'][book_col] > 0.5 else 0
                 if pred_binary == example['true_labels'][book_col]:
                     correct_predictions += 1
@@ -789,7 +845,7 @@ class NeuralNetworkTrainer:
         for example in examples['multi_label_examples']:
             correct_predictions = 0
             total_predictions = 0
-            for book_col in ['book_1', 'book_2', 'book_3', 'book_4']:
+            for book_col in ['book_Anna_Karenina', 'book_Frankenstein', 'book_The_Adventures_of_Alice_in_Wonderland', 'book_Wuthering_Heights']:
                 pred_binary = 1 if example['predictions'][book_col] > 0.5 else 0
                 if pred_binary == example['true_labels'][book_col]:
                     correct_predictions += 1
@@ -804,12 +860,12 @@ class NeuralNetworkTrainer:
         logger.info(f"Multi-label accuracy: {multi_label_accuracy:.3f}")
         
         # Save examples
-        examples_path = "multi_label_model/test_examples.json"
+        examples_path = "multi_label_model/multi_label_test_examples.json"
         with open(examples_path, 'w') as f:
             json.dump(examples, f, indent=2)
         
         # Create detailed report
-        report_path = "multi_label_model/test_examples_report.md"
+        report_path = "multi_label_model/multi_label_test_examples_report.md"
         with open(report_path, 'w') as f:
             f.write("# Multi-Label Neural Network - Test Examples Report\n\n")
             f.write(f"**Single-label Accuracy**: {single_label_accuracy:.3f}\n")
@@ -821,7 +877,7 @@ class NeuralNetworkTrainer:
                 f.write(f"**Sentence**: {example['sentence']}\n\n")
                 f.write("| Book | True Label | Prediction | Correct |\n")
                 f.write("|------|------------|------------|--------|\n")
-                for book_col in ['book_1', 'book_2', 'book_3', 'book_4']:
+                for book_col in ['book_Anna_Karenina', 'book_Frankenstein', 'book_The_Adventures_of_Alice_in_Wonderland', 'book_Wuthering_Heights']:
                     book_name = self.book_names[book_col]
                     true_label = example['true_labels'][book_col]
                     pred_prob = example['predictions'][book_col]
@@ -836,7 +892,7 @@ class NeuralNetworkTrainer:
                 f.write(f"**Sentence**: {example['sentence']}\n\n")
                 f.write("| Book | True Label | Prediction | Correct |\n")
                 f.write("|------|------------|------------|--------|\n")
-                for book_col in ['book_1', 'book_2', 'book_3', 'book_4']:
+                for book_col in ['book_Anna_Karenina', 'book_Frankenstein', 'book_The_Adventures_of_Alice_in_Wonderland', 'book_Wuthering_Heights']:
                     book_name = self.book_names[book_col]
                     true_label = example['true_labels'][book_col]
                     pred_prob = example['predictions'][book_col]

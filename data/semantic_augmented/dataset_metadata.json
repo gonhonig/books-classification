@@ -141,5 +141,26 @@
     "path": "data/embeddings_cache_aligned_f24a423ed8f9dd531230fe64f71f668d.npz",
     "hash": "f24a423ed8f9dd531230fe64f71f668d",
     "aligned": true
+  },
+  "book_mapping": {
+    "book_to_label": {
+      "Anna Karenina": 0,
+      "Frankenstein": 1,
+      "The Adventures of Alice in Wonderland": 2,
+      "Wuthering Heights": 3
+    },
+    "label_to_book": {
+      "0": "Anna Karenina",
+      "1": "Frankenstein",
+      "2": "The Adventures of Alice in Wonderland",
+      "3": "Wuthering Heights"
+    },
+    "num_classes": 4,
+    "books": [
+      "Anna Karenina",
+      "Frankenstein",
+      "The Adventures of Alice in Wonderland",
+      "Wuthering Heights"
+    ]
   }
 }

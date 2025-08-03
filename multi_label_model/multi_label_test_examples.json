@@ -1,0 +1,456 @@
+{
+  "single_label_examples": [
+    {
+      "sentence": "I know, continued the unhappy victim, how heavily and fatally this one circumstance weighs against me, but I have no power of explaining it; and when I have expressed my utter ignorance, I am only left to conjecture concerning the probabilities by which it might have been placed in my pocket.",
+      "true_labels": {
+        "book_Anna_Karenina": 0,
+        "book_Frankenstein": 1,
+        "book_The_Adventures_of_Alice_in_Wonderland": 0,
+        "book_Wuthering_Heights": 0
+      },
+      "predictions": {
+        "book_Anna_Karenina": 0.009425967931747437,
+        "book_Frankenstein": 0.9942876696586609,
+        "book_The_Adventures_of_Alice_in_Wonderland": 0.0025047375820577145,
+        "book_Wuthering_Heights": 0.009506816044449806
+      }
+    },
+    {
+      "sentence": "No, I didn t, said Alice: I don t think it s at all a pity.",
+      "true_labels": {
+        "book_Anna_Karenina": 0,
+        "book_Frankenstein": 0,
+        "book_The_Adventures_of_Alice_in_Wonderland": 1,
+        "book_Wuthering_Heights": 0
+      },
+      "predictions": {
+        "book_Anna_Karenina": 0.09974583238363266,
+        "book_Frankenstein": 0.010425605811178684,
+        "book_The_Adventures_of_Alice_in_Wonderland": 0.9640552401542664,
+        "book_Wuthering_Heights": 0.05161169543862343
+      }
+    },
+    {
+      "sentence": "These wonderful narrations inspired me with strange feelings.",
+      "true_labels": {
+        "book_Anna_Karenina": 0,
+        "book_Frankenstein": 1,
+        "book_The_Adventures_of_Alice_in_Wonderland": 0,
+        "book_Wuthering_Heights": 0
+      },
+      "predictions": {
+        "book_Anna_Karenina": 0.014837488532066345,
+        "book_Frankenstein": 0.9949770569801331,
+        "book_The_Adventures_of_Alice_in_Wonderland": 0.001529559027403593,
+        "book_Wuthering_Heights": 0.015956247225403786
+      }
+    },
+    {
+      "sentence": "You are a dog in the manger, Cathy, and desire no one to be loved but yourself!",
+      "true_labels": {
+        "book_Anna_Karenina": 0,
+        "book_Frankenstein": 0,
+        "book_The_Adventures_of_Alice_in_Wonderland": 0,
+        "book_Wuthering_Heights": 1
+      },
+      "predictions": {
+        "book_Anna_Karenina": 0.1144305020570755,
+        "book_Frankenstein": 0.09233137965202332,
+        "book_The_Adventures_of_Alice_in_Wonderland": 0.0318475104868412,
+        "book_Wuthering_Heights": 0.9359463453292847
+      }
+    },
+    {
+      "sentence": "So Bill s got to come down the chimney, has he?",
+      "true_labels": {
+        "book_Anna_Karenina": 0,
+        "book_Frankenstein": 0,
+        "book_The_Adventures_of_Alice_in_Wonderland": 1,
+        "book_Wuthering_Heights": 0
+      },
+      "predictions": {
+        "book_Anna_Karenina": 0.1926479935646057,
+        "book_Frankenstein": 0.012472983449697495,
+        "book_The_Adventures_of_Alice_in_Wonderland": 0.919933021068573,
+        "book_Wuthering_Heights": 0.1198464035987854
+      }
+    },
+    {
+      "sentence": "I would have made a pilgrimage to the highest peak of the Andes, could I, when there, have precipitated him to their base.",
+      "true_labels": {
+        "book_Anna_Karenina": 0,
+        "book_Frankenstein": 1,
+        "book_The_Adventures_of_Alice_in_Wonderland": 0,
+        "book_Wuthering_Heights": 0
+      },
+      "predictions": {
+        "book_Anna_Karenina": 0.0032207125332206488,
+        "book_Frankenstein": 0.9986758828163147,
+        "book_The_Adventures_of_Alice_in_Wonderland": 0.0008220177260227501,
+        "book_Wuthering_Heights": 0.002710961503908038
+      }
+    },
+    {
+      "sentence": "I had sufficient leisure for these and many other reflections during my journey to Ingolstadt, which was long and fatiguing.",
+      "true_labels": {
+        "book_Anna_Karenina": 0,
+        "book_Frankenstein": 1,
+        "book_The_Adventures_of_Alice_in_Wonderland": 0,
+        "book_Wuthering_Heights": 0
+      },
+      "predictions": {
+        "book_Anna_Karenina": 0.007709649857133627,
+        "book_Frankenstein": 0.9957899451255798,
+        "book_The_Adventures_of_Alice_in_Wonderland": 0.0020712760742753744,
+        "book_Wuthering_Heights": 0.006496644578874111
+      }
+    },
+    {
+      "sentence": "But he has already recovered his spirits, and is reported to be on the point of marrying a lively pretty Frenchwoman, Madame Tavernier.",
+      "true_labels": {
+        "book_Anna_Karenina": 0,
+        "book_Frankenstein": 1,
+        "book_The_Adventures_of_Alice_in_Wonderland": 0,
+        "book_Wuthering_Heights": 0
+      },
+      "predictions": {
+        "book_Anna_Karenina": 0.03080727532505989,
+        "book_Frankenstein": 0.976850152015686,
+        "book_The_Adventures_of_Alice_in_Wonderland": 0.0075769610702991486,
+        "book_Wuthering_Heights": 0.024780837818980217
+      }
+    },
+    {
+      "sentence": "how sincerely you did love me, and endeavour to elevate my mind until it was on a level with your own.",
+      "true_labels": {
+        "book_Anna_Karenina": 0,
+        "book_Frankenstein": 1,
+        "book_The_Adventures_of_Alice_in_Wonderland": 0,
+        "book_Wuthering_Heights": 0
+      },
+      "predictions": {
+        "book_Anna_Karenina": 0.32877635955810547,
+        "book_Frankenstein": 0.9438195824623108,
+        "book_The_Adventures_of_Alice_in_Wonderland": 0.014779477380216122,
+        "book_Wuthering_Heights": 0.21259333193302155
+      }
+    },
+    {
+      "sentence": "Elizabeth read my anguish in my countenance, and kindly taking my hand, said, My dearest friend, you must calm yourself.",
+      "true_labels": {
+        "book_Anna_Karenina": 0,
+        "book_Frankenstein": 1,
+        "book_The_Adventures_of_Alice_in_Wonderland": 0,
+        "book_Wuthering_Heights": 0
+      },
+      "predictions": {
+        "book_Anna_Karenina": 0.00860617682337761,
+        "book_Frankenstein": 0.9900240898132324,
+        "book_The_Adventures_of_Alice_in_Wonderland": 0.0024219194892793894,
+        "book_Wuthering_Heights": 0.027893856167793274
+      }
+    },
+    {
+      "sentence": "Sometimes they were the expressive eyes of Henry, languishing in death, the dark orbs nearly covered by the lids and the long black lashes that fringed them; sometimes it was the watery, clouded eyes of the monster, as I first saw them in my chamber at Ingolstadt.",
+      "true_labels": {
+        "book_Anna_Karenina": 0,
+        "book_Frankenstein": 1,
+        "book_The_Adventures_of_Alice_in_Wonderland": 0,
+        "book_Wuthering_Heights": 0
+      },
+      "predictions": {
+        "book_Anna_Karenina": 0.00852443091571331,
+        "book_Frankenstein": 0.988926887512207,
+        "book_The_Adventures_of_Alice_in_Wonderland": 0.006128096021711826,
+        "book_Wuthering_Heights": 0.010359162464737892
+      }
+    },
+    {
+      "sentence": "I remained for several years their only child.",
+      "true_labels": {
+        "book_Anna_Karenina": 0,
+        "book_Frankenstein": 1,
+        "book_The_Adventures_of_Alice_in_Wonderland": 0,
+        "book_Wuthering_Heights": 0
+      },
+      "predictions": {
+        "book_Anna_Karenina": 0.005452651064842939,
+        "book_Frankenstein": 0.996355414390564,
+        "book_The_Adventures_of_Alice_in_Wonderland": 0.0022413244005292654,
+        "book_Wuthering_Heights": 0.004568624310195446
+      }
+    },
+    {
+      "sentence": "When my hunger was appeased, I directed my steps towards the well-known path that conducted to the cottage.",
+      "true_labels": {
+        "book_Anna_Karenina": 0,
+        "book_Frankenstein": 1,
+        "book_The_Adventures_of_Alice_in_Wonderland": 0,
+        "book_Wuthering_Heights": 0
+      },
+      "predictions": {
+        "book_Anna_Karenina": 0.009151107631623745,
+        "book_Frankenstein": 0.9918978214263916,
+        "book_The_Adventures_of_Alice_in_Wonderland": 0.0029402729123830795,
+        "book_Wuthering_Heights": 0.014317031018435955
+      }
+    },
+    {
+      "sentence": "If you like Isabella, you shall marry her.",
+      "true_labels": {
+        "book_Anna_Karenina": 0,
+        "book_Frankenstein": 0,
+        "book_The_Adventures_of_Alice_in_Wonderland": 0,
+        "book_Wuthering_Heights": 1
+      },
+      "predictions": {
+        "book_Anna_Karenina": 0.09986705332994461,
+        "book_Frankenstein": 0.04154681786894798,
+        "book_The_Adventures_of_Alice_in_Wonderland": 0.022554535418748856,
+        "book_Wuthering_Heights": 0.9759775400161743
+      }
+    },
+    {
+      "sentence": "Well, perhaps you haven t found it so yet, said Alice; but when you have to turn into a chrysalis you will some day, you know and then after that into a butterfly, I should think you ll feel it a little queer, won t you?",
+      "true_labels": {
+        "book_Anna_Karenina": 0,
+        "book_Frankenstein": 0,
+        "book_The_Adventures_of_Alice_in_Wonderland": 1,
+        "book_Wuthering_Heights": 0
+      },
+      "predictions": {
+        "book_Anna_Karenina": 0.028420908376574516,
+        "book_Frankenstein": 0.007856981828808784,
+        "book_The_Adventures_of_Alice_in_Wonderland": 0.9865131974220276,
+        "book_Wuthering_Heights": 0.013453032821416855
+      }
+    }
+  ],
+  "multi_label_examples": [
+    {
+      "sentence": "Poor papa!",
+      "true_labels": {
+        "book_Anna_Karenina": 1,
+        "book_Frankenstein": 1,
+        "book_The_Adventures_of_Alice_in_Wonderland": 0,
+        "book_Wuthering_Heights": 1
+      },
+      "predictions": {
+        "book_Anna_Karenina": 0.9757224917411804,
+        "book_Frankenstein": 0.8062506914138794,
+        "book_The_Adventures_of_Alice_in_Wonderland": 0.38261768221855164,
+        "book_Wuthering_Heights": 0.9810608625411987
+      }
+    },
+    {
+      "sentence": "I said, passionately.",
+      "true_labels": {
+        "book_Anna_Karenina": 0,
+        "book_Frankenstein": 1,
+        "book_The_Adventures_of_Alice_in_Wonderland": 0,
+        "book_Wuthering_Heights": 1
+      },
+      "predictions": {
+        "book_Anna_Karenina": 0.6512847542762756,
+        "book_Frankenstein": 0.7767632603645325,
+        "book_The_Adventures_of_Alice_in_Wonderland": 0.03212921321392059,
+        "book_Wuthering_Heights": 0.9535914063453674
+      }
+    },
+    {
+      "sentence": "Go away!",
+      "true_labels": {
+        "book_Anna_Karenina": 1,
+        "book_Frankenstein": 1,
+        "book_The_Adventures_of_Alice_in_Wonderland": 1,
+        "book_Wuthering_Heights": 1
+      },
+      "predictions": {
+        "book_Anna_Karenina": 0.9965580105781555,
+        "book_Frankenstein": 0.7879351377487183,
+        "book_The_Adventures_of_Alice_in_Wonderland": 0.2769762873649597,
+        "book_Wuthering_Heights": 0.9877503514289856
+      }
+    },
+    {
+      "sentence": "The infant had been placed with these good people to nurse: they were better off then.",
+      "true_labels": {
+        "book_Anna_Karenina": 1,
+        "book_Frankenstein": 1,
+        "book_The_Adventures_of_Alice_in_Wonderland": 0,
+        "book_Wuthering_Heights": 0
+      },
+      "predictions": {
+        "book_Anna_Karenina": 0.01448286697268486,
+        "book_Frankenstein": 0.9836103916168213,
+        "book_The_Adventures_of_Alice_in_Wonderland": 0.007426204159855843,
+        "book_Wuthering_Heights": 0.015678713098168373
+      }
+    },
+    {
+      "sentence": "But, away with you!",
+      "true_labels": {
+        "book_Anna_Karenina": 1,
+        "book_Frankenstein": 0,
+        "book_The_Adventures_of_Alice_in_Wonderland": 0,
+        "book_Wuthering_Heights": 1
+      },
+      "predictions": {
+        "book_Anna_Karenina": 0.9831551313400269,
+        "book_Frankenstein": 0.13874061405658722,
+        "book_The_Adventures_of_Alice_in_Wonderland": 0.5012646913528442,
+        "book_Wuthering_Heights": 0.9591336846351624
+      }
+    },
+    {
+      "sentence": "she continued.",
+      "true_labels": {
+        "book_Anna_Karenina": 1,
+        "book_Frankenstein": 0,
+        "book_The_Adventures_of_Alice_in_Wonderland": 1,
+        "book_Wuthering_Heights": 1
+      },
+      "predictions": {
+        "book_Anna_Karenina": 0.9788374900817871,
+        "book_Frankenstein": 0.04246190935373306,
+        "book_The_Adventures_of_Alice_in_Wonderland": 0.8227769136428833,
+        "book_Wuthering_Heights": 0.917394757270813
+      }
+    },
+    {
+      "sentence": "She looked nice.",
+      "true_labels": {
+        "book_Anna_Karenina": 1,
+        "book_Frankenstein": 0,
+        "book_The_Adventures_of_Alice_in_Wonderland": 0,
+        "book_Wuthering_Heights": 1
+      },
+      "predictions": {
+        "book_Anna_Karenina": 0.9891356229782104,
+        "book_Frankenstein": 0.38384076952934265,
+        "book_The_Adventures_of_Alice_in_Wonderland": 0.01048106700181961,
+        "book_Wuthering_Heights": 0.8999766707420349
+      }
+    },
+    {
+      "sentence": "Then she turned up.",
+      "true_labels": {
+        "book_Anna_Karenina": 1,
+        "book_Frankenstein": 0,
+        "book_The_Adventures_of_Alice_in_Wonderland": 0,
+        "book_Wuthering_Heights": 1
+      },
+      "predictions": {
+        "book_Anna_Karenina": 0.9846333861351013,
+        "book_Frankenstein": 0.0292140394449234,
+        "book_The_Adventures_of_Alice_in_Wonderland": 0.695403516292572,
+        "book_Wuthering_Heights": 0.8890374302864075
+      }
+    },
+    {
+      "sentence": "said Alice, in a great hurry to change the subject of conversation.",
+      "true_labels": {
+        "book_Anna_Karenina": 1,
+        "book_Frankenstein": 0,
+        "book_The_Adventures_of_Alice_in_Wonderland": 1,
+        "book_Wuthering_Heights": 0
+      },
+      "predictions": {
+        "book_Anna_Karenina": 0.07047689706087112,
+        "book_Frankenstein": 0.004552153404802084,
+        "book_The_Adventures_of_Alice_in_Wonderland": 0.9888427257537842,
+        "book_Wuthering_Heights": 0.020942123606801033
+      }
+    },
+    {
+      "sentence": "he asked.",
+      "true_labels": {
+        "book_Anna_Karenina": 1,
+        "book_Frankenstein": 0,
+        "book_The_Adventures_of_Alice_in_Wonderland": 1,
+        "book_Wuthering_Heights": 1
+      },
+      "predictions": {
+        "book_Anna_Karenina": 0.9978206157684326,
+        "book_Frankenstein": 0.17554034292697906,
+        "book_The_Adventures_of_Alice_in_Wonderland": 0.933683454990387,
+        "book_Wuthering_Heights": 0.9887486696243286
+      }
+    },
+    {
+      "sentence": "Ah, there he is!",
+      "true_labels": {
+        "book_Anna_Karenina": 1,
+        "book_Frankenstein": 0,
+        "book_The_Adventures_of_Alice_in_Wonderland": 0,
+        "book_Wuthering_Heights": 1
+      },
+      "predictions": {
+        "book_Anna_Karenina": 0.9970970153808594,
+        "book_Frankenstein": 0.5860425233840942,
+        "book_The_Adventures_of_Alice_in_Wonderland": 0.2069169580936432,
+        "book_Wuthering_Heights": 0.9800000190734863
+      }
+    },
+    {
+      "sentence": "Away after them!",
+      "true_labels": {
+        "book_Anna_Karenina": 1,
+        "book_Frankenstein": 0,
+        "book_The_Adventures_of_Alice_in_Wonderland": 0,
+        "book_Wuthering_Heights": 1
+      },
+      "predictions": {
+        "book_Anna_Karenina": 0.9200592637062073,
+        "book_Frankenstein": 0.593079149723053,
+        "book_The_Adventures_of_Alice_in_Wonderland": 0.39594021439552307,
+        "book_Wuthering_Heights": 0.8946832418441772
+      }
+    },
+    {
+      "sentence": "It is over!",
+      "true_labels": {
+        "book_Anna_Karenina": 1,
+        "book_Frankenstein": 0,
+        "book_The_Adventures_of_Alice_in_Wonderland": 0,
+        "book_Wuthering_Heights": 1
+      },
+      "predictions": {
+        "book_Anna_Karenina": 0.976769745349884,
+        "book_Frankenstein": 0.44660887122154236,
+        "book_The_Adventures_of_Alice_in_Wonderland": 0.5751526355743408,
+        "book_Wuthering_Heights": 0.8250797986984253
+      }
+    },
+    {
+      "sentence": "She d soon fetch it back!",
+      "true_labels": {
+        "book_Anna_Karenina": 1,
+        "book_Frankenstein": 0,
+        "book_The_Adventures_of_Alice_in_Wonderland": 1,
+        "book_Wuthering_Heights": 1
+      },
+      "predictions": {
+        "book_Anna_Karenina": 0.6013457179069519,
+        "book_Frankenstein": 0.050719987601041794,
+        "book_The_Adventures_of_Alice_in_Wonderland": 0.7873407006263733,
+        "book_Wuthering_Heights": 0.6309272050857544
+      }
+    },
+    {
+      "sentence": "I followed.",
+      "true_labels": {
+        "book_Anna_Karenina": 0,
+        "book_Frankenstein": 0,
+        "book_The_Adventures_of_Alice_in_Wonderland": 1,
+        "book_Wuthering_Heights": 1
+      },
+      "predictions": {
+        "book_Anna_Karenina": 0.8209449052810669,
+        "book_Frankenstein": 0.1319536715745926,
+        "book_The_Adventures_of_Alice_in_Wonderland": 0.05603822320699692,
+        "book_Wuthering_Heights": 0.9609737396240234
+      }
+    }
+  ]
+}

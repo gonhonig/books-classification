@@ -85,24 +85,80 @@ class IndividualBookTrainer:
         self.embeddings = None
         self.book_labels = {}
         
-        # Book names mapping
-        self.book_names = {
-            'book_1': 'Anna Karenina',
-            'book_2': 'Wuthering Heights', 
-            'book_3': 'Frankenstein',
-            'book_4': 'The Adventures of Alice in Wonderland'
-        }
+        # Load book-to-label mapping from JSON file
+        self.book_mapping = self.load_book_mapping()
         
-        # Book order in labels list (based on the augmented dataset order)
-        self.book_order = [
-            'Anna Karenina',
-            'Frankenstein',
-            'The Adventures of Alice in Wonderland',
-            'Wuthering Heights'
-        ]
+        # Book names mapping - using actual column names from the dataset
+        # Generate from the loaded mapping to ensure correct order
+        self.book_names = {}
+        for book_name in self.book_mapping['books']:
+            # Convert book name to column format (replace spaces with underscores, remove apostrophes)
+            clean_name = book_name.replace(' ', '_').replace("'", '')
+            book_col = f"book_{clean_name}"
+            self.book_names[book_col] = book_name
+        
+        # Book order in labels list (from the mapping file)
+        self.book_order = self.book_mapping['books']
         
         logger.info(f"Using device: {self.device}")
         
+    def load_book_mapping(self):
+        """Load book-to-label mapping from JSON file."""
+        mapping_file = Path("data/semantic_augmented/book_to_label_mapping.json")
+        if not mapping_file.exists():
+            logger.warning(f"Book mapping file not found: {mapping_file}. Using default order.")
+            return {
+                'books': [
+                    'Anna Karenina',
+                    'Frankenstein',
+                    'The Adventures of Alice in Wonderland',
+                    'Wuthering Heights'
+                ],
+                'book_to_label': {
+                    'Anna Karenina': 0,
+                    'Frankenstein': 1,
+                    'The Adventures of Alice in Wonderland': 2,
+                    'Wuthering Heights': 3
+                },
+                'label_to_book': {
+                    '0': 'Anna Karenina',
+                    '1': 'Frankenstein',
+                    '2': 'The Adventures of Alice in Wonderland',
+                    '3': 'Wuthering Heights'
+                },
+                'num_classes': 4
+            }
+        
+        try:
+            with open(mapping_file, 'r') as f:
+                mapping = json.load(f)
+            logger.info(f"Loaded book mapping from: {mapping_file}")
+            logger.info(f"Book order: {mapping['books']}")
+            return mapping
+        except Exception as e:
+            logger.error(f"Failed to load book mapping: {e}. Using default order.")
+            return {
+                'books': [
+                    'Anna Karenina',
+                    'Frankenstein',
+                    'The Adventures of Alice in Wonderland',
+                    'Wuthering Heights'
+                ],
+                'book_to_label': {
+                    'Anna Karenina': 0,
+                    'Frankenstein': 1,
+                    'The Adventures of Alice in Wonderland': 2,
+                    'Wuthering Heights': 3
+                },
+                'label_to_book': {
+                    '0': 'Anna Karenina',
+                    '1': 'Frankenstein',
+                    '2': 'The Adventures of Alice in Wonderland',
+                    '3': 'Wuthering Heights'
+                },
+                'num_classes': 4
+            }
+
     def load_config(self):
         """Load configuration from YAML file."""
         config_file = Path(self.config_path)
@@ -137,7 +193,7 @@ class IndividualBookTrainer:
         
         # Extract book labels from the labels column
         self.book_labels = {}
-        for book_col in ['book_1', 'book_2', 'book_3', 'book_4']:
+        for book_col in ['book_Anna_Karenina', 'book_Frankenstein', 'book_The_Adventures_of_Alice_in_Wonderland', 'book_Wuthering_Heights']:
             book_name = self.book_names[book_col]
             book_idx = self.book_order.index(book_name)
             
@@ -376,7 +432,7 @@ class IndividualBookTrainer:
         # Create models directory if it doesn't exist
         Path("model_per_book").mkdir(exist_ok=True)
         
-        for book_col in ['book_1', 'book_2', 'book_3', 'book_4']:
+        for book_col in ['book_Anna_Karenina', 'book_Frankenstein', 'book_The_Adventures_of_Alice_in_Wonderland', 'book_Wuthering_Heights']:
             try:
                 self.train_book_model(book_col)
             except Exception as e:
@@ -429,7 +485,7 @@ class IndividualBookTrainer:
             book_names = []
             metric_values = []
             
-            for book_col in ['book_1', 'book_2', 'book_3', 'book_4']:
+            for book_col in ['book_Anna_Karenina', 'book_Frankenstein', 'book_The_Adventures_of_Alice_in_Wonderland', 'book_Wuthering_Heights']:
                 if book_col in self.results:
                     book_names.append(self.results[book_col]['book_name'])
                     metric_values.append(self.results[book_col][metric])
@@ -522,7 +578,7 @@ class IndividualBookTrainer:
         # Load trained models
         models = {}
         scalers = {}
-        for book_col in ['book_1', 'book_2', 'book_3', 'book_4']:
+        for book_col in ['book_Anna_Karenina', 'book_Frankenstein', 'book_The_Adventures_of_Alice_in_Wonderland', 'book_Wuthering_Heights']:
             book_name = self.book_names[book_col]
             model_path = f"model_per_book/{book_name.replace(' ', '_').lower()}_best_model.pth"
             
@@ -580,14 +636,14 @@ class IndividualBookTrainer:
             
             # Get true labels
             true_labels = {}
-            for book_col in ['book_1', 'book_2', 'book_3', 'book_4']:
+            for book_col in ['book_Anna_Karenina', 'book_Frankenstein', 'book_The_Adventures_of_Alice_in_Wonderland', 'book_Wuthering_Heights']:
                 book_name = self.book_names[book_col]
                 book_idx = self.book_order.index(book_name)
                 true_labels[book_col] = int(labels[book_idx])
             
             # Get predictions from all models
             predictions = {}
-            for book_col in ['book_1', 'book_2', 'book_3', 'book_4']:
+            for book_col in ['book_Anna_Karenina', 'book_Frankenstein', 'book_The_Adventures_of_Alice_in_Wonderland', 'book_Wuthering_Heights']:
                 if book_col in models:
                     model = models[book_col]
                     scaler = scalers[book_col]
@@ -619,14 +675,14 @@ class IndividualBookTrainer:
             
             # Get true labels
             true_labels = {}
-            for book_col in ['book_1', 'book_2', 'book_3', 'book_4']:
+            for book_col in ['book_Anna_Karenina', 'book_Frankenstein', 'book_The_Adventures_of_Alice_in_Wonderland', 'book_Wuthering_Heights']:
                 book_name = self.book_names[book_col]
                 book_idx = self.book_order.index(book_name)
                 true_labels[book_col] = int(labels[book_idx])
             
             # Get predictions from all models
             predictions = {}
-            for book_col in ['book_1', 'book_2', 'book_3', 'book_4']:
+            for book_col in ['book_Anna_Karenina', 'book_Frankenstein', 'book_The_Adventures_of_Alice_in_Wonderland', 'book_Wuthering_Heights']:
                 if book_col in models:
                     model = models[book_col]
                     scaler = scalers[book_col]
@@ -657,7 +713,7 @@ class IndividualBookTrainer:
         for example in examples['single_label_examples']:
             correct_predictions = 0
             total_predictions = 0
-            for book_col in ['book_1', 'book_2', 'book_3', 'book_4']:
+            for book_col in ['book_Anna_Karenina', 'book_Frankenstein', 'book_The_Adventures_of_Alice_in_Wonderland', 'book_Wuthering_Heights']:
                 if book_col in example['predictions']:
                     pred_binary = 1 if example['predictions'][book_col] > 0.5 else 0
                     if pred_binary == example['true_labels'][book_col]:
@@ -669,7 +725,7 @@ class IndividualBookTrainer:
         for example in examples['multi_label_examples']:
             correct_predictions = 0
             total_predictions = 0
-            for book_col in ['book_1', 'book_2', 'book_3', 'book_4']:
+            for book_col in ['book_Anna_Karenina', 'book_Frankenstein', 'book_The_Adventures_of_Alice_in_Wonderland', 'book_Wuthering_Heights']:
                 if book_col in example['predictions']:
                     pred_binary = 1 if example['predictions'][book_col] > 0.5 else 0
                     if pred_binary == example['true_labels'][book_col]:
@@ -685,12 +741,12 @@ class IndividualBookTrainer:
         logger.info(f"Multi-label accuracy: {multi_label_accuracy:.3f}")
         
         # Save examples
-        examples_path = "model_per_book/test_examples.json"
+        examples_path = "model_per_book/per_book_test_examples.json"
         with open(examples_path, 'w') as f:
             json.dump(examples, f, indent=2)
         
         # Create detailed report
-        report_path = "model_per_book/test_examples_report.md"
+        report_path = "model_per_book/per_book_test_examples_report.md"
         with open(report_path, 'w') as f:
             f.write("# Individual Book Models - Test Examples Report\n\n")
             f.write(f"**Single-label Accuracy**: {single_label_accuracy:.3f}\n")
@@ -702,7 +758,7 @@ class IndividualBookTrainer:
                 f.write(f"**Sentence**: {example['sentence']}\n\n")
                 f.write("| Book | True Label | Prediction | Correct |\n")
                 f.write("|------|------------|------------|--------|\n")
-                for book_col in ['book_1', 'book_2', 'book_3', 'book_4']:
+                for book_col in ['book_Anna_Karenina', 'book_Frankenstein', 'book_The_Adventures_of_Alice_in_Wonderland', 'book_Wuthering_Heights']:
                     book_name = self.book_names[book_col]
                     true_label = example['true_labels'][book_col]
                     pred_prob = example['predictions'][book_col]
@@ -717,7 +773,7 @@ class IndividualBookTrainer:
                 f.write(f"**Sentence**: {example['sentence']}\n\n")
                 f.write("| Book | True Label | Prediction | Correct |\n")
                 f.write("|------|------------|------------|--------|\n")
-                for book_col in ['book_1', 'book_2', 'book_3', 'book_4']:
+                for book_col in ['book_Anna_Karenina', 'book_Frankenstein', 'book_The_Adventures_of_Alice_in_Wonderland', 'book_Wuthering_Heights']:
                     book_name = self.book_names[book_col]
                     true_label = example['true_labels'][book_col]
                     pred_prob = example['predictions'][book_col]
@@ -738,7 +794,7 @@ class IndividualBookTrainer:
         # Load trained models
         models = {}
         scalers = {}
-        for book_col in ['book_1', 'book_2', 'book_3', 'book_4']:
+        for book_col in ['book_Anna_Karenina', 'book_Frankenstein', 'book_The_Adventures_of_Alice_in_Wonderland', 'book_Wuthering_Heights']:
             book_name = self.book_names[book_col]
             model_path = f"model_per_book/{book_name.replace(' ', '_').lower()}_best_model.pth"
             
@@ -785,7 +841,7 @@ class IndividualBookTrainer:
         # Calculate per-book metrics
         per_book_metrics = {}
         
-        for book_col in ['book_1', 'book_2', 'book_3', 'book_4']:
+        for book_col in ['book_Anna_Karenina', 'book_Frankenstein', 'book_The_Adventures_of_Alice_in_Wonderland', 'book_Wuthering_Heights']:
             book_name = self.book_names[book_col]
             book_idx = self.book_order.index(book_name)
             

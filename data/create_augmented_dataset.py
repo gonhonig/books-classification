@@ -448,6 +448,32 @@ def create_aligned_embeddings(dataset_dict: DatasetDict, model_name: str = "sent
     
     return output_path, config_hash
 
+def save_book_to_label_mapping(books: List[str], output_path: str = 'data/semantic_augmented/book_to_label_mapping.json'):
+    """Save book to label mapping for model training."""
+    import os
+    os.makedirs(os.path.dirname(output_path), exist_ok=True)
+    
+    # Create mapping from book name to label index
+    book_to_label = {book: idx for idx, book in enumerate(books)}
+    
+    # Also create reverse mapping
+    label_to_book = {idx: book for book, idx in book_to_label.items()}
+    
+    mapping_data = {
+        'book_to_label': book_to_label,
+        'label_to_book': label_to_book,
+        'num_classes': len(books),
+        'books': books
+    }
+    
+    with open(output_path, 'w') as f:
+        json.dump(mapping_data, f, indent=2)
+    
+    logger.info(f"Saved book to label mapping to {output_path}")
+    logger.info(f"Book to label mapping: {book_to_label}")
+    
+    return mapping_data
+
 def main():
     """Main function to create augmented dataset."""
     logger.info("Starting semantic augmented dataset creation...")
@@ -476,6 +502,11 @@ def main():
     # Create aligned embeddings for the dataset splits
     embeddings_path, embeddings_hash = create_aligned_embeddings(dataset_dict)
     
+    # Save book to label mapping
+    book_columns = [col for col in balanced_df.columns if col.startswith('book_')]
+    books = [col.replace('book_', '').replace('_', ' ') for col in book_columns]
+    mapping_data = save_book_to_label_mapping(books)
+    
     # Add balanced dataset statistics to metadata
     metadata['balanced_dataset_stats'].update(balanced_stats)
     
@@ -485,6 +516,9 @@ def main():
         'hash': embeddings_hash,
         'aligned': True
     }
+    
+    # Add book mapping information to metadata
+    metadata['book_mapping'] = mapping_data
     
     # Save dataset splits
     dataset_path = Path("data/dataset")
@@ -496,6 +530,7 @@ def main():
     logger.info("✅ Semantic augmented dataset creation completed!")
     logger.info(f"📁 Dataset saved to: {dataset_path}")
     logger.info(f"📁 Aligned embeddings saved to: {embeddings_path}")
+    logger.info(f"📁 Book to label mapping saved to: data/semantic_augmented/book_to_label_mapping.json")
     logger.info(f"📊 Comprehensive metadata saved")
     
     # Print summary statistics
@@ -509,6 +544,7 @@ def main():
     print(f"Single-label samples: {balanced_stats['single_label_samples']}")
     print(f"Aligned embeddings: {embeddings_path}")
     print(f"Embeddings hash: {embeddings_hash}")
+    print(f"Book to label mapping: {mapping_data['book_to_label']}")
     
     # Show sample data
     print("\n=== SAMPLE DATA ===")
