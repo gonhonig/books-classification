@@ -2,144 +2,244 @@
 
 ## 📚 Overview
 
-This project implements a comprehensive multi-label classification system for English book sentences using semantic embeddings and advanced machine learning techniques. The goal is to classify sentences from different books based on their semantic similarity and content characteristics.
+This project implements a comprehensive book classification system using advanced neural networks and semantic embeddings. The goal is to classify sentences from different books using two competing approaches: **per-book binary classifiers** and **unified multi-label classification**.
 
 ## 🎯 Project Goals
 
-- **Multi-label Classification**: Classify sentences that may belong to multiple books simultaneously
+- **Self-Supervised Learning**: Use unsupervised semantic similarity without manual data tagging
+- **Dual Approach Comparison**: Compare per-book vs multi-label classification strategies
 - **Semantic Understanding**: Use advanced embedding models to capture semantic similarities
-- **Scalable Architecture**: Create a robust system that can handle large datasets efficiently
-- **Performance Optimization**: Achieve high accuracy while maintaining computational efficiency
+- **Multi-label Classification**: Handle sentences that may belong to multiple books simultaneously
+- **Performance Optimization**: Achieve high accuracy through hyperparameter optimization
+- **Comprehensive Evaluation**: Provide detailed analysis of both approaches
 
 ## 🏗️ Project Architecture
 
-### 6-Step Methodology
+### Two Main Approaches
 
-#### 1. Data Preparation ✅ COMPLETED
-**Objective**: Clean and preprocess English book descriptions for training
-
-**Process**:
-- Text cleaning and normalization
-- Sentence segmentation and filtering
-- Train/validation/test split (70/15/15)
-- Metadata creation and storage
-
-**Output**: 
-- Processed dataset with 21,871 training samples
-- Balanced dataset with 14,750 samples (5,000 per book where possible)
-
-**Key Files**: `data/dataset/`, `data/metadata.json`
-
-#### 1.5. Semantic Augmented Dataset Creation ✅ COMPLETED
-**Objective**: Create multi-label dataset using semantic pairs
+#### 1. Per-Book Approach ✅ IMPLEMENTED
+**Objective**: Train individual binary classifiers for each book using self-supervised learning
 
 **Process**:
-- Start with all sentences from deduplicated corpus (31,760 sentences)
+- Separate neural network for each book (Anna Karenina, Wuthering Heights, Frankenstein, Alice in Wonderland)
+- Each model trained to predict whether a sentence belongs to its specific book
+- No manual labeling required - uses semantic similarity for supervision
+- Independent optimization and evaluation for each book
+
+**Key Files**: `model_per_book/`, `train_model_per_book.py`
+
+#### 2. Multi-Label Approach ✅ IMPLEMENTED
+**Objective**: Train a single unified model for all books simultaneously using self-supervised learning
+
+**Process**:
+- Single neural network with 4 output heads (one per book)
+- Multi-label classification where sentences can belong to multiple books
+- Shared representations across all books
+- No manual data tagging - uses semantic similarity for supervision
+
+**Key Files**: `multi_label_model/`, `train_multi_label_model.py`
+
+## 📊 Data Preparation Pipeline
+
+### Stage 1: Sentence Gathering
+**Objective**: Collect and preprocess sentences from all books
+
+**Process**:
+- Extract sentences from 4 classic books
+- Clean and normalize text (remove special characters, standardize formatting)
+- Remove duplicates and very short sentences
+- Create balanced representation across all books
+
+**Output**: 31,760 unique sentences from deduplicated corpus
+
+### Stage 2: Embedding Generation
+**Objective**: Create semantic embeddings using pre-trained models
+
+**Process**:
+- Use sentence-transformers library with pre-trained models
+- Generate 384-dimensional embeddings for all sentences
+- Cache embeddings for efficient reuse (`data/embeddings_cache_*.npz`)
+- Ensure consistent embedding space across all books
+
+**Why This Stage**: Semantic embeddings capture meaning better than bag-of-words approaches
+
+### Stage 3: Similarity Pair Extraction
+**Objective**: Identify semantically similar sentences across books
+
+**Process**:
+- Use cosine similarity to find cross-book sentence pairs
+- Apply similarity threshold (0.7) to ensure quality pairs
+- Generate 11,861 semantic pairs for dataset augmentation
+- Store pairs in `data/semantic_pairs.json`
+
+**Why This Stage**: Enables multi-label classification by identifying cross-book semantic relationships
+
+### Stage 4: Balanced Augmented Dataset Creation
+**Objective**: Create multi-label dataset with realistic cross-book relationships and balanced sampling
+
+**Process**:
+- Start with all sentences from deduplicated corpus
 - Mark each sentence with its original book (1 label)
 - Use semantic pairs to add cross-book similarities
 - Create multi-label annotations (1-4 labels per sentence)
+- **Balanced Sampling**: Sample similar amounts from each book while prioritizing multi-label sentences
+- **Multi-label Priority**: Prefer sentences with multiple labels to ensure good performance on multi-label task
+- Apply train/validation/test split (70/15/15)
 
 **Output**: 
-- 31,760 sentences with multi-label format
-- Train/Val/Test: 22,231/4,764/4,765
-- Label distribution: 1-label (83.8%), 2-labels (11.0%), 3-labels (4.0%), 4-labels (1.3%)
+- 10,120 sentences with multi-label format (balanced dataset)
+- Train/Validation/Test: 7,083 / 1,518 / 1,519
+- Label distribution: 1-label (49.1%), 2-labels (34.4%), 3-labels (12.5%), 4-labels (4.1%)
+- **Balanced representation** across all books with emphasis on multi-label examples
 
-**Key Files**: `data/semantic_augmented/`, `data/semantic_pairs.json`
+**Why This Stage**: Provides realistic multi-label training data that reflects actual semantic relationships between books while ensuring balanced representation and strong multi-label performance
 
-#### 2. Semantic Embedding Model Selection ✅ COMPLETED
-**Objective**: Test and select the best semantic embedding model
+## 🎯 Hyperparameter Optimization
 
-**Approach**: Evaluate 4 candidate models using similarity test pairs
-
-**Models Tested**:
-- `sentence-transformers/all-MiniLM-L6-v2` (91.25% accuracy)
-- `sentence-transformers/all-mpnet-base-v2` (92.50% accuracy)
-- `sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2` (98.75% accuracy) ⭐ **SELECTED**
-- `sentence-transformers/paraphrase-MiniLM-L3-v2` (95.00% accuracy)
-
-**Selection Criteria**: Accuracy, score separation, model size, inference time
-
-#### 3. Fine-tune Selected Model ✅ COMPLETED
-**Objective**: Fine-tune the selected semantic embedding model
-
-**Model**: `sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2`
-
-**Method**: Contrastive learning with triplet loss
-
-**Parameters**: 
-- 10 epochs
-- Learning rate: 2e-5
-- Temperature: 0.1
-- Margin: 0.3
-
-**Output**: Fine-tuned model with improved semantic understanding
-
-#### 4. Feature Extraction & Dataset Construction ✅ COMPLETED
-**Objective**: Extract features using KNN approach and create augmented dataset
-
-**Approach**: KNN-based similarity computation with embedding caching
-
-**Method**:
-- Extract embeddings for all sentences using fine-tuned model
-- Cache embeddings for future use (`data/embeddings_cache.npz`)
-- Compute KNN similarities (k=15 neighbors)
-- Apply multi-label belonging logic:
-  - Best score always gets 1
-  - All scores within 0.2 of best get 1
-  - Original true book always gets 1
-
-**Features Created**:
-- 4 similarity scores (one per book)
-- 4 multi-label belonging indicators
-- KNN metadata (best book, confidence, etc.)
-
-**Results**:
-- KNN Accuracy: 84.44%
-- Mean books per sentence: 1.24
-- Multi-book ratio: 21.7%
-
-#### 5. Hyperparameter Optimization ✅ COMPLETED
+### Comprehensive Optimization System ✅ IMPLEMENTED
 **Objective**: Optimize all model components for best performance
 
 **Components Optimized**:
-- **KNN Feature Extraction**: k_neighbors, similarity_threshold, belonging_threshold
-- **Multi-label Classifier**: Model type, hyperparameters
-- **Contrastive Learning**: Learning rate, batch size, temperature, margin, epochs
+- **Neural Network Architecture**: Number of layers, hidden dimensions
+- **Training Parameters**: Learning rate, batch size, epochs, patience
+- **Regularization**: Dropout rate, weight decay
+- **Both Approaches**: Per-book and multi-label models optimized separately
 
 **Method**: Bayesian optimization with Optuna
 
-**Best Parameters**:
-- KNN: k_neighbors=15, similarity_threshold=0.95, belonging_threshold=0.3
-- Multi-label Classifier: Random Forest, n_estimators=50, max_depth=15
-- Contrastive Learning: learning_rate=1e-5, batch_size=32, temperature=1.0, margin=0.1, epochs=10
+**Key Features**:
+- **Multi-label Model Optimization**: Optimizes unified model parameters
+- **Per-book Model Optimization**: Optimizes individual binary classifiers
+- **Visualization**: Optimization history and parameter importance plots
+- **Detailed Reporting**: Markdown reports with trial history and best parameters
+- **Easy Integration**: Simple API to apply optimized parameters
 
-#### 6. Train Competing Models ✅ COMPLETED
-**Objective**: Train and compare different classification approaches
+**Key Files**: `utils/hyperparameter_optimizer.py`, `HYPERPARAMETER_OPTIMIZATION_README.md`
 
-**Approach 1**: Multi-label Classifier
-- Single model for all categories
-- Features: Similarity scores + KNN metadata
-- Algorithms: Random Forest, Logistic Regression, SVM
-- **Best Results**: Random Forest (90.83% accuracy, 94.73% F1-Score)
+## 📈 Results Summary
 
-**Approach 2**: Contrastive Learning Orchestration
-- 4 separate models (one per book)
-- Triplet loss training with classifier heads
-- **Results**: Evaluation issues (needs debugging)
+### Performance Comparison
 
-#### 7. Compare, Visualize, and Conclude ✅ COMPLETED
-**Objective**: Comprehensive comparison and final model selection
+| Book | Per-Book F1 | Multi-Label F1 | Difference | Winner |
+|------|-------------|----------------|-----------|--------|
+| Anna Karenina | 0.879 | 0.880 | +0.001 | Multi-Label |
+| Wuthering Heights | 0.848 | 0.852 | +0.004 | Multi-Label |
+| Frankenstein | 0.847 | 0.844 | -0.003 | Per-Book |
+| The Adventures of Alice in Wonderland | 0.801 | 0.797 | -0.005 | Per-Book |
 
-**Comparison Dimensions**:
-- Overall accuracy and per-category performance
-- Computational efficiency (training/inference time)
-- Model interpretability
-- Multi-label classification quality
+### Key Insights
 
-**Final Results**:
-- **Winner**: Random Forest Multi-label Classifier (90.83% accuracy)
-- **Key Finding**: Proper feature/label separation is crucial
-- **Best Approach**: Multi-label classification with KNN features
+#### Overall Performance
+- **Average Performance**: Per-Book (0.844) vs Multi-Label (0.843) - virtually identical
+- **Balanced Results**: Each approach wins in 2/4 books
+- **Consistent Quality**: Both approaches achieve 80%+ accuracy across all books
+
+#### Book-Specific Analysis
+- **Anna Karenina & Wuthering Heights**: Multi-label approach performs better
+- **Frankenstein & Alice in Wonderland**: Per-book approach performs better
+- **Interpretation**: Books with more semantic overlap benefit from shared representations
+
+#### Multi-label vs Single-label Performance
+- **Anna Karenina**: Multi-label F1 91.2% vs Single-label F1 41.3% (+49.9%)
+- **Wuthering Heights**: Multi-label F1 89.7% vs Single-label F1 58.2% (+31.4%)
+- **Frankenstein**: Multi-label F1 69.9% vs Single-label F1 91.7% (-21.8%)
+- **Alice in Wonderland**: Multi-label F1 75.1% vs Single-label F1 86.2% (-11.1%)
+
+## 🚀 Quick Start
+
+### 1. Setup Environment
+```bash
+pip install -r requirements.txt
+```
+
+### 2. Run Hyperparameter Optimization
+```bash
+# Optimize multi-label model
+python utils/run_hyperparameter_optimization.py --model_type multi_label --n_trials 30
+
+# Optimize per-book models
+python utils/run_hyperparameter_optimization.py --model_type per_book --n_trials 30
+
+# Optimize both approaches
+python utils/run_hyperparameter_optimization.py --model_type both --n_trials 30
+```
+
+### 3. Train Models
+```bash
+# Train multi-label model
+python multi_label_model/train_multi_label_model.py
+
+# Train per-book models
+python model_per_book/train_model_per_book.py
+```
+
+### 4. Compare Approaches
+```bash
+# Generate comprehensive comparison
+python compare_approaches.py
+```
+
+## 📁 Project Structure
+
+```
+books-classification/
+├── configs/
+│   ├── config.yaml                    # Main configuration
+│   └── optimized_params_config.yaml   # Optimized parameters
+├── data/
+│   ├── dataset/                       # Multi-label dataset splits
+│   ├── semantic_augmented/            # Dataset analysis and documentation
+│   ├── embeddings_cache_*.npz         # Cached embeddings
+│   ├── semantic_pairs.json            # Semantic similarity pairs
+│   └── corpus_deduplicated.json       # Deduplicated corpus
+├── model_per_book/                    # Per-book approach
+│   ├── train_model_per_book.py        # Training script
+│   ├── *_best_model.pth              # Trained models for each book
+│   ├── results.json                   # Training results
+│   ├── model_comparison.png           # Performance visualization
+│   └── README.md                      # Detailed documentation
+├── multi_label_model/                 # Multi-label approach
+│   ├── train_multi_label_model.py     # Training script
+│   ├── best_neural_network.pth        # Trained unified model
+│   ├── neural_network_results.json    # Training results
+│   └── README.md                      # Detailed documentation
+├── utils/
+│   ├── hyperparameter_optimizer.py    # Optimization engine
+│   ├── run_hyperparameter_optimization.py  # Optimization runner
+│   ├── apply_optimized_params.py      # Parameter application
+│   ├── evaluation.py                  # Evaluation utilities
+│   └── visualization.py               # Plotting utilities
+├── compare_approaches.py              # Main comparison script
+├── approach_comparison_report.md      # Comparison results
+├── HYPERPARAMETER_OPTIMIZATION_README.md  # Optimization documentation
+├── SEMANTIC_AUGMENTED_DATASET_README.md  # Dataset documentation
+└── requirements.txt                   # Dependencies
+```
+
+## 🔧 Key Technologies
+
+### Neural Networks
+- **Framework**: PyTorch
+- **Architecture**: Multi-layer perceptrons with ReLU activation
+- **Regularization**: BatchNorm, Dropout, Weight Decay
+- **Optimization**: Adam optimizer with learning rate scheduling
+
+### Semantic Embeddings
+- **Framework**: Sentence Transformers
+- **Model**: Pre-trained multilingual models
+- **Dimension**: 384-dimensional embeddings
+- **Caching**: NumPy compressed format for efficiency
+
+### Hyperparameter Optimization
+- **Framework**: Optuna
+- **Method**: Bayesian optimization
+- **Parameters**: Architecture, training, regularization
+- **Visualization**: Optimization history and importance plots
+
+### Evaluation Metrics
+- **Overall**: Accuracy, Precision, Recall, F1-Score
+- **Multi-label**: Hamming Loss, Exact Match Ratio
+- **Per-book**: Individual binary classification metrics
 
 ## 📊 Dataset Information
 
@@ -150,129 +250,49 @@ This project implements a comprehensive multi-label classification system for En
 4. **Wuthering Heights** - Emily Brontë
 
 ### Dataset Statistics
-- **Total Sentences**: 31,760 (semantic augmented dataset)
-- **Train/Val/Test Split**: 22,231/4,764/4,765
+- **Total Sentences**: 10,120 (balanced semantic augmented dataset)
+- **Train/Validation/Test Split**: 7,083 / 1,518 / 1,519
 - **Multi-label Distribution**:
-  - 1 label: 26,606 sentences (83.8%)
-  - 2 labels: 3,479 sentences (11.0%)
-  - 3 labels: 1,264 sentences (4.0%)
-  - 4 labels: 411 sentences (1.3%)
+  - 1 label: 4,966 sentences (49.1%)
+  - 2 labels: 3,479 sentences (34.4%)
+  - 3 labels: 1,264 sentences (12.5%)
+  - 4 labels: 411 sentences (4.1%)
 
-## 🏆 Results Summary
+### Cross-Book Similarity Analysis
+- **Anna Karenina ↔ Wuthering Heights**: 14.0% similarity (strongest)
+- **Frankenstein ↔ Alice in Wonderland**: 6.6% similarity (weakest)
+- **Most Universal**: Expressions like "Oh dear!", "Well!", "she said aloud"
 
-### Best Performing Model
-- **Multi-label Classifier with KNN Features**: 90.83% accuracy
-- **F1-Score**: 94.73%
-- **Hamming Loss**: 0.0371
+### Book Distribution (Balanced Dataset)
+- **Anna Karenina**: 5,000 positive samples (49.4%)
+- **Wuthering Heights**: 5,000 positive samples (49.4%)
+- **Frankenstein**: 4,443 positive samples (43.9%)
+- **The Adventures of Alice in Wonderland**: 2,917 positive samples (28.8%)
 
-### Model Performance Comparison
-| Model | Accuracy | F1-Score | Hamming Loss |
-|-------|----------|----------|--------------|
-| Random Forest Multi-label | 90.83% | 94.73% | 0.0371 |
-| Logistic Regression | 87.71% | 93.66% | 0.0467 |
-| SVM | 88.30% | 93.91% | 0.0459 |
+## 🎯 Key Innovations
 
-## 🚀 Quick Start
+### 1. Self-Supervised Learning Approach
+- **No Manual Labeling**: Uses semantic similarity for supervision instead of manual data tagging
+- **Per-Book Models**: Specialized binary classifiers for each book
+- **Multi-Label Model**: Unified model with shared representations
+- **Balanced Evaluation**: Comprehensive comparison across multiple metrics
 
-### 1. Setup Environment
-```bash
-pip install -r requirements.txt
-```
+### 2. Semantic Augmented Dataset
+- **Cross-Book Relationships**: Based on actual semantic similarity
+- **Multi-label Format**: Realistic representation of book relationships
+- **Complete Coverage**: All sentences from deduplicated corpus included
+- **Balanced Sampling**: Similar representation from each book with multi-label priority
 
-### 2. Run Full Pipeline
-```bash
-python run_full_pipeline.py
-```
+### 3. Advanced Hyperparameter Optimization
+- **Bayesian Optimization**: Efficient parameter search with Optuna
+- **Comprehensive Coverage**: Architecture, training, and regularization parameters
+- **Visualization**: Optimization history and parameter importance analysis
 
-### 3. Individual Steps
-```bash
-# Step 1: Data Preparation
-python data/prepare_data.py
-
-# Step 1.5: Semantic Augmented Dataset
-python create_semantic_augmented_dataset.py
-
-# Step 4: Feature Extraction
-python extract_features_knn.py
-
-# Step 5: Hyperparameter Optimization
-python run_hyperparameter_optimization.py
-
-# Step 6: Model Training
-python train_multi_label_classifier_knn.py
-
-# Step 7: Evaluation
-python evaluate_models.py
-```
-
-## 📁 Project Structure
-
-```
-books-classification/
-├── configs/
-│   └── config.yaml              # Main configuration
-├── data/
-│   ├── dataset/                 # Processed dataset
-│   ├── semantic_augmented/      # Multi-label dataset
-│   ├── features_knn/            # KNN features
-│   ├── embeddings_cache.npz     # Cached embeddings
-│   └── semantic_pairs.json      # Semantic pairs
-├── experiments/
-│   ├── semantic_embedding/      # Fine-tuned model
-│   ├── multi_label_classifier/  # Classification results
-│   └── evaluation_results/      # Final results
-├── model_per_book/              # Individual book models
-├── multi_label_model/           # Multi-label model results
-├── models/
-│   ├── semantic_embedding_model.py
-│   └── multi_label_classifier.py
-├── utils/
-│   ├── data_utils.py
-│   ├── evaluation.py
-│   ├── semantic_analysis.py
-│   └── visualization.py
-└── [Core Pipeline Scripts]
-```
-
-## 🔧 Key Technologies
-
-### Semantic Embeddings
-- **Framework**: Sentence Transformers
-- **Selected Model**: `paraphrase-multilingual-MiniLM-L12-v2`
-- **Fine-tuning**: Contrastive learning with triplet loss
-
-### Feature Engineering
-- **KNN Approach**: k=15 neighbors with cosine similarity
-- **Caching**: NumPy compressed format for efficiency
-- **Multi-label Logic**: Realistic belonging rules
-
-### Classification
-- **Multi-label Classifier**: Random Forest with optimized parameters
-- **Evaluation Metrics**: Precision, Recall, F1-Score, Hamming Loss
-- **Hyperparameter Optimization**: Bayesian optimization with Optuna
-
-## 📈 Key Innovations
-
-### 1. Hybrid AI + Traditional Approach
-- **AI Generation**: Used for creating similar sentence pairs
-- **Traditional Sampling**: Used for dissimilar pairs (more reliable)
-- **Combination**: Best of both worlds
-
-### 2. KNN Feature Extraction
-- **Problem Solved**: Mean embedding approach was flawed
-- **Solution**: KNN-based similarity with weighted voting
-- **Benefits**: Handles uniform distributions, realistic multi-label belonging
-
-### 3. Embedding Caching
-- **Performance**: First run caches embeddings, subsequent runs are fast
-- **Storage**: Compressed numpy format for efficiency
-- **Consistency**: Ensures reproducible results
-
-### 4. Multi-label Belonging Logic
-- **Rule 1**: Best score always gets 1
-- **Rule 2**: All scores within 0.2 of best get 1
-- **Rule 3**: Original true book always gets 1
-- **Result**: Realistic multi-label classification
+### 4. Detailed Performance Analysis
+- **Overall Metrics**: Standard classification metrics
+- **Multi-label Analysis**: Performance on sentences belonging to multiple books
+- **Single-label Analysis**: Performance on sentences belonging to single books
+- **Book-Specific Insights**: Detailed breakdown for each book
 
 ## 📋 Requirements
 
@@ -285,31 +305,38 @@ books-classification/
 - Matplotlib
 - Seaborn
 - Optuna (for hyperparameter optimization)
+- Sentence-Transformers
 
 ## 📝 Usage Examples
 
-### Train Multi-label Classifier
+### Train with Optimized Parameters
 ```bash
-python train_multi_label_classifier_knn.py --config configs/config.yaml
+# Apply optimized parameters and train
+python utils/apply_optimized_params.py --study_name multi_label_optimization_20241201_143022
+python multi_label_model/train_multi_label_model.py
 ```
 
-### Run Hyperparameter Optimization
+### Run Complete Comparison
 ```bash
-python run_hyperparameter_optimization.py --config configs/config.yaml
+# Train both approaches and compare
+python model_per_book/train_model_per_book.py
+python multi_label_model/train_multi_label_model.py
+python compare_approaches.py
 ```
 
-### Evaluate All Models
+### Quick Performance Check
 ```bash
-python evaluate_models.py --config configs/config.yaml
+# Generate comparison report
+python compare_approaches.py --quick
 ```
 
 ## 🤝 Contributing
 
-1. Follow the 6-step methodology
+1. Follow the dual approach methodology
 2. Use semantic augmented dataset for fair evaluation
-3. Document all experiments and results
-4. Maintain clean project structure
-5. Run hyperparameter optimization for new components
+3. Run hyperparameter optimization for new components
+4. Document all experiments and results
+5. Maintain clean project structure
 
 ## 📄 License
 
@@ -317,6 +344,5 @@ This project is for educational and research purposes.
 
 ---
 
-**Last Updated**: [Current Date]
-**Status**: ✅ Complete with semantic augmented dataset and optimized models
-**Best Model**: Random Forest Multi-label Classifier (90.83% accuracy) 
+**Status**: ✅ Complete with comprehensive comparison and optimization
+**Best Approach**: Balanced - Per-book for specialized performance, Multi-label for shared representations 

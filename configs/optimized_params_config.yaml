@@ -1,0 +1,106 @@
+metadata:
+  last_updated: '2025-08-03 12:59:18'
+  multi_label_study: multi_label_optimization_20250803_085155
+  optimization_date: '2025-08-03'
+  per_book_study: per_book_optimization_20250803_093617
+  source_study: latest_optimization
+multi_label:
+  architecture:
+    dropout_rate: 0.29528797161963366
+    hidden_dims:
+    - 234
+    - 352
+    - 198
+    - 79
+    - 349
+    - 483
+    - 509
+    - 483
+    - 504
+    - 293
+  training:
+    batch_size: 64
+    epochs: 52
+    learning_rate: 0.0017937154264126682
+    patience: 30
+    weight_decay: 6.618617548521995e-05
+per_book:
+  book_1:
+    architecture:
+      dropout_rate: 0.33284564045759835
+      hidden_dims:
+      - 370
+      - 323
+      - 357
+      - 383
+      - 131
+      - 488
+      - 206
+      - 74
+      - 332
+    training:
+      batch_size: 64
+      epochs: 80
+      learning_rate: 0.004604798510104055
+      patience: 20
+      weight_decay: 0.00048258145679797216
+  book_2:
+    architecture:
+      dropout_rate: 0.28118224911006295
+      hidden_dims:
+      - 420
+      - 399
+      - 252
+      - 450
+      - 466
+      - 276
+      - 278
+      - 265
+      - 216
+      - 428
+      - 460
+      - 69
+    training:
+      batch_size: 32
+      epochs: 196
+      learning_rate: 0.0005761750693312183
+      patience: 16
+      weight_decay: 0.0001821053318024581
+  book_3:
+    architecture:
+      dropout_rate: 0.4868379827843776
+      hidden_dims:
+      - 397
+      - 122
+      - 242
+      - 214
+      - 476
+      - 266
+      - 76
+      - 431
+      - 95
+      - 179
+    training:
+      batch_size: 128
+      epochs: 195
+      learning_rate: 0.0012306371788169933
+      patience: 26
+      weight_decay: 1.2455291296976507e-06
+  book_4:
+    architecture:
+      dropout_rate: 0.298716075406882
+      hidden_dims:
+      - 511
+      - 186
+      - 299
+      - 412
+      - 443
+      - 358
+      - 414
+      - 350
+    training:
+      batch_size: 32
+      epochs: 126
+      learning_rate: 7.493877482479142e-05
+      patience: 17
+      weight_decay: 0.000179776542705228

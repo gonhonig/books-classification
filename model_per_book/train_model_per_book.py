@@ -14,6 +14,7 @@ from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_sc
 import logging
 from pathlib import Path
 import json
+import yaml
 from datetime import datetime
 import matplotlib.pyplot as plt
 import seaborn as sns
@@ -69,13 +70,15 @@ class BinaryBookClassifier(nn.Module):
 class IndividualBookTrainer:
     """Trainer for individual book models using pre-existing dataset splits."""
     
-    def __init__(self, dataset_path: str = "data/dataset", embeddings_path: str = "data/embeddings_cache_aligned_f24a423ed8f9dd531230fe64f71f668d.npz"):
+    def __init__(self, dataset_path: str = "data/dataset", embeddings_path: str = "data/embeddings_cache_aligned_f24a423ed8f9dd531230fe64f71f668d.npz", config_path: str = "configs/optimized_params_config.yaml"):
         self.dataset_path = dataset_path
         self.embeddings_path = embeddings_path
+        self.config_path = config_path
         self.device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
         self.models = {}
         self.scalers = {}
         self.results = {}
+        self.config = self.load_config()
         
         # Dataset properties
         self.dataset = None
@@ -90,15 +93,31 @@ class IndividualBookTrainer:
             'book_4': 'The Adventures of Alice in Wonderland'
         }
         
-        # Book order in labels list (based on the dataset creation order)
+        # Book order in labels list (based on the augmented dataset order)
         self.book_order = [
             'Anna Karenina',
-            'Frankenstein', 
+            'Frankenstein',
             'The Adventures of Alice in Wonderland',
             'Wuthering Heights'
         ]
         
         logger.info(f"Using device: {self.device}")
+        
+    def load_config(self):
+        """Load configuration from YAML file."""
+        config_file = Path(self.config_path)
+        if not config_file.exists():
+            logger.warning(f"Configuration file not found: {config_file}. Using default parameters.")
+            return None
+        
+        try:
+            with open(config_file, 'r') as f:
+                config = yaml.safe_load(f)
+            logger.info(f"Loaded configuration from: {config_file}")
+            return config
+        except Exception as e:
+            logger.error(f"Failed to load configuration: {e}. Using default parameters.")
+            return None
         
     def load_data(self):
         """Load the pre-existing dataset splits and embeddings."""
@@ -161,11 +180,33 @@ class IndividualBookTrainer:
         
         return embeddings, labels, sentences
     
-    def train_book_model(self, book_col, hidden_dims=[256, 128, 64], dropout_rate=0.3,
-                        epochs=100, batch_size=32, learning_rate=0.001, patience=15):
+    def train_book_model(self, book_col, hidden_dims=None, dropout_rate=None,
+                        epochs=None, batch_size=None, learning_rate=None, patience=None, weight_decay=None):
         """Train a model for a specific book using the pre-existing splits."""
         book_name = self.book_names[book_col]
         logger.info(f"Training model for {book_name}")
+        
+        # Use config parameters if available, otherwise use defaults
+        if self.config and 'per_book' in self.config and book_col in self.config['per_book']:
+            config_params = self.config['per_book'][book_col]
+            hidden_dims = hidden_dims or config_params['architecture']['hidden_dims']
+            dropout_rate = dropout_rate or config_params['architecture']['dropout_rate']
+            epochs = epochs or config_params['training']['epochs']
+            batch_size = batch_size or config_params['training']['batch_size']
+            learning_rate = learning_rate or config_params['training']['learning_rate']
+            patience = patience or config_params['training']['patience']
+            weight_decay = weight_decay or config_params['training']['weight_decay']
+        else:
+            hidden_dims = hidden_dims or [256, 128, 64]
+            dropout_rate = dropout_rate or 0.3
+            epochs = epochs or 100
+            batch_size = batch_size or 32
+            learning_rate = learning_rate or 0.001
+            patience = patience or 15
+            weight_decay = weight_decay or 1e-5
+        
+        logger.info(f"Training parameters for {book_name}: hidden_dims={hidden_dims}, dropout_rate={dropout_rate}")
+        logger.info(f"Training parameters: epochs={epochs}, batch_size={batch_size}, lr={learning_rate}, patience={patience}, weight_decay={weight_decay}")
         
         # Get data for each split
         X_train, y_train, train_sentences = self.get_split_data('train', book_col)
@@ -209,7 +250,7 @@ class IndividualBookTrainer:
         
         # Loss function and optimizer
         criterion = nn.BCELoss()
-        optimizer = optim.Adam(model.parameters(), lr=learning_rate)
+        optimizer = optim.Adam(model.parameters(), lr=learning_rate, weight_decay=weight_decay)
         scheduler = optim.lr_scheduler.ReduceLROnPlateau(optimizer, mode='min', patience=5, factor=0.5)
         
         # Training loop
@@ -486,12 +527,26 @@ class IndividualBookTrainer:
             model_path = f"model_per_book/{book_name.replace(' ', '_').lower()}_best_model.pth"
             
             if Path(model_path).exists():
-                model = BinaryBookClassifier().to(self.device)
+                # Get the correct architecture parameters from config
+                if self.config and 'per_book' in self.config and book_col in self.config['per_book']:
+                    config_params = self.config['per_book'][book_col]
+                    hidden_dims = config_params['architecture']['hidden_dims']
+                    dropout_rate = config_params['architecture']['dropout_rate']
+                else:
+                    # Fallback to default parameters
+                    hidden_dims = [256, 128, 64]
+                    dropout_rate = 0.3
+                
+                model = BinaryBookClassifier(
+                    input_dim=384,
+                    hidden_dims=hidden_dims,
+                    dropout_rate=dropout_rate
+                ).to(self.device)
                 model.load_state_dict(torch.load(model_path, map_location=self.device))
                 model.eval()
                 models[book_col] = model
                 scalers[book_col] = self.scalers[book_col]
-                logger.info(f"Loaded model for {book_name}")
+                logger.info(f"Loaded model for {book_name} with architecture: hidden_dims={hidden_dims}, dropout_rate={dropout_rate}")
         
         # Get test data
         test_data = self.dataset['test']
@@ -688,12 +743,26 @@ class IndividualBookTrainer:
             model_path = f"model_per_book/{book_name.replace(' ', '_').lower()}_best_model.pth"
             
             if Path(model_path).exists():
-                model = BinaryBookClassifier().to(self.device)
+                # Get the correct architecture parameters from config
+                if self.config and 'per_book' in self.config and book_col in self.config['per_book']:
+                    config_params = self.config['per_book'][book_col]
+                    hidden_dims = config_params['architecture']['hidden_dims']
+                    dropout_rate = config_params['architecture']['dropout_rate']
+                else:
+                    # Fallback to default parameters
+                    hidden_dims = [256, 128, 64]
+                    dropout_rate = 0.3
+                
+                model = BinaryBookClassifier(
+                    input_dim=384,
+                    hidden_dims=hidden_dims,
+                    dropout_rate=dropout_rate
+                ).to(self.device)
                 model.load_state_dict(torch.load(model_path, map_location=self.device))
                 model.eval()
                 models[book_col] = model
                 scalers[book_col] = self.scalers[book_col]
-                logger.info(f"Loaded model for {book_name}")
+                logger.info(f"Loaded model for {book_name} with architecture: hidden_dims={hidden_dims}, dropout_rate={dropout_rate}")
         
         # Get test data
         test_data = self.dataset['test']

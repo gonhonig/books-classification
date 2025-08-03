@@ -1,0 +1,17 @@
+{
+  "n_layers": 8,
+  "hidden_dim_0": 404,
+  "hidden_dim_1": 430,
+  "hidden_dim_2": 336,
+  "hidden_dim_3": 251,
+  "hidden_dim_4": 131,
+  "hidden_dim_5": 330,
+  "hidden_dim_6": 399,
+  "hidden_dim_7": 227,
+  "learning_rate": 0.00012367609745142668,
+  "batch_size": 16,
+  "dropout_rate": 0.45477314713190786,
+  "weight_decay": 3.664611953105058e-06,
+  "epochs": 109,
+  "patience": 24
+}

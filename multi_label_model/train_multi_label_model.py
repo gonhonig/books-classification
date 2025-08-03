@@ -14,6 +14,7 @@ from sklearn.metrics import accuracy_score, hamming_loss, precision_score, recal
 import logging
 from pathlib import Path
 import json
+import yaml
 from datetime import datetime
 from datasets import load_from_disk
 
@@ -59,13 +60,15 @@ class MultiLabelMLP(nn.Module):
 class NeuralNetworkTrainer:
     """Trainer for neural network multi-label classification."""
     
-    def __init__(self, dataset_path: str = "data/dataset", embeddings_path: str = "data/embeddings_cache_aligned_f24a423ed8f9dd531230fe64f71f668d.npz"):
+    def __init__(self, dataset_path: str = "data/dataset", embeddings_path: str = "data/embeddings_cache_aligned_f24a423ed8f9dd531230fe64f71f668d.npz", config_path: str = "configs/optimized_params_config.yaml"):
         self.dataset_path = dataset_path
         self.embeddings_path = embeddings_path
+        self.config_path = config_path
         self.device = torch.device("mps" if torch.backends.mps.is_available() else "cpu")
         self.scaler = StandardScaler()
         self.model = None
         self.results = {}
+        self.config = self.load_config()
         
         # Dataset properties
         self.dataset = None
@@ -88,6 +91,22 @@ class NeuralNetworkTrainer:
         }
         
         logger.info(f"Using device: {self.device}")
+        
+    def load_config(self):
+        """Load configuration from YAML file."""
+        config_file = Path(self.config_path)
+        if not config_file.exists():
+            logger.warning(f"Configuration file not found: {config_file}. Using default parameters.")
+            return None
+        
+        try:
+            with open(config_file, 'r') as f:
+                config = yaml.safe_load(f)
+            logger.info(f"Loaded configuration from: {config_file}")
+            return config
+        except Exception as e:
+            logger.error(f"Failed to load configuration: {e}. Using default parameters.")
+            return None
         
     def load_data(self):
         """Load the pre-existing dataset splits and embeddings."""
@@ -141,10 +160,19 @@ class NeuralNetworkTrainer:
         logger.info("Data preparation completed!")
         return True
     
-    def create_model(self, hidden_dims=[256, 128, 64], dropout_rate=0.3):
+    def create_model(self, hidden_dims=None, dropout_rate=None):
         """Create the neural network model."""
         input_dim = self.X_train.shape[1]
         output_dim = self.y_train.shape[1]
+        
+        # Use config parameters if available, otherwise use defaults
+        if self.config and 'multi_label' in self.config:
+            config_params = self.config['multi_label']['architecture']
+            hidden_dims = hidden_dims or config_params['hidden_dims']
+            dropout_rate = dropout_rate or config_params['dropout_rate']
+        else:
+            hidden_dims = hidden_dims or [256, 128, 64]
+            dropout_rate = dropout_rate or 0.3
         
         self.model = MultiLabelMLP(
             input_dim=input_dim,
@@ -154,16 +182,34 @@ class NeuralNetworkTrainer:
         ).to(self.device)
         
         logger.info(f"Created model with {sum(p.numel() for p in self.model.parameters())} parameters")
+        logger.info(f"Architecture: hidden_dims={hidden_dims}, dropout_rate={dropout_rate}")
         return self.model
     
-    def train_model(self, epochs=100, batch_size=64, learning_rate=0.001, patience=10):
+    def train_model(self, epochs=None, batch_size=None, learning_rate=None, patience=None, weight_decay=None):
         """Train the neural network."""
         if self.model is None:
             self.create_model()
         
+        # Use config parameters if available, otherwise use defaults
+        if self.config and 'multi_label' in self.config:
+            config_params = self.config['multi_label']['training']
+            epochs = epochs or config_params['epochs']
+            batch_size = batch_size or config_params['batch_size']
+            learning_rate = learning_rate or config_params['learning_rate']
+            patience = patience or config_params['patience']
+            weight_decay = weight_decay or config_params['weight_decay']
+        else:
+            epochs = epochs or 100
+            batch_size = batch_size or 64
+            learning_rate = learning_rate or 0.001
+            patience = patience or 10
+            weight_decay = weight_decay or 1e-5
+        
+        logger.info(f"Training parameters: epochs={epochs}, batch_size={batch_size}, lr={learning_rate}, patience={patience}, weight_decay={weight_decay}")
+        
         # Loss function and optimizer
         criterion = nn.BCELoss()
-        optimizer = optim.Adam(self.model.parameters(), lr=learning_rate)
+        optimizer = optim.Adam(self.model.parameters(), lr=learning_rate, weight_decay=weight_decay)
         scheduler = optim.lr_scheduler.ReduceLROnPlateau(optimizer, mode='min', patience=5, factor=0.5)
         
         # Create data loaders
