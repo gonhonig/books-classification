@@ -13,6 +13,13 @@
       },
       "_type": "List"
     },
+    "naive_labels": {
+      "feature": {
+        "dtype": "int64",
+        "_type": "Value"
+      },
+      "_type": "List"
+    },
     "original_label": {
       "dtype": "int64",
       "_type": "Value"

@@ -82,9 +82,11 @@ def create_augmented_dataset(pairs: List[Dict], corpus_data: Dict,
             # Initialize all book columns to 0
             for book in books:
                 row[f'book_{book.replace(" ", "_").replace("'", "")}'] = 0
+                row[f'naive_{book.replace(" ", "_").replace("'", "")}'] = 0
             
             # Set the original book column to 1
             row[f'book_{book_name.replace(" ", "_").replace("'", "")}'] = 1
+            row[f'naive_{book_name.replace(" ", "_").replace("'", "")}'] = 1
             
             augmented_data.append(row)
     
@@ -241,15 +243,18 @@ def create_dataset_splits(df: pd.DataFrame, config_path: str = "configs/config.y
     
     # Create label mapping for multi-label classification
     book_columns = [col for col in df.columns if col.startswith('book_')]
+    naive_columns = [col for col in df.columns if col.startswith('naive_')]
     books = [col.replace('book_', '').replace('_', ' ') for col in book_columns]
     
     # Create multi-label format
     labels = df[book_columns].values.tolist()
+    naive_labels = df[naive_columns].values.tolist()
     
     # Create dataset with multi-label format
     dataset_df = pd.DataFrame({
         'sentence': df['sentence'],
         'labels': labels,
+        'naive_labels': naive_labels,
         'original_label': df['original_label'],
         'original_book': df['original_book']
     })
