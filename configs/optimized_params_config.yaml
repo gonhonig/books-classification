@@ -1,106 +1,99 @@
 metadata:
-  last_updated: '2025-08-03 12:59:18'
-  multi_label_study: multi_label_optimization_20250803_085155
-  optimization_date: '2025-08-03'
-  per_book_study: per_book_optimization_20250803_093617
+  last_updated: '2025-08-04 20:47:57'
+  multi_label_study: multi_label_optimization_20250804_144256
+  optimization_date: '2025-08-04'
+  per_book_study: per_book_optimization_20250804_155419_book_Wuthering_Heights
   source_study: latest_optimization
 multi_label:
   architecture:
-    dropout_rate: 0.29528797161963366
+    dropout_rate: 0.20834155152952213
     hidden_dims:
-    - 234
-    - 352
-    - 198
-    - 79
-    - 349
-    - 483
-    - 509
-    - 483
-    - 504
-    - 293
+    - 407
+    - 120
+    - 327
+    - 301
+    - 301
+    - 420
   training:
     batch_size: 64
-    epochs: 52
-    learning_rate: 0.0017937154264126682
+    epochs: 97
+    learning_rate: 0.003540373545611384
     patience: 30
-    weight_decay: 6.618617548521995e-05
+    weight_decay: 2.9433622752930977e-06
 per_book:
   book_Anna_Karenina:
     architecture:
-      dropout_rate: 0.33284564045759835
+      dropout_rate: 0.49840823287657215
       hidden_dims:
-      - 370
-      - 323
-      - 357
-      - 383
-      - 131
-      - 488
-      - 206
-      - 74
-      - 332
+      - 369
+      - 226
+      - 339
+      - 134
+      - 511
+      - 512
+      - 201
+      - 159
+      - 460
     training:
-      batch_size: 64
-      epochs: 80
-      learning_rate: 0.004604798510104055
-      patience: 20
-      weight_decay: 0.00048258145679797216
+      batch_size: 16
+      epochs: 179
+      learning_rate: 0.008384457395665736
+      patience: 12
+      weight_decay: 1.0886197021321246e-06
   book_Frankenstein:
     architecture:
-      dropout_rate: 0.28118224911006295
+      dropout_rate: 0.20379252853610424
       hidden_dims:
-      - 420
-      - 399
-      - 252
-      - 450
-      - 466
-      - 276
-      - 278
-      - 265
-      - 216
-      - 428
-      - 460
-      - 69
+      - 226
+      - 219
+      - 368
+      - 72
+      - 81
+      - 123
+      - 297
+      - 202
+      - 196
+      - 175
     training:
       batch_size: 32
-      epochs: 196
-      learning_rate: 0.0005761750693312183
-      patience: 16
-      weight_decay: 0.0001821053318024581
+      epochs: 150
+      learning_rate: 0.00026928940730248414
+      patience: 30
+      weight_decay: 0.0008995991830688982
   book_The_Adventures_of_Alice_in_Wonderland:
     architecture:
-      dropout_rate: 0.4868379827843776
+      dropout_rate: 0.34162122009965945
       hidden_dims:
-      - 397
-      - 122
-      - 242
-      - 214
-      - 476
-      - 266
-      - 76
-      - 431
-      - 95
-      - 179
+      - 193
+      - 486
+      - 347
+      - 365
+      - 474
+      - 331
+      - 469
+      - 311
     training:
-      batch_size: 128
-      epochs: 195
-      learning_rate: 0.0012306371788169933
-      patience: 26
-      weight_decay: 1.2455291296976507e-06
+      batch_size: 16
+      epochs: 65
+      learning_rate: 0.000120404004542854
+      patience: 17
+      weight_decay: 8.307197795406656e-06
   book_Wuthering_Heights:
     architecture:
-      dropout_rate: 0.298716075406882
+      dropout_rate: 0.22735410320706947
       hidden_dims:
-      - 511
-      - 186
-      - 299
-      - 412
-      - 443
-      - 358
-      - 414
-      - 350
+      - 341
+      - 335
+      - 164
+      - 249
+      - 349
+      - 504
+      - 161
+      - 332
+      - 338
     training:
-      batch_size: 32
-      epochs: 126
-      learning_rate: 7.493877482479142e-05
-      patience: 17
-      weight_decay: 0.000179776542705228
+      batch_size: 16
+      epochs: 139
+      learning_rate: 0.0001244829035982986
+      patience: 27
+      weight_decay: 2.4912916349574228e-05

@@ -13,10 +13,10 @@
 
 | Book | Overall Accuracy | Overall F1 | Single-Label F1 | Multi-Label F1 | Performance Pattern |
 |------|------------------|------------|-----------------|----------------|-------------------|
-| **Anna Karenina** | 0.874 | 0.872 | 0.412 | **0.916** | Multi-label excels |
-| **Frankenstein** | 0.870 | 0.855 | **0.922** | 0.737 | Single-label excels |
-| **The Adventures of Alice in Wonderland** | 0.903 | 0.816 | **0.883** | 0.771 | Single-label excels |
-| **Wuthering Heights** | 0.853 | 0.854 | 0.617 | **0.901** | Multi-label excels |
+| **Anna Karenina** | 0.881 | 0.879 | 0.393 | **0.922** | Multi-label excels |
+| **Frankenstein** | 0.848 | 0.829 | **0.911** | 0.678 | Single-label excels |
+| **The Adventures of Alice in Wonderland** | 0.877 | 0.748 | **0.864** | 0.662 | Single-label excels |
+| **Wuthering Heights** | 0.845 | 0.845 | 0.597 | **0.894** | Multi-label excels |
 
 ### Key Insights
 
@@ -31,28 +31,28 @@
 ### Anna Karenina
 
 #### Overall Performance
-- **Accuracy**: 0.874
-- **Precision**: 0.887
-- **Recall**: 0.857
-- **F1 Score**: 0.872
+- **Accuracy**: 0.881
+- **Precision**: 0.899
+- **Recall**: 0.860
+- **F1 Score**: 0.879
 
 #### Single-Label Performance
-- **Accuracy**: 0.897
-- **Precision**: 0.303
-- **Recall**: 0.643
-- **F1 Score**: 0.412
+- **Accuracy**: 0.901
+- **Precision**: 0.300
+- **Recall**: 0.571
+- **F1 Score**: 0.393
 - **Sample Count**: 747
 
 #### Multi-Label Performance
-- **Accuracy**: 0.851
-- **Precision**: 0.968
-- **Recall**: 0.870
-- **F1 Score**: 0.916
+- **Accuracy**: 0.861
+- **Precision**: 0.972
+- **Recall**: 0.877
+- **F1 Score**: 0.922
 - **Sample Count**: 772
 
 #### Performance Analysis
-- **F1 Difference (Multi - Single)**: +0.504
-- **Multi-label performs better** by 0.504 F1 points
+- **F1 Difference (Multi - Single)**: +0.529
+- **Multi-label performs better** by 0.529 F1 points
 - **Pattern**: This model excels at identifying Anna Karenina when it appears alongside other books
 - **Interpretation**: Anna Karenina's distinctive writing style (Tolstoy's detailed character development and social commentary) is more recognizable in multi-label contexts
 
@@ -61,28 +61,28 @@
 ### Frankenstein
 
 #### Overall Performance
-- **Accuracy**: 0.870
-- **Precision**: 0.854
-- **Recall**: 0.856
-- **F1 Score**: 0.855
+- **Accuracy**: 0.848
+- **Precision**: 0.837
+- **Recall**: 0.821
+- **F1 Score**: 0.829
 
 #### Single-Label Performance
-- **Accuracy**: 0.909
-- **Precision**: 0.913
-- **Recall**: 0.930
-- **F1 Score**: 0.922
+- **Accuracy**: 0.896
+- **Precision**: 0.898
+- **Recall**: 0.923
+- **F1 Score**: 0.911
 - **Sample Count**: 747
 
 #### Multi-Label Performance
-- **Accuracy**: 0.832
-- **Precision**: 0.746
-- **Recall**: 0.728
-- **F1 Score**: 0.737
+- **Accuracy**: 0.802
+- **Precision**: 0.716
+- **Recall**: 0.644
+- **F1 Score**: 0.678
 - **Sample Count**: 772
 
 #### Performance Analysis
-- **F1 Difference (Multi - Single)**: -0.185
-- **Single-label performs better** by 0.185 F1 points
+- **F1 Difference (Multi - Single)**: -0.233
+- **Single-label performs better** by 0.233 F1 points
 - **Pattern**: This model excels at identifying Frankenstein when it's the only book present
 - **Interpretation**: Frankenstein's distinctive gothic horror and scientific themes are very recognizable in isolation
 
@@ -91,28 +91,28 @@
 ### The Adventures of Alice in Wonderland
 
 #### Overall Performance
-- **Accuracy**: 0.903
-- **Precision**: 0.831
-- **Recall**: 0.802
-- **F1 Score**: 0.816
+- **Accuracy**: 0.877
+- **Precision**: 0.835
+- **Recall**: 0.678
+- **F1 Score**: 0.748
 
 #### Single-Label Performance
-- **Accuracy**: 0.949
-- **Precision**: 0.917
-- **Recall**: 0.852
-- **F1 Score**: 0.883
+- **Accuracy**: 0.942
+- **Precision**: 0.926
+- **Recall**: 0.811
+- **F1 Score**: 0.864
 - **Sample Count**: 747
 
 #### Multi-Label Performance
-- **Accuracy**: 0.858
-- **Precision**: 0.774
-- **Recall**: 0.768
-- **F1 Score**: 0.771
+- **Accuracy**: 0.813
+- **Precision**: 0.762
+- **Recall**: 0.585
+- **F1 Score**: 0.662
 - **Sample Count**: 772
 
 #### Performance Analysis
-- **F1 Difference (Multi - Single)**: -0.113
-- **Single-label performs better** by 0.113 F1 points
+- **F1 Difference (Multi - Single)**: -0.202
+- **Single-label performs better** by 0.202 F1 points
 - **Pattern**: This model excels at identifying The Adventures of Alice in Wonderland when it's the only book present
 - **Interpretation**: The Adventures of Alice in Wonderland's distinctive whimsical and fantastical style is very recognizable in isolation
 
@@ -121,28 +121,28 @@
 ### Wuthering Heights
 
 #### Overall Performance
-- **Accuracy**: 0.853
-- **Precision**: 0.838
-- **Recall**: 0.870
-- **F1 Score**: 0.854
+- **Accuracy**: 0.845
+- **Precision**: 0.832
+- **Recall**: 0.858
+- **F1 Score**: 0.845
 
 #### Single-Label Performance
-- **Accuracy**: 0.869
-- **Precision**: 0.523
-- **Recall**: 0.752
-- **F1 Score**: 0.617
+- **Accuracy**: 0.866
+- **Precision**: 0.517
+- **Recall**: 0.705
+- **F1 Score**: 0.597
 - **Sample Count**: 747
 
 #### Multi-Label Performance
-- **Accuracy**: 0.838
-- **Precision**: 0.914
-- **Recall**: 0.889
-- **F1 Score**: 0.901
+- **Accuracy**: 0.825
+- **Precision**: 0.904
+- **Recall**: 0.883
+- **F1 Score**: 0.894
 - **Sample Count**: 772
 
 #### Performance Analysis
-- **F1 Difference (Multi - Single)**: +0.284
-- **Multi-label performs better** by 0.284 F1 points
+- **F1 Difference (Multi - Single)**: +0.297
+- **Multi-label performs better** by 0.297 F1 points
 - **Pattern**: This model excels at identifying Wuthering Heights when it appears alongside other books
 - **Interpretation**: Wuthering Heights's distinctive gothic style and emotional intensity is more recognizable in multi-label contexts
 

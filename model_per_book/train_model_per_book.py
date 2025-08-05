@@ -74,7 +74,7 @@ class IndividualBookTrainer:
         self.dataset_path = dataset_path
         self.embeddings_path = embeddings_path
         self.config_path = config_path
-        self.device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+        self.device = torch.device("mps" if torch.backends.mps.is_available() else "cpu")
         self.models = {}
         self.scalers = {}
         self.results = {}

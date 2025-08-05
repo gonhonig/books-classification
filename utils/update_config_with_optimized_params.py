@@ -66,22 +66,58 @@ def update_per_book_config(config: Dict[str, Any], base_study_name: str) -> Dict
     """Update per-book configurations with optimized parameters."""
     logger.info(f"Updating per-book config with base study: {base_study_name}")
     
-    book_names = {
-        'book_1': 'Anna Karenina',
-        'book_2': 'Wuthering Heights', 
-        'book_3': 'Frankenstein',
-        'book_4': 'The Adventures of Alice in Wonderland'
-    }
+    # Load book mapping to get the correct book columns
+    mapping_file = Path("data/semantic_augmented/book_to_label_mapping.json")
+    if not mapping_file.exists():
+        logger.error(f"Book mapping file not found: {mapping_file}")
+        return config
     
-    for book_col, book_name in book_names.items():
-        study_name = f"{base_study_name}_{book_col}"
-        logger.info(f"Processing {book_name} ({book_col})")
+    try:
+        with open(mapping_file, 'r') as f:
+            book_mapping = json.load(f)
+        
+        # Generate book columns from the mapping
+        book_columns = []
+        for book_name in book_mapping['books']:
+            # Convert book name to column format (replace spaces with underscores, remove apostrophes)
+            clean_name = book_name.replace(' ', '_').replace("'", '')
+            book_col = f"book_{clean_name}"
+            book_columns.append(book_col)
+        
+        logger.info(f"Using book columns: {book_columns}")
+        
+    except Exception as e:
+        logger.error(f"Failed to load book mapping: {e}")
+        return config
+    
+    # Get all available studies to find the ones for each book
+    from utils.find_latest_optimization import list_all_studies
+    all_studies = list_all_studies()
+    per_book_studies = all_studies.get('per_book', [])
+    
+    for book_col in book_columns:
+        book_name = book_col.replace('book_', '').replace('_', ' ')
+        logger.info(f"Processing {book_col} ({book_name})")
+        
+        # Find the study for this book
+        book_study = None
+        for study_name in per_book_studies:
+            # Extract the book name from the study name
+            if 'book_' in study_name:
+                study_book_name = study_name.split('book_')[-1].replace('_', ' ')
+                if study_book_name == book_name:
+                    book_study = study_name
+                    break
+        
+        if book_study is None:
+            logger.warning(f"No study found for {book_col} ({book_name})")
+            continue
         
         try:
             # Get study info
-            study_info = get_study_info(study_name)
+            study_info = get_study_info(book_study)
             if "error" in study_info:
-                logger.warning(f"Failed to get study info for {book_name}: {study_info['error']}")
+                logger.warning(f"Failed to get study info for {book_col}: {study_info['error']}")
                 continue
             
             params = study_info['parameters']
@@ -95,10 +131,10 @@ def update_per_book_config(config: Dict[str, Any], base_study_name: str) -> Dict
             config['per_book'][book_col]['training']['patience'] = params['patience']
             config['per_book'][book_col]['training']['weight_decay'] = params['weight_decay']
             
-            logger.info(f"Updated {book_name} config with F1 score: {study_info.get('best_f1', 'N/A')}")
+            logger.info(f"Updated {book_col} config with F1 score: {study_info.get('best_f1', 'N/A')}")
             
         except Exception as e:
-            logger.error(f"Failed to update config for {book_name}: {e}")
+            logger.error(f"Failed to update config for {book_col}: {e}")
     
     return config
 

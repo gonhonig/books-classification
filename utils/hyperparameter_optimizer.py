@@ -121,24 +121,82 @@ class HyperparameterOptimizer:
         self.dataset = None
         self.embeddings = None
         
-        # Book names mapping
-        self.book_names = {
-            'book_1': 'Anna Karenina',
-            'book_2': 'Wuthering Heights', 
-            'book_3': 'Frankenstein',
-            'book_4': 'The Adventures of Alice in Wonderland'
-        }
+        # Load book-to-label mapping from JSON file
+        self.book_mapping = self.load_book_mapping()
         
-        # Book order in labels list
-        self.book_order = [
-            'Anna Karenina',
-            'Frankenstein', 
-            'The Adventures of Alice in Wonderland',
-            'Wuthering Heights'
-        ]
+        # Book order in labels list (from the mapping file)
+        self.book_order = self.book_mapping['books']
         
+        # Book names mapping - using actual column names from the dataset
+        # Generate from the loaded mapping to ensure correct order
+        self.book_names = {}
+        self.book_columns = []
+        for book_name in self.book_mapping['books']:
+            # Convert book name to column format (replace spaces with underscores, remove apostrophes)
+            clean_name = book_name.replace(' ', '_').replace("'", '')
+            book_col = f"book_{clean_name}"
+            self.book_names[book_col] = book_name
+            self.book_columns.append(book_col)
+            
         logger.info(f"Initializing {model_type} hyperparameter optimizer")
         logger.info(f"Using device: {self.device}")
+        
+    def load_book_mapping(self):
+        """Load book-to-label mapping from JSON file."""
+        mapping_file = Path("data/semantic_augmented/book_to_label_mapping.json")
+        if not mapping_file.exists():
+            logger.warning(f"Book mapping file not found: {mapping_file}. Using default order.")
+            return {
+                'books': [
+                    'Anna Karenina',
+                    'Frankenstein',
+                    'The Adventures of Alice in Wonderland',
+                    'Wuthering Heights'
+                ],
+                'book_to_label': {
+                    'Anna Karenina': 0,
+                    'Frankenstein': 1,
+                    'The Adventures of Alice in Wonderland': 2,
+                    'Wuthering Heights': 3
+                },
+                'label_to_book': {
+                    '0': 'Anna Karenina',
+                    '1': 'Frankenstein',
+                    '2': 'The Adventures of Alice in Wonderland',
+                    '3': 'Wuthering Heights'
+                },
+                'num_classes': 4
+            }
+        
+        try:
+            with open(mapping_file, 'r') as f:
+                mapping = json.load(f)
+            logger.info(f"Loaded book mapping from: {mapping_file}")
+            logger.info(f"Book order: {mapping['books']}")
+            return mapping
+        except Exception as e:
+            logger.error(f"Failed to load book mapping: {e}. Using default order.")
+            return {
+                'books': [
+                    'Anna Karenina',
+                    'Frankenstein',
+                    'The Adventures of Alice in Wonderland',
+                    'Wuthering Heights'
+                ],
+                'book_to_label': {
+                    'Anna Karenina': 0,
+                    'Frankenstein': 1,
+                    'The Adventures of Alice in Wonderland': 2,
+                    'Wuthering Heights': 3
+                },
+                'label_to_book': {
+                    '0': 'Anna Karenina',
+                    '1': 'Frankenstein',
+                    '2': 'The Adventures of Alice in Wonderland',
+                    '3': 'Wuthering Heights'
+                },
+                'num_classes': 4
+            }
         
     def load_data(self):
         """Load dataset and embeddings."""
@@ -517,7 +575,7 @@ class HyperparameterOptimizer:
         logger.info("Starting hyperparameter optimization for all books...")
         
         studies = {}
-        for book_col in ['book_1', 'book_2', 'book_3', 'book_4']:
+        for book_col in self.book_columns:
             study = self.optimize_per_book(book_col)
             studies[book_col] = study
         
@@ -704,11 +762,15 @@ if __name__ == "__main__":
     # Example usage
     import argparse
     
+    # Create optimizer to get available book names
+    optimizer = HyperparameterOptimizer()
+    available_books = optimizer.book_mapping['books']
+    
     parser = argparse.ArgumentParser(description="Hyperparameter Optimization")
     parser.add_argument("--model_type", choices=["multi_label", "per_book", "specific_book"], 
                        default="multi_label", help="Model type to optimize")
     parser.add_argument("--book_name", type=str, 
-                       choices=["Anna Karenina", "Wuthering Heights", "Frankenstein", "The Adventures of Alice in Wonderland"],
+                       choices=available_books,
                        help="Specific book name for optimization (required for specific_book mode)")
     parser.add_argument("--n_trials", type=int, default=50, help="Number of trials")
     parser.add_argument("--timeout", type=int, default=3600, help="Timeout in seconds")
@@ -721,12 +783,12 @@ if __name__ == "__main__":
     elif args.model_type == "per_book":
         studies = optimize_per_book_models(args.n_trials, args.timeout)
         for book_col, study in studies.items():
-            book_name = HyperparameterOptimizer().book_names[book_col]
+            book_name = optimizer.book_names[book_col]
             print(f"{book_name}: Best F1 Score: {study.best_trial.value:.4f}")
     elif args.model_type == "specific_book":
         if not args.book_name:
             print("Error: --book_name is required for specific_book mode")
-            print("Available books: Anna Karenina, Wuthering Heights, Frankenstein, The Adventures of Alice in Wonderland")
+            print(f"Available books: {', '.join(available_books)}")
             exit(1)
         
         study = optimize_specific_book_model(args.book_name, args.n_trials, args.timeout)

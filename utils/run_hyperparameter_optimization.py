@@ -7,7 +7,11 @@ Optimizes hyperparameters for both multi-label and per-book neural networks.
 import argparse
 import logging
 from pathlib import Path
-from hyperparameter_optimizer import (
+import sys
+from pathlib import Path
+sys.path.append(str(Path(__file__).parent.parent))
+
+from utils.hyperparameter_optimizer import (
     HyperparameterOptimizer, 
     optimize_multi_label_model, 
     optimize_per_book_models,
@@ -19,6 +23,10 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 logger = logging.getLogger(__name__)
 
 def main():
+    # Create optimizer to get available book names
+    optimizer = HyperparameterOptimizer()
+    available_books = optimizer.book_mapping['books']
+    
     parser = argparse.ArgumentParser(description="Hyperparameter Optimization for Neural Networks")
     parser.add_argument("--model_type", 
                        choices=["multi_label", "per_book", "both", "specific_book"], 
@@ -26,7 +34,7 @@ def main():
                        help="Model type to optimize")
     parser.add_argument("--book_name", 
                        type=str,
-                       choices=["Anna Karenina", "Wuthering Heights", "Frankenstein", "The Adventures of Alice in Wonderland"],
+                       choices=available_books,
                        help="Specific book name for optimization (required for specific_book mode)")
     parser.add_argument("--n_trials", 
                        type=int, 
@@ -63,7 +71,7 @@ def main():
         studies = optimize_per_book_models(args.n_trials, args.timeout)
         logger.info("Per-book optimization completed!")
         for book_col, study in studies.items():
-            book_name = HyperparameterOptimizer().book_names[book_col]
+            book_name = optimizer.book_names[book_col]
             logger.info(f"{book_name}: Best F1 Score: {study.best_trial.value:.4f}")
             
     elif args.model_type == "both":
@@ -82,13 +90,13 @@ def main():
         logger.info("Summary:")
         logger.info(f"Multi-label: {multi_label_study.best_trial.value:.4f}")
         for book_col, study in per_book_studies.items():
-            book_name = HyperparameterOptimizer().book_names[book_col]
+            book_name = optimizer.book_names[book_col]
             logger.info(f"{book_name}: {study.best_trial.value:.4f}")
             
     elif args.model_type == "specific_book":
         if not args.book_name:
             logger.error("Error: --book_name is required for specific_book mode")
-            logger.error("Available books: Anna Karenina, Wuthering Heights, Frankenstein, The Adventures of Alice in Wonderland")
+            logger.error(f"Available books: {', '.join(available_books)}")
             return
         
         logger.info(f"Optimizing specific book model: {args.book_name}")
