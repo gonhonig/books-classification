@@ -14,7 +14,6 @@ from typing import List, Dict, Tuple, Optional
 import random
 
 import yaml
-from datasets import load_from_disk
 
 # Setup logging
 logging.basicConfig(level=logging.INFO)
@@ -41,16 +40,21 @@ class SimilarityPairGenerator:
         self._load_data()
         
     def _load_data(self):
-        """Load the processed dataset."""
+        """Load the deduplicated corpus data."""
         # Load metadata
         with open(self.data_dir / "metadata.json", 'r') as f:
             self.metadata = json.load(f)
         
-        # Load processed dataset
-        self.dataset = load_from_disk(str(self.data_dir / "dataset"))
+        # Load deduplicated corpus
+        with open(self.data_dir / "corpus_deduplicated.json", 'r') as f:
+            self.corpus = json.load(f)
         
-        logger.info(f"Loaded dataset with {len(self.dataset['train'])} training samples")
+        logger.info(f"Loaded corpus with {len(self.corpus)} books")
         logger.info(f"Books: {self.metadata['books']}")
+        
+        # Count total sentences
+        total_sentences = sum(len(book_data['sentences']) for book_data in self.corpus.values())
+        logger.info(f"Total sentences in corpus: {total_sentences}")
     
     def check_ollama_status(self):
         """Check if Ollama is running and working properly."""
@@ -103,14 +107,14 @@ class SimilarityPairGenerator:
     def get_book_samples(self) -> Dict[str, List[str]]:
         """Get sample sentences from each book."""
         book_samples = {}
-        for book_id, book_name in enumerate(self.metadata['books']):
-            book_sentences = [
-                item['sentence'] for item in self.dataset['train'] 
-                if item['label'] == book_id
-            ]
-
-            # Sample 1000 sentences per book randomly (or all if fewer)
-            book_samples[book_name] = random.sample(book_sentences, min(1000, len(book_sentences)))
+        for book_name in self.metadata['books']:
+            if book_name in self.corpus:
+                book_sentences = self.corpus[book_name]['sentences']
+                
+                # Sample 1000 sentences per book randomly (or all if fewer)
+                book_samples[book_name] = random.sample(book_sentences, min(1000, len(book_sentences)))
+            else:
+                logger.warning(f"Book '{book_name}' not found in corpus")
         
         logger.info(f"Sampled sentences from {len(book_samples)} books")
         for book_name, sentences in book_samples.items():

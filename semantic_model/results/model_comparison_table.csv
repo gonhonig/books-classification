@@ -1,0 +1,5 @@
+Model,Accuracy,Avg Similar Score,Avg Dissimilar Score,Score Separation,Model Size (MB),Avg Embedding Time (s)
+sentence-transformers/all-MiniLM-L6-v2,0.9375,0.6807,0.1513,0.5294,86.64,0.0801
+sentence-transformers/all-mpnet-base-v2,0.9750,0.7433,0.1363,0.6069,417.66,0.0943
+sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2,0.9875,0.7461,0.1674,0.5787,448.81,0.0368
+sentence-transformers/paraphrase-MiniLM-L3-v2,0.9000,0.6686,0.1437,0.5249,66.34,0.0149

@@ -654,11 +654,6 @@ class NeuralNetworkTrainer:
                 
                 f.write(f"| **{book_name}** | {overall['accuracy']:.3f} | {overall['f1']:.3f} | {single_f1_str} | {multi_f1_str} | {pattern} |\n")
             
-            f.write("\n### Key Insights\n\n")
-            f.write("1. **Multi-Label Specialists**: Books that excel at multi-label classification have distinctive writing styles that become more apparent when contrasted with other books.\n\n")
-            f.write("2. **Single-Label Specialists**: Books that excel at single-label classification have very distinctive styles that are easily recognizable in isolation.\n\n")
-            f.write("3. **Unified Model Performance**: The multi-label neural network achieves strong per-book performance (84-88% accuracy) while handling all books simultaneously.\n\n")
-            
             f.write("## Per-Book Performance\n\n")
             for book_name, metrics in per_book_metrics.items():
                 f.write(f"### {book_name}\n\n")
@@ -690,53 +685,9 @@ class NeuralNetworkTrainer:
                 f1_diff = multi_label['f1'] - single_label['f1']
                 f.write("#### Performance Analysis\n")
                 f.write(f"- **F1 Difference (Multi - Single)**: {f1_diff:+.3f}\n")
-                if f1_diff > 0:
-                    f.write(f"- **Multi-label performs better** by {f1_diff:.3f} F1 points\n")
-                    f.write(f"- **Pattern**: This model excels at identifying {book_name} when it appears alongside other books\n")
-                    if "Anna Karenina" in book_name:
-                        f.write(f"- **Interpretation**: {book_name}'s distinctive writing style (Tolstoy's detailed character development and social commentary) is more recognizable in multi-label contexts\n")
-                    elif "Wuthering Heights" in book_name:
-                        f.write(f"- **Interpretation**: {book_name}'s distinctive gothic style and emotional intensity is more recognizable in multi-label contexts\n")
-                else:
-                    f.write(f"- **Single-label performs better** by {abs(f1_diff):.3f} F1 points\n")
-                    f.write(f"- **Pattern**: This model excels at identifying {book_name} when it's the only book present\n")
-                    if "Frankenstein" in book_name:
-                        f.write(f"- **Interpretation**: {book_name}'s distinctive gothic horror and scientific themes are very recognizable in isolation\n")
-                    elif "Alice" in book_name:
-                        f.write(f"- **Interpretation**: {book_name}'s distinctive whimsical and fantastical style is very recognizable in isolation\n")
-                f.write("\n")
                 
                 f.write("---\n\n")
             
-            f.write("## Comparative Analysis\n\n")
-            f.write("### Model Performance Patterns\n\n")
-            f.write("1. **Multi-Label Specialists**:\n")
-            f.write("   - Books that perform significantly better in multi-label contexts\n")
-            f.write("   - Have writing styles that become more distinctive when contrasted with others\n")
-            f.write("   - Examples: Anna Karenina, Wuthering Heights\n\n")
-            
-            f.write("2. **Single-Label Specialists**:\n")
-            f.write("   - Books that perform significantly better in single-label contexts\n")
-            f.write("   - Have very distinctive styles that are easily recognizable in isolation\n")
-            f.write("   - Examples: Frankenstein, Alice in Wonderland\n\n")
-            
-            f.write("### Writing Style Analysis\n\n")
-            f.write("- **Anna Karenina & Wuthering Heights**: Complex, emotionally intense narratives with distinctive authorial voices that become more apparent when contrasted with other styles\n")
-            f.write("- **Frankenstein & Alice in Wonderland**: Highly distinctive genres (gothic horror vs. children's fantasy) with unique thematic elements that are immediately recognizable\n\n")
-            
-            f.write("### Practical Implications\n\n")
-            f.write("1. **For Multi-Label Classification**: Anna Karenina and Wuthering Heights models are more reliable when multiple books are present\n")
-            f.write("2. **For Single-Label Classification**: Frankenstein and Alice in Wonderland models are more reliable when only one book is present\n")
-            f.write("3. **Overall**: The unified multi-label model achieves strong performance (84-88% accuracy) for individual book identification\n\n")
-            
-            f.write("## Methodology Notes\n\n")
-            f.write("- **Model Architecture**: Unified multi-label neural network with sigmoid outputs\n")
-            f.write("- **Training Data**: Pre-existing dataset splits with aligned embeddings\n")
-            f.write("- **Evaluation**: Per-book metrics calculated on test set with single-label vs multi-label analysis\n")
-            f.write("- **Threshold**: 0.5 probability threshold for binary classification\n")
-            f.write("- **Metrics**: Accuracy, Precision, Recall, and F1 Score for comprehensive evaluation\n")
-            f.write("- **Approach**: Single model handles all books simultaneously, leveraging shared representations\n")
-        
         logger.info(f"Per-book metrics saved to {metrics_path}")
         logger.info(f"Per-book report saved to {report_path}")
         

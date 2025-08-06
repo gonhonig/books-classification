@@ -32,6 +32,42 @@ The semantic augmented dataset addresses the limitations of traditional single-l
 - **3 labels**: 1,264 sentences (4.0%) - Original + 2 paired books
 - **4 labels**: 411 sentences (1.3%) - All books
 
+## ⚖️ Balanced Dataset Sampling
+
+### Sampling Strategy
+The full semantic augmented dataset (31,760 sentences) is sampled to create a smaller, balanced dataset for model training:
+
+1. **Multi-label Priority**: ALL multi-label sentences (5,154 sentences) are included
+2. **Single-label Sampling**: For each book, additional single-label positive samples are added to reach target size
+3. **Negative Sampling**: Negative samples are added to balance positive/negative ratios
+4. **Target Size**: ~5,000 samples per class (balanced across books)
+
+### Balanced Dataset Statistics
+- **Total balanced samples**: 10,121 sentences
+- **Multi-label samples**: 5,154 sentences (50.9%)
+- **Single-label samples**: 4,967 sentences (49.1%)
+- **Target samples per class**: 5,000
+- **Balanced positive/negative ratios**: Yes
+
+### Sampling Process Details
+```python
+# 1. Include ALL multi-label sentences
+multi_label_indices = [i for i in range(len(df)) if np.sum(book_labels[i]) > 1]
+selected_indices = multi_label_indices.copy()
+
+# 2. Add single-label positive samples to reach target
+for book_col in book_columns:
+    current_positive = sum(1 for i in selected_indices if book_labels[i, book_idx] == 1)
+    additional_needed = target_samples_per_class - current_positive
+    # Sample additional single-label positive samples
+
+# 3. Add negative samples to balance ratios
+for book_col in book_columns:
+    positive_count = sum(1 for i in selected_indices if book_labels[i, book_idx] == 1)
+    negative_count = sum(1 for i in selected_indices if book_labels[i, book_idx] == 0)
+    # Add negative samples if needed
+```
+
 ## 🔧 Creation Process
 
 ### Step 1: Data Sources
@@ -113,10 +149,14 @@ data/
 ├── semantic_augmented/                # Analysis and documentation
 │   ├── semantic_augmented_dataset.csv
 │   ├── semantic_augmented_dataset.json
+│   ├── semantic_augmented_balanced_dataset.csv  # Balanced sampled dataset
 │   ├── semantic_augmented_analysis.png
 │   ├── semantic_augmented_analysis.json
 │   ├── dataset_splits_analysis.png
-│   └── dataset_splits_analysis.json
+│   ├── dataset_splits_analysis.json
+│   ├── dataset_metadata.json
+│   ├── dataset_metadata_summary.md
+│   └── book_to_label_mapping.json
 ├── semantic_pairs.json               # Semantic pairs for augmentation
 ├── corpus_deduplicated.json          # Deduplicated corpus
 ├── metadata.json                     # Dataset metadata
@@ -124,7 +164,7 @@ data/
 ```
 
 ### Scripts
-- `create_semantic_augmented_dataset.py` - Main dataset creation script
+- `create_augmented_dataset.py` - Main dataset creation script (includes balanced sampling)
 - `analyze_semantic_augmented_dataset.py` - Dataset analysis script
 - `analyze_dataset_splits.py` - Split distribution analysis script
 
@@ -182,17 +222,19 @@ labels = sample['labels']  # [1, 0, 0, 0] means similar to Anna Karenina only
 - Validates distribution consistency across splits
 - Comprehensive analysis and documentation
 
+### 5. Balanced Sampling Strategy
+- **Multi-label Priority**: Preserves all semantically rich multi-label sentences
+- **Controlled Size**: Creates manageable dataset (~10K samples) for efficient training
+- **Balanced Classes**: Ensures equal representation across all books
+- **Positive/Negative Balance**: Maintains balanced positive/negative ratios per book
+- **Reproducible**: Uses fixed random seed for consistent sampling
+
 ## 📊 Comparison with Previous Approaches
 
 ### vs. Single-Label Classification
 - **Before**: Each sentence belongs to exactly one book
 - **After**: Each sentence can belong to 1-4 books based on semantic similarity
 - **Benefit**: More realistic representation of semantic relationships
-
-### vs. KNN Feature Extraction
-- **Before**: Used spatial proximity in embedding space
-- **After**: Uses actual semantic similarity from pairs
-- **Benefit**: More meaningful cross-book relationships
 
 ### vs. Original Balanced Dataset
 - **Before**: 14,750 sentences with single labels

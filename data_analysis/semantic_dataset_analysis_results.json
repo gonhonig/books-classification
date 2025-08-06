@@ -1,0 +1,135 @@
+{
+  "dataset_analysis": {
+    "basic_stats": {
+      "total_samples": 10120,
+      "total_columns": 7,
+      "sentence_length_stats": {
+        "mean": 83.61136363636363,
+        "median": 58.0,
+        "std": 78.09156148277383,
+        "min": 1,
+        "max": 919
+      }
+    },
+    "book_analysis": {
+      "book_distribution": {
+        "Frankenstein": 3269,
+        "Anna Karenina": 3100,
+        "Wuthering Heights": 2187,
+        "The Adventures of Alice in Wonderland": 1564
+      },
+      "book_percentages": {
+        "Frankenstein": 32.30237154150198,
+        "Anna Karenina": 30.632411067193676,
+        "Wuthering Heights": 21.610671936758894,
+        "The Adventures of Alice in Wonderland": 15.454545454545453
+      }
+    },
+    "multi_label_analysis": {
+      "book_columns": [
+        "book_Anna_Karenina",
+        "book_Frankenstein",
+        "book_The_Adventures_of_Alice_in_Wonderland",
+        "book_Wuthering_Heights"
+      ],
+      "book_statistics": {
+        "book_Anna_Karenina": {
+          "positive_samples": 5000,
+          "negative_samples": 5120,
+          "positive_percentage": 49.40711462450593
+        },
+        "book_Frankenstein": {
+          "positive_samples": 4443,
+          "negative_samples": 5677,
+          "positive_percentage": 43.90316205533597
+        },
+        "book_The_Adventures_of_Alice_in_Wonderland": {
+          "positive_samples": 2917,
+          "negative_samples": 7203,
+          "positive_percentage": 28.824110671936758
+        },
+        "book_Wuthering_Heights": {
+          "positive_samples": 5000,
+          "negative_samples": 5120,
+          "positive_percentage": 49.40711462450593
+        }
+      }
+    },
+    "multi_label_patterns": {
+      "label_count_distribution": {
+        "1": 4966,
+        "2": 3479,
+        "3": 1264,
+        "4": 411
+      },
+      "label_count_percentages": {
+        "1": 49.07114624505929,
+        "2": 34.37747035573123,
+        "3": 12.4901185770751,
+        "4": 4.061264822134388
+      }
+    }
+  },
+  "embedding_quality": {
+    "embedding_stats": {
+      "dimensions": 384,
+      "samples": 10120,
+      "mean_norm": 4.611029624938965,
+      "std_norm": 0.49795061349868774,
+      "min_norm": 2.2731122970581055,
+      "max_norm": 6.333564281463623
+    },
+    "separability_analysis": {
+      "Anna Karenina": {
+        "avg_within_distance": 5.934957504272461,
+        "std_within_distance": 0.6744805574417114,
+        "avg_between_distance": 5.927144527435303,
+        "std_between_distance": 0.676534116268158,
+        "separation_ratio": 0.9986835718154907,
+        "sample_count": 3100
+      },
+      "Frankenstein": {
+        "avg_within_distance": 5.916102409362793,
+        "std_within_distance": 0.6778737902641296,
+        "avg_between_distance": 5.921999454498291,
+        "std_between_distance": 0.6775397062301636,
+        "separation_ratio": 1.0009968280792236,
+        "sample_count": 3269
+      },
+      "The Adventures of Alice in Wonderland": {
+        "avg_within_distance": 5.9085798263549805,
+        "std_within_distance": 0.6891193985939026,
+        "avg_between_distance": 5.918070316314697,
+        "std_between_distance": 0.6822879910469055,
+        "separation_ratio": 1.0016062259674072,
+        "sample_count": 1564
+      },
+      "Wuthering Heights": {
+        "avg_within_distance": 5.931467533111572,
+        "std_within_distance": 0.6721555590629578,
+        "avg_between_distance": 5.926822185516357,
+        "std_between_distance": 0.6755942702293396,
+        "separation_ratio": 0.9992168545722961,
+        "sample_count": 2187
+      }
+    }
+  },
+  "visualization_results": {
+    "pca_2d_variance": [
+      0.07293752580881119,
+      0.04943786561489105
+    ],
+    "pca_3d_variance": [
+      0.07293752580881119,
+      0.04943786561489105,
+      0.041283708065748215
+    ],
+    "tsne_subset_size": 2000
+  },
+  "summary": {
+    "total_samples": 10120,
+    "embedding_dimensions": 384,
+    "number_of_books": 4,
+    "average_separation_ratio": 1.0001258701086044
+  }
+}

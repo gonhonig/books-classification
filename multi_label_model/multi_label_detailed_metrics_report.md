@@ -17,15 +17,6 @@
 | **Frankenstein** | 0.848 | 0.829 | **0.911** | 0.678 | Single-label excels |
 | **The Adventures of Alice in Wonderland** | 0.877 | 0.748 | **0.864** | 0.662 | Single-label excels |
 | **Wuthering Heights** | 0.845 | 0.845 | 0.597 | **0.894** | Multi-label excels |
-
-### Key Insights
-
-1. **Multi-Label Specialists**: Books that excel at multi-label classification have distinctive writing styles that become more apparent when contrasted with other books.
-
-2. **Single-Label Specialists**: Books that excel at single-label classification have very distinctive styles that are easily recognizable in isolation.
-
-3. **Unified Model Performance**: The multi-label neural network achieves strong per-book performance (84-88% accuracy) while handling all books simultaneously.
-
 ## Per-Book Performance
 
 ### Anna Karenina
@@ -52,10 +43,6 @@
 
 #### Performance Analysis
 - **F1 Difference (Multi - Single)**: +0.529
-- **Multi-label performs better** by 0.529 F1 points
-- **Pattern**: This model excels at identifying Anna Karenina when it appears alongside other books
-- **Interpretation**: Anna Karenina's distinctive writing style (Tolstoy's detailed character development and social commentary) is more recognizable in multi-label contexts
-
 ---
 
 ### Frankenstein
@@ -82,10 +69,6 @@
 
 #### Performance Analysis
 - **F1 Difference (Multi - Single)**: -0.233
-- **Single-label performs better** by 0.233 F1 points
-- **Pattern**: This model excels at identifying Frankenstein when it's the only book present
-- **Interpretation**: Frankenstein's distinctive gothic horror and scientific themes are very recognizable in isolation
-
 ---
 
 ### The Adventures of Alice in Wonderland
@@ -112,10 +95,6 @@
 
 #### Performance Analysis
 - **F1 Difference (Multi - Single)**: -0.202
-- **Single-label performs better** by 0.202 F1 points
-- **Pattern**: This model excels at identifying The Adventures of Alice in Wonderland when it's the only book present
-- **Interpretation**: The Adventures of Alice in Wonderland's distinctive whimsical and fantastical style is very recognizable in isolation
-
 ---
 
 ### Wuthering Heights
@@ -142,42 +121,5 @@
 
 #### Performance Analysis
 - **F1 Difference (Multi - Single)**: +0.297
-- **Multi-label performs better** by 0.297 F1 points
-- **Pattern**: This model excels at identifying Wuthering Heights when it appears alongside other books
-- **Interpretation**: Wuthering Heights's distinctive gothic style and emotional intensity is more recognizable in multi-label contexts
-
 ---
 
-## Comparative Analysis
-
-### Model Performance Patterns
-
-1. **Multi-Label Specialists**:
-   - Books that perform significantly better in multi-label contexts
-   - Have writing styles that become more distinctive when contrasted with others
-   - Examples: Anna Karenina, Wuthering Heights
-
-2. **Single-Label Specialists**:
-   - Books that perform significantly better in single-label contexts
-   - Have very distinctive styles that are easily recognizable in isolation
-   - Examples: Frankenstein, Alice in Wonderland
-
-### Writing Style Analysis
-
-- **Anna Karenina & Wuthering Heights**: Complex, emotionally intense narratives with distinctive authorial voices that become more apparent when contrasted with other styles
-- **Frankenstein & Alice in Wonderland**: Highly distinctive genres (gothic horror vs. children's fantasy) with unique thematic elements that are immediately recognizable
-
-### Practical Implications
-
-1. **For Multi-Label Classification**: Anna Karenina and Wuthering Heights models are more reliable when multiple books are present
-2. **For Single-Label Classification**: Frankenstein and Alice in Wonderland models are more reliable when only one book is present
-3. **Overall**: The unified multi-label model achieves strong performance (84-88% accuracy) for individual book identification
-
-## Methodology Notes
-
-- **Model Architecture**: Unified multi-label neural network with sigmoid outputs
-- **Training Data**: Pre-existing dataset splits with aligned embeddings
-- **Evaluation**: Per-book metrics calculated on test set with single-label vs multi-label analysis
-- **Threshold**: 0.5 probability threshold for binary classification
-- **Metrics**: Accuracy, Precision, Recall, and F1 Score for comprehensive evaluation
-- **Approach**: Single model handles all books simultaneously, leveraging shared representations

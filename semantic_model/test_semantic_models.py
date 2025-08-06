@@ -34,11 +34,8 @@ class SemanticModelTester:
             self.config = yaml.safe_load(f)
         
         self.data_dir = Path("data")
-        self.results_dir = Path("experiments/model_selection")
+        self.results_dir = Path("semantic_model/results")
         self.results_dir.mkdir(parents=True, exist_ok=True)
-        
-        # Load data
-        self._load_data()
         
         # Setup device
         self.device = self._get_device()
@@ -52,24 +49,12 @@ class SemanticModelTester:
         else:
             return "cpu"
     
-    def _load_data(self):
-        """Load the processed dataset."""
-        # Load metadata
-        with open(self.data_dir / "metadata.json", 'r') as f:
-            self.metadata = json.load(f)
-        
-        # Load processed dataset
-        from datasets import load_from_disk
-        self.dataset = load_from_disk(str(self.data_dir / "dataset"))
-        
-        logger.info(f"Loaded dataset with {len(self.dataset['train'])} training samples")
-        logger.info(f"Books: {self.metadata['books']}")
     
     def load_similarity_test_pairs(self) -> List[Dict]:
         """Load test pairs for similarity evaluation."""
         logger.info("Loading similarity test pairs...")
         
-        test_pairs_path = self.data_dir / "similarity_test_pairs.json"
+        test_pairs_path = self.data_dir / "generated_similarity_pairs.json"
         if not test_pairs_path.exists():
             raise FileNotFoundError(
                 f"Test pairs file not found: {test_pairs_path}\n"

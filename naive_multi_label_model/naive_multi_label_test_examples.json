@@ -9,10 +9,10 @@
         "naive_Wuthering_Heights": 0
       },
       "predictions": {
-        "naive_Anna_Karenina": 0.0029212781228125095,
-        "naive_Frankenstein": 0.9963167905807495,
-        "naive_The_Adventures_of_Alice_in_Wonderland": 0.0006203832454048097,
-        "naive_Wuthering_Heights": 0.003791163908317685
+        "naive_Anna_Karenina": 0.0032806762028485537,
+        "naive_Frankenstein": 0.9973486661911011,
+        "naive_The_Adventures_of_Alice_in_Wonderland": 0.0028489460237324238,
+        "naive_Wuthering_Heights": 0.002699225675314665
       }
     },
     {
@@ -24,10 +24,10 @@
         "naive_Wuthering_Heights": 0
       },
       "predictions": {
-        "naive_Anna_Karenina": 0.016546625643968582,
-        "naive_Frankenstein": 0.003234138246625662,
-        "naive_The_Adventures_of_Alice_in_Wonderland": 0.9669563174247742,
-        "naive_Wuthering_Heights": 0.015378981828689575
+        "naive_Anna_Karenina": 0.011010979302227497,
+        "naive_Frankenstein": 0.0017900211969390512,
+        "naive_The_Adventures_of_Alice_in_Wonderland": 0.9891381859779358,
+        "naive_Wuthering_Heights": 0.01875176839530468
       }
     },
     {
@@ -39,10 +39,10 @@
         "naive_Wuthering_Heights": 0
       },
       "predictions": {
-        "naive_Anna_Karenina": 0.009125059470534325,
-        "naive_Frankenstein": 0.9853138327598572,
-        "naive_The_Adventures_of_Alice_in_Wonderland": 0.0017339017940685153,
-        "naive_Wuthering_Heights": 0.009212459437549114
+        "naive_Anna_Karenina": 0.004891684744507074,
+        "naive_Frankenstein": 0.9956557750701904,
+        "naive_The_Adventures_of_Alice_in_Wonderland": 0.003802903927862644,
+        "naive_Wuthering_Heights": 0.004196610767394304
       }
     },
     {
@@ -54,10 +54,10 @@
         "naive_Wuthering_Heights": 1
       },
       "predictions": {
-        "naive_Anna_Karenina": 0.13931863009929657,
-        "naive_Frankenstein": 0.6155110597610474,
-        "naive_The_Adventures_of_Alice_in_Wonderland": 0.01723494939506054,
-        "naive_Wuthering_Heights": 0.18238505721092224
+        "naive_Anna_Karenina": 0.07904183864593506,
+        "naive_Frankenstein": 0.03769597411155701,
+        "naive_The_Adventures_of_Alice_in_Wonderland": 0.016602611169219017,
+        "naive_Wuthering_Heights": 0.8227468729019165
       }
     },
     {
@@ -69,10 +69,10 @@
         "naive_Wuthering_Heights": 0
       },
       "predictions": {
-        "naive_Anna_Karenina": 0.2679964005947113,
-        "naive_Frankenstein": 0.01916598156094551,
-        "naive_The_Adventures_of_Alice_in_Wonderland": 0.3609754741191864,
-        "naive_Wuthering_Heights": 0.28671103715896606
+        "naive_Anna_Karenina": 0.3791859447956085,
+        "naive_Frankenstein": 0.012028451077640057,
+        "naive_The_Adventures_of_Alice_in_Wonderland": 0.20455582439899445,
+        "naive_Wuthering_Heights": 0.37558576464653015
       }
     },
     {
@@ -84,10 +84,10 @@
         "naive_Wuthering_Heights": 0
       },
       "predictions": {
-        "naive_Anna_Karenina": 0.0037377045955508947,
-        "naive_Frankenstein": 0.9949563145637512,
-        "naive_The_Adventures_of_Alice_in_Wonderland": 0.0007780418964102864,
-        "naive_Wuthering_Heights": 0.004631529096513987
+        "naive_Anna_Karenina": 0.0012500444427132607,
+        "naive_Frankenstein": 0.9991375207901001,
+        "naive_The_Adventures_of_Alice_in_Wonderland": 0.0021190624684095383,
+        "naive_Wuthering_Heights": 0.0015631825663149357
       }
     },
     {
@@ -99,10 +99,10 @@
         "naive_Wuthering_Heights": 0
       },
       "predictions": {
-        "naive_Anna_Karenina": 0.0035730190575122833,
-        "naive_Frankenstein": 0.9956232905387878,
-        "naive_The_Adventures_of_Alice_in_Wonderland": 0.0006488792132586241,
-        "naive_Wuthering_Heights": 0.004108151886612177
+        "naive_Anna_Karenina": 0.0019768038764595985,
+        "naive_Frankenstein": 0.9987503290176392,
+        "naive_The_Adventures_of_Alice_in_Wonderland": 0.002082189777866006,
+        "naive_Wuthering_Heights": 0.0022905573714524508
       }
     },
     {
@@ -114,10 +114,10 @@
         "naive_Wuthering_Heights": 0
       },
       "predictions": {
-        "naive_Anna_Karenina": 0.15187981724739075,
-        "naive_Frankenstein": 0.5052394270896912,
-        "naive_The_Adventures_of_Alice_in_Wonderland": 0.013859991915524006,
-        "naive_Wuthering_Heights": 0.2796347439289093
+        "naive_Anna_Karenina": 0.06204618141055107,
+        "naive_Frankenstein": 0.7379557490348816,
+        "naive_The_Adventures_of_Alice_in_Wonderland": 0.014583536423742771,
+        "naive_Wuthering_Heights": 0.1681760847568512
       }
     },
     {
@@ -129,10 +129,10 @@
         "naive_Wuthering_Heights": 0
       },
       "predictions": {
-        "naive_Anna_Karenina": 0.041859474033117294,
-        "naive_Frankenstein": 0.9054813981056213,
-        "naive_The_Adventures_of_Alice_in_Wonderland": 0.006879368331283331,
-        "naive_Wuthering_Heights": 0.03744172304868698
+        "naive_Anna_Karenina": 0.1311592310667038,
+        "naive_Frankenstein": 0.7157793641090393,
+        "naive_The_Adventures_of_Alice_in_Wonderland": 0.015059693716466427,
+        "naive_Wuthering_Heights": 0.14257806539535522
       }
     },
     {
@@ -144,10 +144,10 @@
         "naive_Wuthering_Heights": 0
       },
       "predictions": {
-        "naive_Anna_Karenina": 0.0034088303800672293,
-        "naive_Frankenstein": 0.9950408339500427,
-        "naive_The_Adventures_of_Alice_in_Wonderland": 0.000839152024127543,
-        "naive_Wuthering_Heights": 0.00470330473035574
+        "naive_Anna_Karenina": 0.0004511987790465355,
+        "naive_Frankenstein": 0.9994640946388245,
+        "naive_The_Adventures_of_Alice_in_Wonderland": 0.0017176371766254306,
+        "naive_Wuthering_Heights": 0.0010728886118158698
       }
     },
     {
@@ -159,10 +159,10 @@
         "naive_Wuthering_Heights": 0
       },
       "predictions": {
-        "naive_Anna_Karenina": 0.017115412279963493,
-        "naive_Frankenstein": 0.9558857679367065,
-        "naive_The_Adventures_of_Alice_in_Wonderland": 0.005090509541332722,
-        "naive_Wuthering_Heights": 0.022218599915504456
+        "naive_Anna_Karenina": 0.008697506040334702,
+        "naive_Frankenstein": 0.9880077838897705,
+        "naive_The_Adventures_of_Alice_in_Wonderland": 0.00678616389632225,
+        "naive_Wuthering_Heights": 0.008051222190260887
       }
     },
     {
@@ -174,10 +174,10 @@
         "naive_Wuthering_Heights": 0
       },
       "predictions": {
-        "naive_Anna_Karenina": 0.0033939096610993147,
-        "naive_Frankenstein": 0.9954040050506592,
-        "naive_The_Adventures_of_Alice_in_Wonderland": 0.0008079600520431995,
-        "naive_Wuthering_Heights": 0.004387203138321638
+        "naive_Anna_Karenina": 0.002352150622755289,
+        "naive_Frankenstein": 0.9982795715332031,
+        "naive_The_Adventures_of_Alice_in_Wonderland": 0.0032014832831919193,
+        "naive_Wuthering_Heights": 0.0030017257668077946
       }
     },
     {
@@ -189,10 +189,10 @@
         "naive_Wuthering_Heights": 0
       },
       "predictions": {
-        "naive_Anna_Karenina": 0.0034372785594314337,
-        "naive_Frankenstein": 0.9957127571105957,
-        "naive_The_Adventures_of_Alice_in_Wonderland": 0.0006683639949187636,
-        "naive_Wuthering_Heights": 0.004093029070645571
+        "naive_Anna_Karenina": 0.0008104602457024157,
+        "naive_Frankenstein": 0.9992563128471375,
+        "naive_The_Adventures_of_Alice_in_Wonderland": 0.0014900265960022807,
+        "naive_Wuthering_Heights": 0.0017110889311879873
       }
     },
     {
@@ -204,10 +204,10 @@
         "naive_Wuthering_Heights": 1
       },
       "predictions": {
-        "naive_Anna_Karenina": 0.3504942059516907,
-        "naive_Frankenstein": 0.06272268295288086,
-        "naive_The_Adventures_of_Alice_in_Wonderland": 0.1608719527721405,
-        "naive_Wuthering_Heights": 0.42470619082450867
+        "naive_Anna_Karenina": 0.08602671325206757,
+        "naive_Frankenstein": 0.1160421073436737,
+        "naive_The_Adventures_of_Alice_in_Wonderland": 0.1869736611843109,
+        "naive_Wuthering_Heights": 0.569532036781311
       }
     },
     {
@@ -219,10 +219,10 @@
         "naive_Wuthering_Heights": 0
       },
       "predictions": {
-        "naive_Anna_Karenina": 0.013062729500234127,
-        "naive_Frankenstein": 0.0038864347152411938,
-        "naive_The_Adventures_of_Alice_in_Wonderland": 0.9724720120429993,
-        "naive_Wuthering_Heights": 0.014257753267884254
+        "naive_Anna_Karenina": 0.007292925380170345,
+        "naive_Frankenstein": 0.0027942555025219917,
+        "naive_The_Adventures_of_Alice_in_Wonderland": 0.9920133948326111,
+        "naive_Wuthering_Heights": 0.014650844968855381
       }
     }
   ],
@@ -236,10 +236,10 @@
         "naive_Wuthering_Heights": 1
       },
       "predictions": {
-        "naive_Anna_Karenina": 0.4175816774368286,
-        "naive_Frankenstein": 0.11968261003494263,
-        "naive_The_Adventures_of_Alice_in_Wonderland": 0.02986087277531624,
-        "naive_Wuthering_Heights": 0.440168172121048
+        "naive_Anna_Karenina": 0.40825435519218445,
+        "naive_Frankenstein": 0.08453554660081863,
+        "naive_The_Adventures_of_Alice_in_Wonderland": 0.06755007058382034,
+        "naive_Wuthering_Heights": 0.47926369309425354
       }
     },
     {
@@ -251,10 +251,10 @@
         "naive_Wuthering_Heights": 1
       },
       "predictions": {
-        "naive_Anna_Karenina": 0.011779258027672768,
-        "naive_Frankenstein": 0.06621592491865158,
-        "naive_The_Adventures_of_Alice_in_Wonderland": 0.008627211675047874,
-        "naive_Wuthering_Heights": 0.9209387302398682
+        "naive_Anna_Karenina": 0.34138360619544983,
+        "naive_Frankenstein": 0.004890410695225,
+        "naive_The_Adventures_of_Alice_in_Wonderland": 0.007534347474575043,
+        "naive_Wuthering_Heights": 0.6696925163269043
       }
     },
     {
@@ -266,10 +266,10 @@
         "naive_Wuthering_Heights": 1
       },
       "predictions": {
-        "naive_Anna_Karenina": 0.570131778717041,
-        "naive_Frankenstein": 0.03276824951171875,
-        "naive_The_Adventures_of_Alice_in_Wonderland": 0.07524009048938751,
-        "naive_Wuthering_Heights": 0.3516148626804352
+        "naive_Anna_Karenina": 0.7593317627906799,
+        "naive_Frankenstein": 0.02876182645559311,
+        "naive_The_Adventures_of_Alice_in_Wonderland": 0.05548547953367233,
+        "naive_Wuthering_Heights": 0.23795635998249054
       }
     },
     {
@@ -281,10 +281,10 @@
         "naive_Wuthering_Heights": 0
       },
       "predictions": {
-        "naive_Anna_Karenina": 0.04433062672615051,
-        "naive_Frankenstein": 0.9215791821479797,
-        "naive_The_Adventures_of_Alice_in_Wonderland": 0.005375236738473177,
-        "naive_Wuthering_Heights": 0.027027670294046402
+        "naive_Anna_Karenina": 0.1269070953130722,
+        "naive_Frankenstein": 0.799941897392273,
+        "naive_The_Adventures_of_Alice_in_Wonderland": 0.024970611557364464,
+        "naive_Wuthering_Heights": 0.06327220797538757
       }
     },
     {
@@ -296,10 +296,10 @@
         "naive_Wuthering_Heights": 1
       },
       "predictions": {
-        "naive_Anna_Karenina": 0.6894584894180298,
-        "naive_Frankenstein": 0.02291741967201233,
-        "naive_The_Adventures_of_Alice_in_Wonderland": 0.046506721526384354,
-        "naive_Wuthering_Heights": 0.2749378979206085
+        "naive_Anna_Karenina": 0.7521852254867554,
+        "naive_Frankenstein": 0.018513672053813934,
+        "naive_The_Adventures_of_Alice_in_Wonderland": 0.0691462978720665,
+        "naive_Wuthering_Heights": 0.2465098798274994
       }
     },
     {
@@ -311,10 +311,10 @@
         "naive_Wuthering_Heights": 1
       },
       "predictions": {
-        "naive_Anna_Karenina": 0.04192386940121651,
-        "naive_Frankenstein": 0.039425186812877655,
-        "naive_The_Adventures_of_Alice_in_Wonderland": 0.022079963237047195,
-        "naive_Wuthering_Heights": 0.9014355540275574
+        "naive_Anna_Karenina": 0.18238531053066254,
+        "naive_Frankenstein": 0.04582509025931358,
+        "naive_The_Adventures_of_Alice_in_Wonderland": 0.020766202360391617,
+        "naive_Wuthering_Heights": 0.7053015828132629
       }
     },
     {
@@ -326,10 +326,10 @@
         "naive_Wuthering_Heights": 1
       },
       "predictions": {
-        "naive_Anna_Karenina": 0.9044488072395325,
-        "naive_Frankenstein": 0.005887707229703665,
-        "naive_The_Adventures_of_Alice_in_Wonderland": 0.02825435996055603,
-        "naive_Wuthering_Heights": 0.083012655377388
+        "naive_Anna_Karenina": 0.8782080411911011,
+        "naive_Frankenstein": 0.00708715058863163,
+        "naive_The_Adventures_of_Alice_in_Wonderland": 0.015454575419425964,
+        "naive_Wuthering_Heights": 0.13722443580627441
       }
     },
     {
@@ -341,10 +341,10 @@
         "naive_Wuthering_Heights": 1
       },
       "predictions": {
-        "naive_Anna_Karenina": 0.8874250650405884,
-        "naive_Frankenstein": 0.005288686137646437,
-        "naive_The_Adventures_of_Alice_in_Wonderland": 0.03420522063970566,
-        "naive_Wuthering_Heights": 0.10084813088178635
+        "naive_Anna_Karenina": 0.8304964303970337,
+        "naive_Frankenstein": 0.009687826968729496,
+        "naive_The_Adventures_of_Alice_in_Wonderland": 0.047873545438051224,
+        "naive_Wuthering_Heights": 0.16996848583221436
       }
     },
     {
@@ -356,10 +356,10 @@
         "naive_Wuthering_Heights": 0
       },
       "predictions": {
-        "naive_Anna_Karenina": 0.004540097434073687,
-        "naive_Frankenstein": 0.0006281347596086562,
-        "naive_The_Adventures_of_Alice_in_Wonderland": 0.9949663281440735,
-        "naive_Wuthering_Heights": 0.0034467424266040325
+        "naive_Anna_Karenina": 0.006907342933118343,
+        "naive_Frankenstein": 0.0012388232862576842,
+        "naive_The_Adventures_of_Alice_in_Wonderland": 0.995640754699707,
+        "naive_Wuthering_Heights": 0.006960699800401926
       }
     },
     {
@@ -371,10 +371,10 @@
         "naive_Wuthering_Heights": 1
       },
       "predictions": {
-        "naive_Anna_Karenina": 0.5583526492118835,
-        "naive_Frankenstein": 0.009240697138011456,
-        "naive_The_Adventures_of_Alice_in_Wonderland": 0.02300795167684555,
-        "naive_Wuthering_Heights": 0.48890817165374756
+        "naive_Anna_Karenina": 0.5581561923027039,
+        "naive_Frankenstein": 0.004304332658648491,
+        "naive_The_Adventures_of_Alice_in_Wonderland": 0.08501723408699036,
+        "naive_Wuthering_Heights": 0.4415954351425171
       }
     },
     {
@@ -386,10 +386,10 @@
         "naive_Wuthering_Heights": 1
       },
       "predictions": {
-        "naive_Anna_Karenina": 0.5740097761154175,
-        "naive_Frankenstein": 0.02241436019539833,
-        "naive_The_Adventures_of_Alice_in_Wonderland": 0.03260086849331856,
-        "naive_Wuthering_Heights": 0.4061224162578583
+        "naive_Anna_Karenina": 0.5657753348350525,
+        "naive_Frankenstein": 0.03943953663110733,
+        "naive_The_Adventures_of_Alice_in_Wonderland": 0.10586348176002502,
+        "naive_Wuthering_Heights": 0.37000542879104614
       }
     },
     {
@@ -401,10 +401,10 @@
         "naive_Wuthering_Heights": 1
       },
       "predictions": {
-        "naive_Anna_Karenina": 0.4874468147754669,
-        "naive_Frankenstein": 0.038536496460437775,
-        "naive_The_Adventures_of_Alice_in_Wonderland": 0.14664867520332336,
-        "naive_Wuthering_Heights": 0.35596540570259094
+        "naive_Anna_Karenina": 0.670467734336853,
+        "naive_Frankenstein": 0.04177552089095116,
+        "naive_The_Adventures_of_Alice_in_Wonderland": 0.09828884154558182,
+        "naive_Wuthering_Heights": 0.2856850028038025
       }
     },
     {
@@ -416,10 +416,10 @@
         "naive_Wuthering_Heights": 1
       },
       "predictions": {
-        "naive_Anna_Karenina": 0.5431298017501831,
-        "naive_Frankenstein": 0.025215839967131615,
-        "naive_The_Adventures_of_Alice_in_Wonderland": 0.13959690928459167,
-        "naive_Wuthering_Heights": 0.3259022831916809
+        "naive_Anna_Karenina": 0.7744797468185425,
+        "naive_Frankenstein": 0.018058814108371735,
+        "naive_The_Adventures_of_Alice_in_Wonderland": 0.07354333996772766,
+        "naive_Wuthering_Heights": 0.21864649653434753
       }
     },
     {
@@ -431,10 +431,10 @@
         "naive_Wuthering_Heights": 1
       },
       "predictions": {
-        "naive_Anna_Karenina": 0.03364678472280502,
-        "naive_Frankenstein": 0.011368962936103344,
-        "naive_The_Adventures_of_Alice_in_Wonderland": 0.8177276253700256,
-        "naive_Wuthering_Heights": 0.10325612872838974
+        "naive_Anna_Karenina": 0.13386499881744385,
+        "naive_Frankenstein": 0.024322964251041412,
+        "naive_The_Adventures_of_Alice_in_Wonderland": 0.42438027262687683,
+        "naive_Wuthering_Heights": 0.3892292082309723
       }
     },
     {
@@ -446,10 +446,10 @@
         "naive_Wuthering_Heights": 1
       },
       "predictions": {
-        "naive_Anna_Karenina": 0.021415119990706444,
-        "naive_Frankenstein": 0.058048002421855927,
-        "naive_The_Adventures_of_Alice_in_Wonderland": 0.013181950896978378,
-        "naive_Wuthering_Heights": 0.9136738777160645
+        "naive_Anna_Karenina": 0.2873508334159851,
+        "naive_Frankenstein": 0.016819559037685394,
+        "naive_The_Adventures_of_Alice_in_Wonderland": 0.01676829531788826,
+        "naive_Wuthering_Heights": 0.6760026812553406
       }
     }
   ]

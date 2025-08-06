@@ -1,0 +1,58 @@
+{
+  "results": {
+    "sentence-transformers/all-MiniLM-L6-v2": {
+      "model_name": "sentence-transformers/all-MiniLM-L6-v2",
+      "accuracy": 0.9375,
+      "avg_similar_score": 0.6807156801223755,
+      "avg_dissimilar_score": 0.15130481123924255,
+      "score_separation": 0.5294108390808105,
+      "load_time": 3.45869779586792,
+      "avg_embedding_time": 0.08005387485027313,
+      "model_size_mb": 86.64404296875,
+      "total_pairs": 80,
+      "similar_pairs": 40,
+      "dissimilar_pairs": 40
+    },
+    "sentence-transformers/all-mpnet-base-v2": {
+      "model_name": "sentence-transformers/all-mpnet-base-v2",
+      "accuracy": 0.975,
+      "avg_similar_score": 0.7432927489280701,
+      "avg_dissimilar_score": 0.13634932041168213,
+      "score_separation": 0.6069434285163879,
+      "load_time": 3.5162627696990967,
+      "avg_embedding_time": 0.09431110620498658,
+      "model_size_mb": 417.65771484375,
+      "total_pairs": 80,
+      "similar_pairs": 40,
+      "dissimilar_pairs": 40
+    },
+    "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2": {
+      "model_name": "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2",
+      "accuracy": 0.9875,
+      "avg_similar_score": 0.7460922002792358,
+      "avg_dissimilar_score": 0.16738668084144592,
+      "score_separation": 0.5787055492401123,
+      "load_time": 3.1893718242645264,
+      "avg_embedding_time": 0.03678750991821289,
+      "model_size_mb": 448.8134765625,
+      "total_pairs": 80,
+      "similar_pairs": 40,
+      "dissimilar_pairs": 40
+    },
+    "sentence-transformers/paraphrase-MiniLM-L3-v2": {
+      "model_name": "sentence-transformers/paraphrase-MiniLM-L3-v2",
+      "accuracy": 0.9,
+      "avg_similar_score": 0.6685803532600403,
+      "avg_dissimilar_score": 0.1436968296766281,
+      "score_separation": 0.524883508682251,
+      "load_time": 2.959909200668335,
+      "avg_embedding_time": 0.014858764410018922,
+      "model_size_mb": 66.3369140625,
+      "total_pairs": 80,
+      "similar_pairs": 40,
+      "dissimilar_pairs": 40
+    }
+  },
+  "best_model": "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2",
+  "test_timestamp": 1754397214.6571882
+}

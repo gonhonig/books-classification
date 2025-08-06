@@ -162,148 +162,148 @@
 
 | Book | True Label | Prediction | Correct |
 |------|------------|------------|--------|
-| Anna Karenina | Anna Karenina | 0.497 (0) | ✗ |
-| Frankenstein | Frankenstein | 0.344 (0) | ✗ |
-| The Adventures of Alice in Wonderland | The Adventures of Alice in Wonderland | 0.023 (0) | ✓ |
-| Wuthering Heights | Wuthering Heights | 0.558 (1) | ✓ |
+| Anna Karenina | 1 | 0.497 (0) | ✗ |
+| Frankenstein | 1 | 0.344 (0) | ✗ |
+| The Adventures of Alice in Wonderland | 0 | 0.023 (0) | ✓ |
+| Wuthering Heights | 1 | 0.558 (1) | ✓ |
 
 ### Example 2
 **Sentence**: I said, passionately.
 
 | Book | True Label | Prediction | Correct |
 |------|------------|------------|--------|
-| Anna Karenina | Anna Karenina | 0.047 (0) | ✓ |
-| Frankenstein | Frankenstein | 0.059 (0) | ✗ |
-| The Adventures of Alice in Wonderland | The Adventures of Alice in Wonderland | 0.001 (0) | ✓ |
-| Wuthering Heights | Wuthering Heights | 0.805 (1) | ✓ |
+| Anna Karenina | 0 | 0.047 (0) | ✓ |
+| Frankenstein | 1 | 0.059 (0) | ✗ |
+| The Adventures of Alice in Wonderland | 0 | 0.001 (0) | ✓ |
+| Wuthering Heights | 1 | 0.805 (1) | ✓ |
 
 ### Example 3
 **Sentence**: Go away!
 
 | Book | True Label | Prediction | Correct |
 |------|------------|------------|--------|
-| Anna Karenina | Anna Karenina | 0.703 (1) | ✓ |
-| Frankenstein | Frankenstein | 0.032 (0) | ✗ |
-| The Adventures of Alice in Wonderland | The Adventures of Alice in Wonderland | 0.034 (0) | ✗ |
-| Wuthering Heights | Wuthering Heights | 0.216 (0) | ✗ |
+| Anna Karenina | 1 | 0.703 (1) | ✓ |
+| Frankenstein | 1 | 0.032 (0) | ✗ |
+| The Adventures of Alice in Wonderland | 1 | 0.034 (0) | ✗ |
+| Wuthering Heights | 1 | 0.216 (0) | ✗ |
 
 ### Example 4
 **Sentence**: The infant had been placed with these good people to nurse: they were better off then.
 
 | Book | True Label | Prediction | Correct |
 |------|------------|------------|--------|
-| Anna Karenina | Anna Karenina | 0.031 (0) | ✗ |
-| Frankenstein | Frankenstein | 0.987 (1) | ✓ |
-| The Adventures of Alice in Wonderland | The Adventures of Alice in Wonderland | 0.003 (0) | ✓ |
-| Wuthering Heights | Wuthering Heights | 0.019 (0) | ✓ |
+| Anna Karenina | 1 | 0.031 (0) | ✗ |
+| Frankenstein | 1 | 0.987 (1) | ✓ |
+| The Adventures of Alice in Wonderland | 0 | 0.003 (0) | ✓ |
+| Wuthering Heights | 0 | 0.019 (0) | ✓ |
 
 ### Example 5
 **Sentence**: But, away with you!
 
 | Book | True Label | Prediction | Correct |
 |------|------------|------------|--------|
-| Anna Karenina | Anna Karenina | 0.811 (1) | ✓ |
-| Frankenstein | Frankenstein | 0.013 (0) | ✓ |
-| The Adventures of Alice in Wonderland | The Adventures of Alice in Wonderland | 0.026 (0) | ✓ |
-| Wuthering Heights | Wuthering Heights | 0.140 (0) | ✗ |
+| Anna Karenina | 1 | 0.811 (1) | ✓ |
+| Frankenstein | 0 | 0.013 (0) | ✓ |
+| The Adventures of Alice in Wonderland | 0 | 0.026 (0) | ✓ |
+| Wuthering Heights | 1 | 0.140 (0) | ✗ |
 
 ### Example 6
 **Sentence**: she continued.
 
 | Book | True Label | Prediction | Correct |
 |------|------------|------------|--------|
-| Anna Karenina | Anna Karenina | 0.131 (0) | ✗ |
-| Frankenstein | Frankenstein | 0.010 (0) | ✓ |
-| The Adventures of Alice in Wonderland | The Adventures of Alice in Wonderland | 0.014 (0) | ✗ |
-| Wuthering Heights | Wuthering Heights | 0.646 (1) | ✓ |
+| Anna Karenina | 1 | 0.131 (0) | ✗ |
+| Frankenstein | 0 | 0.010 (0) | ✓ |
+| The Adventures of Alice in Wonderland | 1 | 0.014 (0) | ✗ |
+| Wuthering Heights | 1 | 0.646 (1) | ✓ |
 
 ### Example 7
 **Sentence**: She looked nice.
 
 | Book | True Label | Prediction | Correct |
 |------|------------|------------|--------|
-| Anna Karenina | Anna Karenina | 0.573 (1) | ✓ |
-| Frankenstein | Frankenstein | 0.042 (0) | ✓ |
-| The Adventures of Alice in Wonderland | The Adventures of Alice in Wonderland | 0.002 (0) | ✓ |
-| Wuthering Heights | Wuthering Heights | 0.432 (0) | ✗ |
+| Anna Karenina | 1 | 0.573 (1) | ✓ |
+| Frankenstein | 0 | 0.042 (0) | ✓ |
+| The Adventures of Alice in Wonderland | 0 | 0.002 (0) | ✓ |
+| Wuthering Heights | 1 | 0.432 (0) | ✗ |
 
 ### Example 8
 **Sentence**: Then she turned up.
 
 | Book | True Label | Prediction | Correct |
 |------|------------|------------|--------|
-| Anna Karenina | Anna Karenina | 0.802 (1) | ✓ |
-| Frankenstein | Frankenstein | 0.009 (0) | ✓ |
-| The Adventures of Alice in Wonderland | The Adventures of Alice in Wonderland | 0.021 (0) | ✓ |
-| Wuthering Heights | Wuthering Heights | 0.377 (0) | ✗ |
+| Anna Karenina | 1 | 0.802 (1) | ✓ |
+| Frankenstein | 0 | 0.009 (0) | ✓ |
+| The Adventures of Alice in Wonderland | 0 | 0.021 (0) | ✓ |
+| Wuthering Heights | 1 | 0.377 (0) | ✗ |
 
 ### Example 9
 **Sentence**: said Alice, in a great hurry to change the subject of conversation.
 
 | Book | True Label | Prediction | Correct |
 |------|------------|------------|--------|
-| Anna Karenina | Anna Karenina | 0.007 (0) | ✗ |
-| Frankenstein | Frankenstein | 0.001 (0) | ✓ |
-| The Adventures of Alice in Wonderland | The Adventures of Alice in Wonderland | 0.995 (1) | ✓ |
-| Wuthering Heights | Wuthering Heights | 0.003 (0) | ✓ |
+| Anna Karenina | 1 | 0.007 (0) | ✗ |
+| Frankenstein | 0 | 0.001 (0) | ✓ |
+| The Adventures of Alice in Wonderland | 1 | 0.995 (1) | ✓ |
+| Wuthering Heights | 0 | 0.003 (0) | ✓ |
 
 ### Example 10
 **Sentence**: he asked.
 
 | Book | True Label | Prediction | Correct |
 |------|------------|------------|--------|
-| Anna Karenina | Anna Karenina | 0.536 (1) | ✓ |
-| Frankenstein | Frankenstein | 0.002 (0) | ✓ |
-| The Adventures of Alice in Wonderland | The Adventures of Alice in Wonderland | 0.024 (0) | ✗ |
-| Wuthering Heights | Wuthering Heights | 0.138 (0) | ✗ |
+| Anna Karenina | 1 | 0.536 (1) | ✓ |
+| Frankenstein | 0 | 0.002 (0) | ✓ |
+| The Adventures of Alice in Wonderland | 1 | 0.024 (0) | ✗ |
+| Wuthering Heights | 1 | 0.138 (0) | ✗ |
 
 ### Example 11
 **Sentence**: Ah, there he is!
 
 | Book | True Label | Prediction | Correct |
 |------|------------|------------|--------|
-| Anna Karenina | Anna Karenina | 0.651 (1) | ✓ |
-| Frankenstein | Frankenstein | 0.006 (0) | ✓ |
-| The Adventures of Alice in Wonderland | The Adventures of Alice in Wonderland | 0.036 (0) | ✓ |
-| Wuthering Heights | Wuthering Heights | 0.202 (0) | ✗ |
+| Anna Karenina | 1 | 0.651 (1) | ✓ |
+| Frankenstein | 0 | 0.006 (0) | ✓ |
+| The Adventures of Alice in Wonderland | 0 | 0.036 (0) | ✓ |
+| Wuthering Heights | 1 | 0.202 (0) | ✗ |
 
 ### Example 12
 **Sentence**: Away after them!
 
 | Book | True Label | Prediction | Correct |
 |------|------------|------------|--------|
-| Anna Karenina | Anna Karenina | 0.562 (1) | ✓ |
-| Frankenstein | Frankenstein | 0.032 (0) | ✓ |
-| The Adventures of Alice in Wonderland | The Adventures of Alice in Wonderland | 0.124 (0) | ✓ |
-| Wuthering Heights | Wuthering Heights | 0.129 (0) | ✗ |
+| Anna Karenina | 1 | 0.562 (1) | ✓ |
+| Frankenstein | 0 | 0.032 (0) | ✓ |
+| The Adventures of Alice in Wonderland | 0 | 0.124 (0) | ✓ |
+| Wuthering Heights | 1 | 0.129 (0) | ✗ |
 
 ### Example 13
 **Sentence**: It is over!
 
 | Book | True Label | Prediction | Correct |
 |------|------------|------------|--------|
-| Anna Karenina | Anna Karenina | 0.583 (1) | ✓ |
-| Frankenstein | Frankenstein | 0.004 (0) | ✓ |
-| The Adventures of Alice in Wonderland | The Adventures of Alice in Wonderland | 0.027 (0) | ✓ |
-| Wuthering Heights | Wuthering Heights | 0.113 (0) | ✗ |
+| Anna Karenina | 1 | 0.583 (1) | ✓ |
+| Frankenstein | 0 | 0.004 (0) | ✓ |
+| The Adventures of Alice in Wonderland | 0 | 0.027 (0) | ✓ |
+| Wuthering Heights | 1 | 0.113 (0) | ✗ |
 
 ### Example 14
 **Sentence**: She d soon fetch it back!
 
 | Book | True Label | Prediction | Correct |
 |------|------------|------------|--------|
-| Anna Karenina | Anna Karenina | 0.031 (0) | ✗ |
-| Frankenstein | Frankenstein | 0.012 (0) | ✓ |
-| The Adventures of Alice in Wonderland | The Adventures of Alice in Wonderland | 0.574 (1) | ✓ |
-| Wuthering Heights | Wuthering Heights | 0.391 (0) | ✗ |
+| Anna Karenina | 1 | 0.031 (0) | ✗ |
+| Frankenstein | 0 | 0.012 (0) | ✓ |
+| The Adventures of Alice in Wonderland | 1 | 0.574 (1) | ✓ |
+| Wuthering Heights | 1 | 0.391 (0) | ✗ |
 
 ### Example 15
 **Sentence**: I followed.
 
 | Book | True Label | Prediction | Correct |
 |------|------------|------------|--------|
-| Anna Karenina | Anna Karenina | 0.023 (0) | ✓ |
-| Frankenstein | Frankenstein | 0.092 (0) | ✓ |
-| The Adventures of Alice in Wonderland | The Adventures of Alice in Wonderland | 0.001 (0) | ✗ |
-| Wuthering Heights | Wuthering Heights | 0.505 (1) | ✓ |
+| Anna Karenina | 0 | 0.023 (0) | ✓ |
+| Frankenstein | 0 | 0.092 (0) | ✓ |
+| The Adventures of Alice in Wonderland | 1 | 0.001 (0) | ✗ |
+| Wuthering Heights | 1 | 0.505 (1) | ✓ |
 

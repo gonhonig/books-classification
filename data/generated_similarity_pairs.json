@@ -1,0 +1,642 @@
+[
+  {
+    "sentence1": "And in she went.",
+    "sentence2": "And down he went.",
+    "similarity": 1.0,
+    "type": "similar",
+    "topic": "similar to The Adventures of Alice in Wonderland",
+    "source_book": "The Adventures of Alice in Wonderland"
+  },
+  {
+    "sentence1": "they ll do well enough; don t be particular Here, Bill!",
+    "sentence2": "They'll be fine; don't worry about it, Harry!",
+    "similarity": 1.0,
+    "type": "similar",
+    "topic": "similar to The Adventures of Alice in Wonderland",
+    "source_book": "The Adventures of Alice in Wonderland"
+  },
+  {
+    "sentence1": "As soon as she was small enough to get through the door, she ran out of the house, and found quite a crowd of little animals and birds waiting outside.",
+    "sentence2": "As soon as she was small enough to squeeze through the opening, she escaped from the dwelling and encountered a throng of minuscule creatures and avian companions waiting outside.",
+    "similarity": 1.0,
+    "type": "similar",
+    "topic": "similar to The Adventures of Alice in Wonderland",
+    "source_book": "The Adventures of Alice in Wonderland"
+  },
+  {
+    "sentence1": "cried the Gryphon, and the Mock Turtle had just begun to repeat it, when a cry of The trial s beginning!",
+    "sentence2": "Cried the Eagle, and the Duck had just begun to repeat it, when a cry of 'The race is beginning!'",
+    "similarity": 1.0,
+    "type": "similar",
+    "topic": "similar to The Adventures of Alice in Wonderland",
+    "source_book": "The Adventures of Alice in Wonderland"
+  },
+  {
+    "sentence1": "On this the White Rabbit blew three blasts on the trumpet, and then unrolled the parchment scroll, and read as follows: The Queen of Hearts, she made some tarts, All on a summer day: The Knave of Hearts, he stole those tarts, And took them quite away!",
+    "sentence2": "The Red Queen blew three blasts on the trumpet, and then unrolled the parchment scroll, and read as follows: The King of Spades, he made some cakes, All on a winter day: The Jack of Hearts, she stole those cakes, And took them quite away!",
+    "similarity": 1.0,
+    "type": "similar",
+    "topic": "similar to The Adventures of Alice in Wonderland",
+    "source_book": "The Adventures of Alice in Wonderland"
+  },
+  {
+    "sentence1": "You are old, said the youth, as I mentioned before, And have grown most uncommonly fat; Yet you turned a back-somersault in at the door Pray, what is the reason of that?",
+    "sentence2": "You are old, said the youth, as I mentioned before, And have grown most uncommonly thin; Yet you turned a front-somersault in at the door Pray, what is the reason of that?",
+    "similarity": 1.0,
+    "type": "similar",
+    "topic": "similar to The Adventures of Alice in Wonderland",
+    "source_book": "The Adventures of Alice in Wonderland"
+  },
+  {
+    "sentence1": "It was high time to go, for the pool was getting quite crowded with the birds and animals that had fallen into it: there were a Duck and a Dodo, a Lory and an Eaglet, and several other curious creatures.",
+    "sentence2": "It was high time to go, for the pool was getting quite crowded with the beings that had fallen into it: there were a Cheshire Cat and a White Rabbit, a Lory and an Eaglet, and several other curious creatures.",
+    "similarity": 1.0,
+    "type": "similar",
+    "topic": "similar to The Adventures of Alice in Wonderland",
+    "source_book": "The Adventures of Alice in Wonderland"
+  },
+  {
+    "sentence1": "Who _are_ you talking to?",
+    "sentence2": "Who are you speaking to?",
+    "similarity": 1.0,
+    "type": "similar",
+    "topic": "similar to The Adventures of Alice in Wonderland",
+    "source_book": "The Adventures of Alice in Wonderland"
+  },
+  {
+    "sentence1": "(when she thought it over afterwards, it occurred to her that she ought to have wondered at this, but at the time it all seemed quite natural); but when the Rabbit actually _took a watch out of its waistcoat-pocket_, and looked at it, and then hurried on, Alice started to her feet, for it flashed across her mind that she had never before seen a rabbit with either a waistcoat-pocket, or a watch to take out of it, and burning with curiosity, she ran across the field after it, and fortunately was just in time to see it pop down a large rabbit-hole under the hedge.",
+    "sentence2": "When she thought it over afterwards, it occurred to her that she ought to have wondered at this, but at the time it all seemed quite natural; but when the Rabbit actually took a clock out of its waistcoat-pocket and looked at it, and then hurried on, Alice started to her feet, for it flashed across her mind that she had never before seen a rabbit with either a waistcoat-pocket or a clock to take out of it.",
+    "similarity": 1.0,
+    "type": "similar",
+    "topic": "similar to The Adventures of Alice in Wonderland",
+    "source_book": "The Adventures of Alice in Wonderland"
+  },
+  {
+    "sentence1": "thump!",
+    "sentence2": "Thud!",
+    "similarity": 1.0,
+    "type": "similar",
+    "topic": "similar to The Adventures of Alice in Wonderland",
+    "source_book": "The Adventures of Alice in Wonderland"
+  },
+  {
+    "sentence1": "Is that her sister in the white satin?",
+    "sentence2": "Is that her sibling in the white silk?",
+    "similarity": 1.0,
+    "type": "similar",
+    "topic": "similar to Anna Karenina",
+    "source_book": "Anna Karenina"
+  },
+  {
+    "sentence1": "You know how I was married.",
+    "sentence2": "You know how I am married.",
+    "similarity": 1.0,
+    "type": "similar",
+    "topic": "similar to Anna Karenina",
+    "source_book": "Anna Karenina"
+  },
+  {
+    "sentence1": "Only I hope you won t shoot yourself by accident any more, she said, with a questioning smile.",
+    "sentence2": "Only I hope you won't do it again, she said, with a questioning smile.",
+    "similarity": 1.0,
+    "type": "similar",
+    "topic": "similar to Anna Karenina",
+    "source_book": "Anna Karenina"
+  },
+  {
+    "sentence1": "It seemed to her that his big, terrible eyes, which persistently pursued her, expressed a feeling of hatred and contempt, and she tried to avoid meeting him.",
+    "sentence2": "His menacing, large eyes that followed her everywhere, full of disdain and scorn, made her feel uneasy and afraid to encounter him.",
+    "similarity": 1.0,
+    "type": "similar",
+    "topic": "similar to Anna Karenina",
+    "source_book": "Anna Karenina"
+  },
+  {
+    "sentence1": "I have often....",
+    "sentence2": "She had frequently...",
+    "similarity": 1.0,
+    "type": "similar",
+    "topic": "similar to Anna Karenina",
+    "source_book": "Anna Karenina"
+  },
+  {
+    "sentence1": "And he waited for her in her drawing-room.",
+    "sentence2": "She waited for him in his study.",
+    "similarity": 1.0,
+    "type": "similar",
+    "topic": "similar to Anna Karenina",
+    "source_book": "Anna Karenina"
+  },
+  {
+    "sentence1": "But I can t go, thought Laska.",
+    "sentence2": "\"But I cannot go,\" thought Levin.",
+    "similarity": 1.0,
+    "type": "similar",
+    "topic": "similar to Anna Karenina",
+    "source_book": "Anna Karenina"
+  },
+  {
+    "sentence1": "A roll will sometimes smell so good one can t resist it.",
+    "sentence2": "A whiff will sometimes tantalize one's senses so irresistibly.",
+    "similarity": 1.0,
+    "type": "similar",
+    "topic": "similar to Anna Karenina",
+    "source_book": "Anna Karenina"
+  },
+  {
+    "sentence1": "My baby, said the old man with a tender smile.",
+    "sentence2": "Her child, said the old woman with a loving gaze.",
+    "similarity": 1.0,
+    "type": "similar",
+    "topic": "similar to Anna Karenina",
+    "source_book": "Anna Karenina"
+  },
+  {
+    "sentence1": "In this room there were sitting in armchairs the two daughters of the countess, and a Moscow colonel, whom Levin knew.",
+    "sentence2": "In this space, there were seated on comfortable chairs the two maidens with the countess's progeny, as well as a Moscow colonel whom Levin recognized.",
+    "similarity": 1.0,
+    "type": "similar",
+    "topic": "similar to Anna Karenina",
+    "source_book": "Anna Karenina"
+  },
+  {
+    "sentence1": "I never dreamt of his dying!",
+    "sentence2": "I never imagined he would pass away!",
+    "similarity": 1.0,
+    "type": "similar",
+    "topic": "similar to Wuthering Heights",
+    "source_book": "Wuthering Heights"
+  },
+  {
+    "sentence1": "How will you take it, ungrateful brute?",
+    "sentence2": "How will you take it, ingrate?",
+    "similarity": 1.0,
+    "type": "similar",
+    "topic": "similar to Wuthering Heights",
+    "source_book": "Wuthering Heights"
+  },
+  {
+    "sentence1": "Taken with another fit of cowardice, I cried out for Joseph.",
+    "sentence2": "Taken with another fit of fear, I shrieked for John.",
+    "similarity": 1.0,
+    "type": "similar",
+    "topic": "similar to Wuthering Heights",
+    "source_book": "Wuthering Heights"
+  },
+  {
+    "sentence1": "and the change that transfigured her late happy countenance.",
+    "sentence2": "And the transformation that etched a new smile on her once radiant face.",
+    "similarity": 1.0,
+    "type": "similar",
+    "topic": "similar to Wuthering Heights",
+    "source_book": "Wuthering Heights"
+  },
+  {
+    "sentence1": "He would have recoiled still more had he been aware that her attachment rose unsolicited, and was bestowed where it awakened no reciprocation of sentiment; for the minute he discovered its existence he laid the blame on Heathcliff s deliberate designing.",
+    "sentence2": "He would have recoiled still more had he been aware that her attachment arose unsolicited and was bestowed where it awakened no reciprocation of sentiment; for the moment he discovered its existence, he attributed it to Heathcliff's deliberate designing.",
+    "similarity": 1.0,
+    "type": "similar",
+    "topic": "similar to Wuthering Heights",
+    "source_book": "Wuthering Heights"
+  },
+  {
+    "sentence1": "Earnshaw was not to be civilized with a wish, and my young lady was no philosopher, and no paragon of patience; but both their minds tending to the same point one loving and desiring to esteem, and the other loving and desiring to be esteemed they contrived in the end to reach it.",
+    "sentence2": "Both their minds were set on the same goal, one yearning for love and recognition, while the other craved to be loved and admired, and through mutual desire they managed to converge upon it.",
+    "similarity": 1.0,
+    "type": "similar",
+    "topic": "similar to Wuthering Heights",
+    "source_book": "Wuthering Heights"
+  },
+  {
+    "sentence1": "I shall be as dirty as I please: and I like to be dirty, and I will be dirty.",
+    "sentence2": "I will be as messy as I want to be, and I enjoy being messy, so I will be messy.",
+    "similarity": 1.0,
+    "type": "similar",
+    "topic": "similar to Wuthering Heights",
+    "source_book": "Wuthering Heights"
+  },
+  {
+    "sentence1": "I ll walk in the yard till daylight, and then I ll be off; and you need not dread a repetition of my intrusion.",
+    "sentence2": "I will walk outside until dawn, and then I will be gone; and you need not worry about another intrusion.",
+    "similarity": 1.0,
+    "type": "similar",
+    "topic": "similar to Wuthering Heights",
+    "source_book": "Wuthering Heights"
+  },
+  {
+    "sentence1": "I have always gone to his little parlour, since that night; because his father returned the day after.",
+    "sentence2": "I have always gone to her small study, since that day; because her mother returned the week after.",
+    "similarity": 1.0,
+    "type": "similar",
+    "topic": "similar to Wuthering Heights",
+    "source_book": "Wuthering Heights"
+  },
+  {
+    "sentence1": "I ll look to the rest.",
+    "sentence2": "I shall look to the rest.",
+    "similarity": 1.0,
+    "type": "similar",
+    "topic": "similar to Wuthering Heights",
+    "source_book": "Wuthering Heights"
+  },
+  {
+    "sentence1": "As a child I had not been content with the results promised by the modern professors of natural science.",
+    "sentence2": "As a youngster, I wasn't satisfied with the discoveries reported by contemporary researchers in the field of natural sciences.",
+    "similarity": 1.0,
+    "type": "similar",
+    "topic": "similar to Frankenstein",
+    "source_book": "Frankenstein"
+  },
+  {
+    "sentence1": "Remember me with affection, should you never hear from me again.",
+    "sentence2": "Remember me fondly, even if we never communicate again.",
+    "similarity": 1.0,
+    "type": "similar",
+    "topic": "similar to Frankenstein",
+    "source_book": "Frankenstein"
+  },
+  {
+    "sentence1": "This lady died, but her lessons were indelibly impressed on the mind of Safie, who sickened at the prospect of again returning to Asia and being immured within the walls of a harem, allowed only to occupy herself with infantile amusements, ill-suited to the temper of her soul, now accustomed to grand ideas and a noble emulation for virtue.",
+    "sentence2": "This man died, but his teachings were indelibly etched in my mind, causing me to recoil at the prospect of returning to my mundane life, where I am confined to petty pursuits that fail to ignite the passion within me, now accustomed to grand ambitions and a burning desire for virtue.",
+    "similarity": 1.0,
+    "type": "similar",
+    "topic": "similar to Frankenstein",
+    "source_book": "Frankenstein"
+  },
+  {
+    "sentence1": "It was the secrets of heaven and earth that I desired to learn; and whether it was the outward substance of things or the inner spirit of nature and the mysterious soul of man that occupied me, still my inquiries were directed to the metaphysical, or in its highest sense, the physical secrets of the world.",
+    "sentence2": "It was the secrets of nature and the mysterious soul of the universe that I desired to learn; and whether it was the outward form of things or the inner essence of existence that occupied me, still my inquiries were directed towards the metaphysical, or in its highest sense, the physical secrets of the cosmos.",
+    "similarity": 1.0,
+    "type": "similar",
+    "topic": "similar to Frankenstein",
+    "source_book": "Frankenstein"
+  },
+  {
+    "sentence1": "The son confirmed his father s account, but when Daniel Nugent was called he swore positively that just before the fall of his companion, he saw a boat, with a single man in it, at a short distance from the shore; and as far as he could judge by the light of a few stars, it was the same boat in which I had just landed.",
+    "sentence2": "The son confirmed his father's account, but when John Doe was called he swore positively that just before the fall of his companion, he saw a boat, with a single man in it, at a short distance from the shore; and as far as he could judge by the light of a few stars, it was the same boat in which I had just landed.",
+    "similarity": 1.0,
+    "type": "similar",
+    "topic": "similar to Frankenstein",
+    "source_book": "Frankenstein"
+  },
+  {
+    "sentence1": "Study had before secluded me from the intercourse of my fellow-creatures, and rendered me unsocial; but Clerval called forth the better feelings of my heart; he again taught me to love the aspect of nature, and the cheerful faces of children.",
+    "sentence2": "Study had before isolated me from society, rendering me unsocial, but Clerval reawakened the more benevolent aspects of my personality; he again showed me the beauty of nature and the joy of interacting with children.",
+    "similarity": 1.0,
+    "type": "similar",
+    "topic": "similar to Frankenstein",
+    "source_book": "Frankenstein"
+  },
+  {
+    "sentence1": "Do not ask me, cried I, putting my hands before my eyes, for I thought I saw the dreaded spectre glide into the room; _he_ can tell.",
+    "sentence2": "Do not ask me, cried I, placing my hands before my eyes, for I thought I saw the dreaded apparition glide into the room; _it_ can tell.",
+    "similarity": 1.0,
+    "type": "similar",
+    "topic": "similar to Frankenstein",
+    "source_book": "Frankenstein"
+  },
+  {
+    "sentence1": "The examination, the presence of the magistrate and witnesses, passed like a dream from my memory when I saw the lifeless form of Henry Clerval stretched before me.",
+    "sentence2": "The sight of Elizabeth's lifeless body laid out before me was enough to make my memories of the examination and witnesses disappear.",
+    "similarity": 1.0,
+    "type": "similar",
+    "topic": "similar to Frankenstein",
+    "source_book": "Frankenstein"
+  },
+  {
+    "sentence1": "I performed the first part of my journey on horseback.",
+    "sentence2": "I rode the first part of my journey on a bike.",
+    "similarity": 1.0,
+    "type": "similar",
+    "topic": "similar to Frankenstein",
+    "source_book": "Frankenstein"
+  },
+  {
+    "sentence1": "On seeing me, he darted towards me, and tearing the girl from my arms, hastened towards the deeper parts of the wood.",
+    "sentence2": "On spotting me, they rushed towards me with alarming speed, snatching the person I held dear away from my grasp and disappearing into the darkness of the forest without a trace.",
+    "similarity": 1.0,
+    "type": "similar",
+    "topic": "similar to Frankenstein",
+    "source_book": "Frankenstein"
+  },
+  {
+    "sentence1": "I am very tired of swimming about here, O Mouse!",
+    "sentence2": "In a thousand spots the traces of the winter avalanche may be perceived, where trees lie broken and strewed on the ground, some entirely destroyed, others bent, leaning upon the jutting rocks of the mountain or transversely upon other trees.",
+    "similarity": 0.0,
+    "type": "dissimilar",
+    "book1": "The Adventures of Alice in Wonderland",
+    "book2": "Frankenstein"
+  },
+  {
+    "sentence1": "The family doctor respectfully ceased in the middle of his observations.",
+    "sentence2": "When I was about fifteen years old we had retired to our house near Belrive, when we witnessed a most violent and terrible thunderstorm.",
+    "similarity": 0.0,
+    "type": "dissimilar",
+    "book1": "Anna Karenina",
+    "book2": "Frankenstein"
+  },
+  {
+    "sentence1": "Before this I was not unacquainted with the more obvious laws of electricity.",
+    "sentence2": "She felt that the tears were coming into her eyes.",
+    "similarity": 0.0,
+    "type": "dissimilar",
+    "book1": "Frankenstein",
+    "book2": "Anna Karenina"
+  },
+  {
+    "sentence1": "If she had gone near the spot where his body lay, it was without her knowledge.",
+    "sentence2": "Alice was very glad to find her in such a pleasant temper, and thought to herself that perhaps it was only the pepper that had made her so savage when they met in the kitchen.",
+    "similarity": 0.0,
+    "type": "dissimilar",
+    "book1": "Frankenstein",
+    "book2": "The Adventures of Alice in Wonderland"
+  },
+  {
+    "sentence1": "I ll be your Automedon.",
+    "sentence2": "But his master or guardian chased the frown by exclaiming You ll be the favourite among us, Hareton!",
+    "similarity": 0.0,
+    "type": "dissimilar",
+    "book1": "Anna Karenina",
+    "book2": "Wuthering Heights"
+  },
+  {
+    "sentence1": "Alice kept her eyes anxiously fixed on it, for she felt sure she would catch a bad cold if she did not get dry very soon.",
+    "sentence2": "As the images that floated before me became more distinct, I grew feverish; a darkness pressed around me; no one was near me who soothed me with the gentle voice of love; no dear hand supported me.",
+    "similarity": 0.0,
+    "type": "dissimilar",
+    "book1": "The Adventures of Alice in Wonderland",
+    "book2": "Frankenstein"
+  },
+  {
+    "sentence1": "said the Caterpillar sternly.",
+    "sentence2": "I went at five o clock, and walked; fancying I might manage to creep into the house, and up to Linton s room, unobserved.",
+    "similarity": 0.0,
+    "type": "dissimilar",
+    "book1": "The Adventures of Alice in Wonderland",
+    "book2": "Wuthering Heights"
+  },
+  {
+    "sentence1": "It s ready, sir; it s like a razor, cuts of itself, said Tit, taking off his cap with a smile and giving him the scythe.",
+    "sentence2": "He denies it, said the King: leave out that part.",
+    "similarity": 0.0,
+    "type": "dissimilar",
+    "book1": "Anna Karenina",
+    "book2": "The Adventures of Alice in Wonderland"
+  },
+  {
+    "sentence1": "He denies it, said the King: leave out that part.",
+    "sentence2": "The princess had at first been quite certain that that evening had settled Kitty s future, and that there could be no doubt of Vronsky s intentions, but her husband s words had disturbed her.",
+    "similarity": 0.0,
+    "type": "dissimilar",
+    "book1": "The Adventures of Alice in Wonderland",
+    "book2": "Anna Karenina"
+  },
+  {
+    "sentence1": "She s in prison, the Queen said to the executioner: fetch her here.",
+    "sentence2": "Any one will do better for him than I shall, he answered.",
+    "similarity": 0.0,
+    "type": "dissimilar",
+    "book1": "The Adventures of Alice in Wonderland",
+    "book2": "Wuthering Heights"
+  },
+  {
+    "sentence1": "Well, come in; sit down.",
+    "sentence2": "God bless thee, darling!",
+    "similarity": 0.0,
+    "type": "dissimilar",
+    "book1": "Anna Karenina",
+    "book2": "Wuthering Heights"
+  },
+  {
+    "sentence1": "Heaven forbid!",
+    "sentence2": "I quite agree with you, said the Duchess; and the moral of that is Be what you would seem to be or if you d like it put more simply Never imagine yourself not to be otherwise than what it might appear to others that what you were or might have been was not otherwise than what you had been would have appeared to them to be otherwise.",
+    "similarity": 0.0,
+    "type": "dissimilar",
+    "book1": "Frankenstein",
+    "book2": "The Adventures of Alice in Wonderland"
+  },
+  {
+    "sentence1": "I ve marked every day.",
+    "sentence2": "Prepare to hear of occurrences which are usually deemed marvellous.",
+    "similarity": 0.0,
+    "type": "dissimilar",
+    "book1": "Wuthering Heights",
+    "book2": "Frankenstein"
+  },
+  {
+    "sentence1": "Many times I considered Satan as the fitter emblem of my condition, for often, like him, when I viewed the bliss of my protectors, the bitter gall of envy rose within me.",
+    "sentence2": "Save yourself: I m not afraid!",
+    "similarity": 0.0,
+    "type": "dissimilar",
+    "book1": "Frankenstein",
+    "book2": "Wuthering Heights"
+  },
+  {
+    "sentence1": "So she sat on, with closed eyes, and half believed herself in Wonderland, though she knew she had but to open them again, and all would change to dull reality the grass would be only rustling in the wind, and the pool rippling to the waving of the reeds the rattling teacups would change to tinkling sheep-bells, and the Queen s shrill cries to the voice of the shepherd boy and the sneeze of the baby, the shriek of the Gryphon, and all the other queer noises, would change (she knew) to the confused clamour of the busy farm-yard while the lowing of the cattle in the distance would take the place of the Mock Turtle s heavy sobs.",
+    "sentence2": "He s a capital fellow, pursued Oblonsky.",
+    "similarity": 0.0,
+    "type": "dissimilar",
+    "book1": "The Adventures of Alice in Wonderland",
+    "book2": "Anna Karenina"
+  },
+  {
+    "sentence1": "A woman was sleeping on some straw; she was young, not indeed so beautiful as her whose portrait I held, but of an agreeable aspect and blooming in the loveliness of youth and health.",
+    "sentence2": "nothing else in the world: and she shall have you!",
+    "similarity": 0.0,
+    "type": "dissimilar",
+    "book1": "Frankenstein",
+    "book2": "Wuthering Heights"
+  },
+  {
+    "sentence1": "I passed a night of unmingled wretchedness.",
+    "sentence2": "Kitty, haven t you had some misunderstanding with the Petrovs?",
+    "similarity": 0.0,
+    "type": "dissimilar",
+    "book1": "Frankenstein",
+    "book2": "Anna Karenina"
+  },
+  {
+    "sentence1": "This exclamation was caused by her pushing the hat from her head, and retreating to the chimney out of my reach.",
+    "sentence2": "However, jury-men would have done just as well.",
+    "similarity": 0.0,
+    "type": "dissimilar",
+    "book1": "Wuthering Heights",
+    "book2": "The Adventures of Alice in Wonderland"
+  },
+  {
+    "sentence1": "If you had remembered that Hareton was your cousin as much as Master Heathcliff, you would have felt how improper it was to behave in that way.",
+    "sentence2": "Thus I might proclaim myself a madman, but not revoke the sentence passed upon my wretched victim.",
+    "similarity": 0.0,
+    "type": "dissimilar",
+    "book1": "Wuthering Heights",
+    "book2": "Frankenstein"
+  },
+  {
+    "sentence1": "His connection with Madame Karenina, by creating so much sensation and attracting general attention, had given him a fresh distinction which soothed his gnawing worm of ambition for a while, but a week before that worm had been roused up again with fresh force.",
+    "sentence2": "I ll be judge, I ll be jury, Said cunning old Fury: I ll try the whole cause, and condemn you to death.",
+    "similarity": 0.0,
+    "type": "dissimilar",
+    "book1": "Anna Karenina",
+    "book2": "The Adventures of Alice in Wonderland"
+  },
+  {
+    "sentence1": "But here s for the housekeeping, he said, taking ten roubles from his pocketbook.",
+    "sentence2": "I did not know the names of the towns that I was to pass through, nor could I ask information from a single human being; but I did not despair.",
+    "similarity": 0.0,
+    "type": "dissimilar",
+    "book1": "Anna Karenina",
+    "book2": "Frankenstein"
+  },
+  {
+    "sentence1": "The story is too connected to be mistaken for a dream, and I have no motive for falsehood.",
+    "sentence2": "After signing the papers brought him, Alexey Alexandrovitch had sat for a long while in silence, glancing at Mihail Vassilievitch, and several times he attempted to speak, but could not.",
+    "similarity": 0.0,
+    "type": "dissimilar",
+    "book1": "Frankenstein",
+    "book2": "Anna Karenina"
+  },
+  {
+    "sentence1": "I will proceed with my tale.",
+    "sentence2": "There s certainly too much pepper in that soup!",
+    "similarity": 0.0,
+    "type": "dissimilar",
+    "book1": "Frankenstein",
+    "book2": "The Adventures of Alice in Wonderland"
+  },
+  {
+    "sentence1": "I shed tears, Master Heathcliff, you see an elderly woman, and a servant merely and you, after pretending such affection, and having reason to worship her almost, store every tear you have for yourself, and lie there quite at ease.",
+    "sentence2": "All at once he smiled and gesticulated gleefully.",
+    "similarity": 0.0,
+    "type": "dissimilar",
+    "book1": "Wuthering Heights",
+    "book2": "Anna Karenina"
+  },
+  {
+    "sentence1": "she was up to her chin in salt water.",
+    "sentence2": "A serene sky and verdant fields filled me with ecstasy.",
+    "similarity": 0.0,
+    "type": "dissimilar",
+    "book1": "The Adventures of Alice in Wonderland",
+    "book2": "Frankenstein"
+  },
+  {
+    "sentence1": "I am poor and an exile, but it will afford me true pleasure to be in any way serviceable to a human creature.",
+    "sentence2": "I told you we laughed, he answered.",
+    "similarity": 0.0,
+    "type": "dissimilar",
+    "book1": "Frankenstein",
+    "book2": "Wuthering Heights"
+  },
+  {
+    "sentence1": "why He was silent.",
+    "sentence2": "It seemed to me as if nothing would or could ever be known.",
+    "similarity": 0.0,
+    "type": "dissimilar",
+    "book1": "Wuthering Heights",
+    "book2": "Frankenstein"
+  },
+  {
+    "sentence1": "How long is it since I shut myself in here?",
+    "sentence2": "He was happy; but on entering upon family life he saw at every step that it was utterly different from what he had imagined.",
+    "similarity": 0.0,
+    "type": "dissimilar",
+    "book1": "Wuthering Heights",
+    "book2": "Anna Karenina"
+  },
+  {
+    "sentence1": "What are you on the point of complaining about, Heathcliff?",
+    "sentence2": "Bill s to go down Here, Bill!",
+    "similarity": 0.0,
+    "type": "dissimilar",
+    "book1": "Wuthering Heights",
+    "book2": "The Adventures of Alice in Wonderland"
+  },
+  {
+    "sentence1": "While enjoying a month of fine weather at the sea-coast, I was thrown into the company of a most fascinating creature: a real goddess in my eyes, as long as she took no notice of me.",
+    "sentence2": "This lady died, but her lessons were indelibly impressed on the mind of Safie, who sickened at the prospect of again returning to Asia and being immured within the walls of a harem, allowed only to occupy herself with infantile amusements, ill-suited to the temper of her soul, now accustomed to grand ideas and a noble emulation for virtue.",
+    "similarity": 0.0,
+    "type": "dissimilar",
+    "book1": "Wuthering Heights",
+    "book2": "Frankenstein"
+  },
+  {
+    "sentence1": "See here, wife!",
+    "sentence2": "The jury all wrote down on their slates, _She_ doesn t believe there s an atom of meaning in it, but none of them attempted to explain the paper.",
+    "similarity": 0.0,
+    "type": "dissimilar",
+    "book1": "Wuthering Heights",
+    "book2": "The Adventures of Alice in Wonderland"
+  },
+  {
+    "sentence1": "Alice noticed with some surprise that the pebbles were all turning into little cakes as they lay on the floor, and a bright idea came into her head.",
+    "sentence2": "I considered it best to confess my presence; for I knew Heathcliff s accents, and feared he might search further, if I kept quiet.",
+    "similarity": 0.0,
+    "type": "dissimilar",
+    "book1": "The Adventures of Alice in Wonderland",
+    "book2": "Wuthering Heights"
+  },
+  {
+    "sentence1": "Then followed the Knave of Hearts, carrying the King s crown on a crimson velvet cushion; and, last of all this grand procession, came THE KING AND QUEEN OF HEARTS.",
+    "sentence2": "He s a human being, I said.",
+    "similarity": 0.0,
+    "type": "dissimilar",
+    "book1": "The Adventures of Alice in Wonderland",
+    "book2": "Wuthering Heights"
+  },
+  {
+    "sentence1": "Even the holy fathers had doubts, and prayed to God to strengthen their faith.",
+    "sentence2": "He began to teach himself to read once; and, because I laughed, he burned his books, and dropped it: was he not a fool?",
+    "similarity": 0.0,
+    "type": "dissimilar",
+    "book1": "Anna Karenina",
+    "book2": "Wuthering Heights"
+  },
+  {
+    "sentence1": "The appearance of Justine was calm.",
+    "sentence2": "Very soon the Rabbit noticed Alice, as she went hunting about, and called out to her in an angry tone, Why, Mary Ann, what _are_ you doing out here?",
+    "similarity": 0.0,
+    "type": "dissimilar",
+    "book1": "Frankenstein",
+    "book2": "The Adventures of Alice in Wonderland"
+  },
+  {
+    "sentence1": "In doing this, I underwent a kind of rough usage, ill befitting the wounds that my mind had sustained.",
+    "sentence2": "What shall we drink?",
+    "similarity": 0.0,
+    "type": "dissimilar",
+    "book1": "Frankenstein",
+    "book2": "Anna Karenina"
+  },
+  {
+    "sentence1": "If the multitude of mankind knew of my existence, they would do as you do, and arm themselves for my destruction.",
+    "sentence2": "What, is it laborers they want for the harvest?",
+    "similarity": 0.0,
+    "type": "dissimilar",
+    "book1": "Frankenstein",
+    "book2": "Anna Karenina"
+  },
+  {
+    "sentence1": "Hareton s blood would be required at his hands; and there lay immense consolation in that thought.",
+    "sentence2": "The Dormouse slowly opened his eyes.",
+    "similarity": 0.0,
+    "type": "dissimilar",
+    "book1": "Wuthering Heights",
+    "book2": "The Adventures of Alice in Wonderland"
+  },
+  {
+    "sentence1": "I went round by the garden, and laid wait for the messenger; who fought valorously to defend his trust, and we spilt the milk between us; but I succeeded in abstracting the epistle; and, threatening serious consequences if he did not look sharp home, I remained under the wall and perused Miss Cathy s affectionate composition.",
+    "sentence2": "when it grunted again, so violently, that she looked down into its face in some alarm.",
+    "similarity": 0.0,
+    "type": "dissimilar",
+    "book1": "Wuthering Heights",
+    "book2": "The Adventures of Alice in Wonderland"
+  },
+  {
+    "sentence1": "I walked about the isle like a restless spectre, separated from all it loved and miserable in the separation.",
+    "sentence2": "Kitty found all this out not from words.",
+    "similarity": 0.0,
+    "type": "dissimilar",
+    "book1": "Frankenstein",
+    "book2": "Anna Karenina"
+  }
+]

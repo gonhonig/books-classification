@@ -1,0 +1,5 @@
+Model,Overall Accuracy,Single-Label Accuracy,Multi-Label Accuracy
+Per-Book Model,0.871,0.894,0.849
+Multi-Label Model,0.863,0.901,0.825
+Naive Per-Book Model,0.756,0.922,0.595
+Naive Multi-Label Model,0.752,0.921,0.588
